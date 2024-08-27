@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/activity_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="@dimen/_50sdp"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="50dp"/>
+
+        <ScrollView
+            android:id="@+id/scrolView_account"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/linear_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="80dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="80dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:text="@string/profile_details"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/_13ssp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/text_black"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/text_black"
+                            app:hintTextColor="@color/text_black"
+                            >
+
+                            <EditText
+                                android:id="@+id/p_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/fullname"
+                                android:imeOptions="actionNext"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:textColorHighlight="@color/text_black"
+                                android:textColor="@color/text_black"
+                                android:textColorHint="@color/text_black"
+                                android:windowSoftInputMode="stateHidden"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/text_black"
+                            android:layout_marginBottom="@dimen/_8sdp"
+
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/text_black"
+                            app:hintTextColor="@color/text_black">
+
+                            <EditText
+                                android:id="@+id/p_qualifi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/degree"
+                                android:imeOptions="actionNext"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:textColor="@color/text_black"
+                                android:textColorHint="@color/text_black"
+                                android:importantForAutofill="no"
+                                android:windowSoftInputMode="stateHidden"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/text_black"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/text_black"
+                            app:hintTextColor="@color/text_black">
+
+                            <EditText
+                                android:id="@+id/p_desi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/desig"
+                                android:imeOptions="actionNext"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:textColor="@color/text_black"
+                                android:textColorHint="@color/text_black"
+                                android:importantForAutofill="no"
+                                android:windowSoftInputMode="stateHidden"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/text_black"
+                            android:layout_marginBottom="@dimen/_8sdp"
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/text_black"
+                            app:hintTextColor="@color/text_black">
+
+                            <EditText
+                                android:id="@+id/p_detail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/detail"
+                                android:imeOptions="actionNext"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:textColor="@color/text_black"
+                                android:textColorHint="@color/text_black"
+                                android:importantForAutofill="no"
+                                android:windowSoftInputMode="stateHidden"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/p_fee"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:errorTextColor="@color/secondary_peach"
+                            android:textColorHint="@color/text_black"
+                            app:boxStrokeWidth="1dp"
+                            app:boxBackgroundColor="@color/theme_bg"
+                            app:boxStrokeColor="@color/select"
+                            app:boxCornerRadiusBottomEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusBottomStart="@dimen/_8sdp"
+                            app:boxCornerRadiusTopEnd="@dimen/_8sdp"
+                            app:boxCornerRadiusTopStart="@dimen/_8sdp"
+                            app:counterTextColor="@color/text_black"
+                            app:hintTextColor="@color/text_black">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/fee"
+                                android:imeOptions="actionDone"
+                                android:inputType="none"
+                                android:focusable="false"
+                                android:ems="4"
+                                android:textColor="@color/text_black"
+                                android:textColorHint="@color/text_black"
+                                android:importantForAutofill="no"
+                                android:windowSoftInputMode="stateHidden"
+                                />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/top_fee_frame"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center"
+                                android:weightSum="1"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:layout_gravity="center"
+                                app:layout_constraintTop_toBottomOf="@+id/head_top_pic">
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/top_pic_rv"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:visibility="gone"
+                            android:id="@+id/confirm_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_18sdp"
+                            android:layout_marginTop="@dimen/_50sdp"
+                            android:layout_marginBottom="@dimen/_12sdp"
+                            android:alpha="0.55"
+                            android:background="@drawable/button_gradient"
+                            android:enabled="false"
+                            android:paddingVertical="@dimen/_10sdp"
+                            android:text="@string/contin"
+                            android:textAllCaps="true"
+                            android:textColor="@color/primary_blue"
+                            android:textSize="@dimen/_12ssp"
+                            android:textStyle="bold"
+                            app:backgroundTint="@null"/>
+                        <ProgressBar
+                            android:id="@+id/otp_progress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:indeterminate="true"
+                            android:indeterminateTint="@color/primary_peach"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@id/confirm_btn"
+                            app:layout_constraintEnd_toEndOf="@id/confirm_btn"
+                            app:layout_constraintStart_toStartOf="@id/confirm_btn"
+                            app:layout_constraintTop_toTopOf="@id/confirm_btn" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/im_profile"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        app:civ_border_color="#FFFFFF"
+                        app:civ_border_width="2dp" />
+
+                    <ImageView
+                        android:id="@+id/floatingActionButton"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignEnd="@+id/im_profile"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="-89dp"
+                        android:src="@drawable/call"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
