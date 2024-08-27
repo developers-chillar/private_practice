@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.chillarcards.bookmenow.ui.home.HomeFragment"
+        android:name="com.chillarcards.privatepractice.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -55,7 +55,7 @@
 
     <fragment
         android:id="@+id/StaffViewBookFragment"
-        android:name="com.chillarcards.bookmenow.ui.staffs.BookingViewFragment"
+        android:name="com.chillarcards.privatepractice.ui.staffs.BookingViewFragment"
         android:label="StaffAllFragment"
         tools:layout="@layout/fragment_add_staff">
         <action
@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/StaffBookFragment"
-        android:name="com.chillarcards.bookmenow.ui.staffs.StaffBookFragment"
+        android:name="com.chillarcards.privatepractice.ui.staffs.StaffBookFragment"
         android:label="StaffAllFragment"
         tools:layout="@layout/fragment_view_all">
         <action
@@ -87,7 +87,7 @@
 
     <fragment
         android:id="@+id/BookingFragment"
-        android:name="com.chillarcards.bookmenow.ui.booking.BookingAllFragment"
+        android:name="com.chillarcards.privatepractice.ui.booking.BookingAllFragment"
         android:label="BookingFragment"
         tools:layout="@layout/fragment_view_all">
         <action
@@ -108,7 +108,7 @@
 
     <fragment
         android:id="@+id/estimateFragment"
-        android:name="com.chillarcards.bookmenow.ui.booking.EstimateFragment"
+        android:name="com.chillarcards.privatepractice.ui.booking.EstimateFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_estimate">
         <action
@@ -128,7 +128,7 @@
 
     <fragment
         android:id="@+id/successFragment"
-        android:name="com.chillarcards.bookmenow.ui.booking.SuccessFragment"
+        android:name="com.chillarcards.privatepractice.ui.booking.SuccessFragment"
         android:label="SuccessFragment"
         tools:layout="@layout/fragment_success">
         <action
@@ -138,7 +138,7 @@
 
     <fragment
         android:id="@+id/walk_book_Fragment"
-        android:name="com.chillarcards.bookmenow.ui.appointment.WalkingFragment"
+        android:name="com.chillarcards.privatepractice.ui.appointment.WalkingFragment"
         android:label="addstaffFragment"
         tools:layout="@layout/fragment_walking">
         <action
@@ -150,13 +150,13 @@
     </fragment>
     <fragment
         android:id="@+id/reportFragment"
-        android:name="com.chillarcards.bookmenow.ui.report.ReportFragment"
+        android:name="com.chillarcards.privatepractice.ui.report.ReportFragment"
         android:label="addstaffFragment"
         tools:layout="@layout/fragment_report">
     </fragment>
     <fragment
         android:id="@+id/generalFragment"
-        android:name="com.chillarcards.bookmenow.ui.general.GeneralFragment"
+        android:name="com.chillarcards.privatepractice.ui.general.GeneralFragment"
         android:label="generalFragment"
         tools:layout="@layout/fragment_general">
         <action
@@ -186,7 +186,7 @@
     </fragment>
     <fragment
         android:id="@+id/BankFragment"
-        android:name="com.chillarcards.bookmenow.ui.register.BankFragment"
+        android:name="com.chillarcards.privatepractice.ui.register.BankFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_bank">
         <action
@@ -195,7 +195,7 @@
     </fragment>
     <fragment
         android:id="@+id/ServiceModuleFragment"
-        android:name="com.chillarcards.bookmenow.ui.service.ServiceFragment"
+        android:name="com.chillarcards.privatepractice.ui.service.ServiceFragment"
         android:label="staffFragment"
         tools:layout="@layout/fragment_module_staffs">
         <action
@@ -204,7 +204,7 @@
     </fragment>
     <fragment
         android:id="@+id/StaffModuleFragment"
-        android:name="com.chillarcards.bookmenow.ui.staffs.AllStaffFragment"
+        android:name="com.chillarcards.privatepractice.ui.staffs.AllStaffFragment"
         android:label="staffFragment"
         tools:layout="@layout/fragment_module_staffs">
         <action
@@ -213,7 +213,7 @@
     </fragment>
     <fragment
         android:id="@+id/StaffFragment"
-        android:name="com.chillarcards.bookmenow.ui.staffs.StaffBookFragment"
+        android:name="com.chillarcards.privatepractice.ui.staffs.StaffBookFragment"
         android:label="staffFragment"
         tools:layout="@layout/fragment_view_all">
         <action
@@ -226,7 +226,7 @@
     </fragment>
     <fragment
         android:id="@+id/AddStaffFragment"
-        android:name="com.chillarcards.bookmenow.ui.staffs.AddStaffFragment"
+        android:name="com.chillarcards.privatepractice.ui.staffs.AddStaffFragment"
         android:label="addstaffFragment"
         tools:layout="@layout/fragment_add_staff">
         <action
@@ -235,14 +235,14 @@
     </fragment>
     <fragment
         android:id="@+id/NotificationFragment"
-        android:name="com.chillarcards.bookmenow.ui.notification.NotificationFragment"
+        android:name="com.chillarcards.privatepractice.ui.notification.NotificationFragment"
         android:label="NotificationFragment"
         tools:layout="@layout/fragment_notification">
 
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.chillarcards.bookmenow.ui.profile.ProfileFragment"
+        android:name="com.chillarcards.privatepractice.ui.profile.ProfileFragment"
         android:label="profileFragment"
         tools:layout="@layout/fragment_profile">
 
@@ -254,7 +254,7 @@
     </fragment>
     <fragment
         android:id="@+id/TimeFragment"
-        android:name="com.chillarcards.bookmenow.ui.register.WorkHoursFragment"
+        android:name="com.chillarcards.privatepractice.ui.register.WorkHoursFragment"
         android:label="WorkHoursFragment"
         tools:layout="@layout/fragment_work_hours">
         <action
@@ -269,7 +269,7 @@
 
     <fragment
         android:id="@+id/RegisterFragment"
-        android:name="com.chillarcards.bookmenow.ui.register.AccountFragment"
+        android:name="com.chillarcards.privatepractice.ui.register.AccountFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register" >
         <action
@@ -283,7 +283,7 @@
     </fragment>
     <fragment
         android:id="@+id/GeneralHomeFragment"
-        android:name="com.chillarcards.bookmenow.ui.general.HomeGeneralFragment"
+        android:name="com.chillarcards.privatepractice.ui.general.HomeGeneralFragment"
         android:label="HomeGeneralFragment"
         tools:layout="@layout/fragment_general_home" >
         <action
@@ -313,7 +313,7 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.chillarcards.bookmenow.ui.webpage.AboutFragment"
+        android:name="com.chillarcards.privatepractice.ui.webpage.AboutFragment"
         android:label="AboutFragment" />
     <argument
         android:name="aboutURL"
@@ -321,28 +321,28 @@
 
     <fragment
         android:id="@+id/termsAndConditionsFragment"
-        android:name="com.chillarcards.bookmenow.ui.webpage.TermsAndConditionsFragment"
+        android:name="com.chillarcards.privatepractice.ui.webpage.TermsAndConditionsFragment"
         android:label="TermsAndConditionsFragment" />
     <argument
         android:name="termsURL"
         app:argType="string" />
     <fragment
         android:id="@+id/privacyPolicyFragment"
-        android:name="com.chillarcards.bookmenow.ui.webpage.PrivacyPolicyFragment"
+        android:name="com.chillarcards.privatepractice.ui.webpage.PrivacyPolicyFragment"
         android:label="PrivacyPolicyFragment" />
     <argument
         android:name="privacyURL"
         app:argType="string" />
     <fragment
         android:id="@+id/refundPolicyFragment"
-        android:name="com.chillarcards.bookmenow.ui.webpage.RefundPolicyFragment"
+        android:name="com.chillarcards.privatepractice.ui.webpage.RefundPolicyFragment"
         android:label="RefundPolicyFragment" />
     <argument
         android:name="refundURL"
         app:argType="string" />
     <fragment
         android:id="@+id/contactUsFragment"
-        android:name="com.chillarcards.bookmenow.ui.webpage.ContactUsFragment"
+        android:name="com.chillarcards.privatepractice.ui.webpage.ContactUsFragment"
         android:label="ContactUsFragment" />
     <argument
         android:name="contactURL"

@@ -84,6 +84,25 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1023776435782:android:e1802e800f01c624696447",
+        "android_client_info": {
+          "package_name": "com.chillarcards.privatepractice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVFdE9QP5YMome2aXik4Fd4yw4OOV9YZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1023776435782:android:ff037237d8c5fcda696447",
         "android_client_info": {
           "package_name": "com.chillarcards.silentpushnotification"
