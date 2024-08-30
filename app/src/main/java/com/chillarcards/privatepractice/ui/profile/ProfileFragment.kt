@@ -172,6 +172,7 @@ class ProfileFragment : Fragment(), IAdapterViewUtills {
                         }
                     }
                 }
+             //   profileViewModel.clear()
             }
 
 

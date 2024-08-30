@@ -180,7 +180,9 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
 //                            setUpObserver()
                     }
                 }
+
             }
+         //   generalViewModel.clear()
         }
         generalViewModel.statusData.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -213,7 +215,9 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
                         )
                     }
                 }
+
             }
+         //   generalViewModel.clear()
         }
 
     } catch (e: Exception) {

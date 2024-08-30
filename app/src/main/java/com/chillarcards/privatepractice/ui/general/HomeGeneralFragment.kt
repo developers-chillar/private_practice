@@ -210,7 +210,9 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
 //                            setUpObserver()
                         }
                     }
+
                 }
+             //   generalViewModel.clear()
             }
             generalViewModel.statusData.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -244,6 +246,7 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
                         }
                     }
                 }
+             //   generalViewModel.clear()
             }
 
         } catch (e: Exception) {

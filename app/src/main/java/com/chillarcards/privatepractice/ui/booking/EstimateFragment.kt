@@ -143,6 +143,7 @@ class EstimateFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+        //    bookingViewModel.clear()
 
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)

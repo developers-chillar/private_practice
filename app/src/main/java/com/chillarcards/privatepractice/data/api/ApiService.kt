@@ -19,6 +19,9 @@ interface ApiService {
         @Body reqModel: RegisterRequestModel
     ): Response<RegisterModel>
 
+    @POST("auth/user-check ")
+    suspend fun userCheck(@Body reqModel:UserCheckReqClass):Response<UserCheckResClass>
+
 //    @Headers("Content-Type: application/json;charset=UTF-8") //no need
 //    @POST("getProfile")
 //    suspend fun getProfile(
@@ -58,5 +61,6 @@ interface ApiService {
     suspend fun getShopClose(): Response<StatusResponseModel>
     @POST("app/list-category")
     suspend fun getCategory(): Response<CategoryResponseModel>
+
 
 }

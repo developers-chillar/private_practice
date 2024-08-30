@@ -146,6 +146,7 @@ class AddProfileFragment : Fragment() {
                         }
                     }
                 }
+           //     profileViewModel.clear()
             }
 
 

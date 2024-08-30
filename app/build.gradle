@@ -4,6 +4,8 @@ plugins {
     id "androidx.navigation.safeargs.kotlin"
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'com.google.gms.google-services'
+    id  'com.google.firebase.crashlytics'
+
 
 }
 
@@ -15,8 +17,8 @@ android {
         applicationId "com.chillarcards.privatepractice"
         minSdk 24
         targetSdk 34
-        versionCode 2
-        versionName "1.0.0"
+        versionCode 5
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -57,6 +59,7 @@ dependencies {
     implementation 'com.google.android.play:integrity:1.4.0'
     implementation 'com.google.android.gms:play-services-measurement-api:22.1.0'
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.google.firebase:firebase-analytics:22.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
@@ -84,6 +87,11 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
     implementation 'com.google.android.gms:play-services-safetynet:18.1.0'
+    implementation 'com.google.firebase:firebase-analytics-ktx:22.1.0'
+    implementation 'com.google.android.play:feature-delivery:2.1.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:19.0.3'  // Use the latest version
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
 
 
 

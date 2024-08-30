@@ -24,8 +24,7 @@ class BankViewModel(
             try {
                 _bankData.postValue(Resource.loading(null))
                 if (networkHelper.isNetworkConnected()) {
-                    authRepository.getBankDetails(
-                    ).let {
+                    authRepository.getBankDetails().let {
                         if (it.isSuccessful) {
                             _bankData.postValue(Resource.success(it.body()))
                         } else {

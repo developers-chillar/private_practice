@@ -113,6 +113,8 @@ class BankFragment : Fragment() {
 //                            setUpObserver()
                         }
                     }
+
+                //    bankViewModel.clear()
                 }
             }
 

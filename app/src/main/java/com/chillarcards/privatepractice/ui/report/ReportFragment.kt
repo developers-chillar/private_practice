@@ -192,6 +192,7 @@ class ReportFragment : Fragment() {
                         }
                     }
                 }
+              //  reportViewModel.clear()
             }
 
         } catch (e: Exception) {

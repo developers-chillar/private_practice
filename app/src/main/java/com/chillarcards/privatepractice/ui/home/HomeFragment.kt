@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuInflater
@@ -256,6 +258,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+          //  bookingViewModel.clear()
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
@@ -292,6 +295,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+         //   bookingViewModel.clear()
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
@@ -340,6 +344,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             setUpObserver()
         }
     }
+
 
     private fun setBottomSheet(selectedData: ArrayList<CommonDBaseModel>) {
         var mediaPlayer: MediaPlayer?
@@ -433,6 +438,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+         //   bookingViewModel.clear()
 
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)
@@ -540,7 +546,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
     }
 
-    private fun performLogout() {
+     fun performLogout() {
 
         // Clear any user session or authentication data
         val prefManager = PrefManager(requireContext())
@@ -548,8 +554,13 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         prefManager.setIsLoggedIn(false)
 
         clearAppCache(requireContext())
-        val navController = findNavController()
-      //  navController.navigate(R.id.action_homeBaseFragment_to_LoginFragment)
+//        val navController = findNavController()
+//        navController.navigate(R.id.mobileFragment)
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            ActivityCompat.finishAffinity(requireActivity())
+//            // Optional: Call exitProcess(0) if absolutely necessary
+//            // exitProcess(0)
+//        }, 500)
         closeApp()
 
         // Clear all activities and start MainActivity

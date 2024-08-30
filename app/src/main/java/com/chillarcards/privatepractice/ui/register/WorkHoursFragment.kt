@@ -131,6 +131,7 @@ class WorkHoursFragment : Fragment() {
                         }
                     }
                 }
+              //  workViewModel.clear()
             }
 
 

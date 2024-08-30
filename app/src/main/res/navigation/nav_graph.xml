@@ -115,8 +115,8 @@
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/action_homeBaseFragment_to_LoginFragment"
-            app:destination="@id/LoginFragment" />
+            android:id="@+id/action_homeBaseFragment_to_mobileFragment"
+            app:destination="@id/mobileFragment" />
     </fragment>
 
     <fragment

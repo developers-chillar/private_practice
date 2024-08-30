@@ -6,6 +6,7 @@ import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
 import com.chillarcards.privatepractice.viewmodel.WorkViewModel
 import com.chillarcards.privatepractice.viewmodel.*
 import org.koin.dsl.module
+import kotlin.math.sin
 
 
 /**
@@ -38,4 +39,5 @@ val viewModelModule = module {
     single {
         StatusViewModel(get(), get())
     }
+    single { MobileScreenViewModel(get(),get()) }
 }

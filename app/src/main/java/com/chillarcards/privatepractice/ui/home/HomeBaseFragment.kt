@@ -12,12 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentHomeBaseBinding
+import com.chillarcards.privatepractice.ui.interfaces.IAdapterViewUtills
+import com.chillarcards.privatepractice.utills.CommonDBaseModel
 import com.chillarcards.privatepractice.utills.PrefManager
 import java.io.File
 import java.util.Calendar
 import kotlin.system.exitProcess
 
-class HomeBaseFragment : Fragment() {
+class HomeBaseFragment : Fragment(), IAdapterViewUtills {
 
     lateinit var binding: FragmentHomeBaseBinding
 
@@ -182,4 +184,14 @@ class HomeBaseFragment : Fragment() {
         ActivityCompat.finishAffinity(requireActivity())
         exitProcess(0)
     }
+
+    override fun getAdapterPosition(
+        Position: Int,
+        ValueArray: ArrayList<CommonDBaseModel>,
+        Mode: String?
+    ) {
+
+    }
+
+
 }

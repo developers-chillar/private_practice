@@ -18,6 +18,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import com.chillarcards.privatepractice.databinding.ActivityMainBinding
 import com.chillarcards.privatepractice.utills.ConnectivityReceiver
+import com.chillarcards.privatepractice.utills.NetworkHelper
 import com.chillarcards.privatepractice.utills.PrefManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
@@ -25,6 +26,9 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.concurrent.TimeUnit
 
@@ -34,9 +38,10 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
     private lateinit var binding: ActivityMainBinding
     private lateinit var prefManager: PrefManager
     private var lastActivityTimestamp: Long = 0
-
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
     private val  MY_REQUEST_CODE = 5
-
+    private var lastNetworkChangeTime: Long = 0
+    private val networkChangeThrottle = 1000L
     companion object {
         var justLoggedIn = false
         fun setLoggedInValue(isJustLoggedIn: Boolean) {
@@ -47,6 +52,7 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
     override fun onCreate(savedInstanceState: Bundle?) {
      //   WindowCompat.setDecorFitsSystemWindows(window, false)
         // Set the activity to be fullscreen.
+        checkNetworkAndShowErrorIfNeeded()
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -108,14 +114,44 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
 //        addContentView(crashButton, ViewGroup.LayoutParams(
 //            ViewGroup.LayoutParams.MATCH_PARENT,
 //            ViewGroup.LayoutParams.WRAP_CONTENT))
+        val mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "1")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Example Item")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "text")
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+    }
+
+    private fun checkNetworkAndShowErrorIfNeeded() {
+        val networkHelper = NetworkHelper(this)
+        if (!networkHelper.isNetworkConnected() && !NetworkErrorActivity.active) {
+            startActivity(Intent(this, NetworkErrorActivity::class.java))
+        }
     }
 
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
-        if (!isConnected) {
+        val currentTime = System.currentTimeMillis()
+        if (!isConnected && !NetworkErrorActivity.active && (currentTime - lastNetworkChangeTime) > networkChangeThrottle) {
+            lastNetworkChangeTime = currentTime
             val intent = Intent(this, NetworkErrorActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) // Ensure a new instance
             startActivity(intent)
         }
     }
+
+//    private fun checkNetworkAndShowErrorIfNeeded() {
+//        val networkHelper = NetworkHelper(this)
+//        if (!networkHelper.isNetworkConnected() && !NetworkErrorActivity.active) {
+//            startActivity(Intent(this, NetworkErrorActivity::class.java))
+//        }
+//    }
+//
+//    override fun onNetworkConnectionChanged(isConnected: Boolean) {
+//        if (!isConnected && !NetworkErrorActivity.active) {
+//            val intent = Intent(this, NetworkErrorActivity::class.java)
+//            startActivity(intent)
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -282,4 +318,8 @@ class MainActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityRecei
         startActivity(intent)
 
     }
+
+
+
+
 }

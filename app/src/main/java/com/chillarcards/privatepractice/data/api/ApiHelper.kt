@@ -13,6 +13,9 @@ interface ApiHelper {
     suspend fun verifyMobile(
         phone: String
     ): Response<RegisterModel>
+
+    suspend fun userCheck(phone: String):Response<UserCheckResClass>
+
     suspend fun getProfile(
         phone: String
     ): Response<ProfileResponseModel>

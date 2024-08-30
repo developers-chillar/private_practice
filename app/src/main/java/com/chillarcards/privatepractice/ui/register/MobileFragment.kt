@@ -21,18 +21,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentMobileBinding
 import com.chillarcards.privatepractice.utills.Const
+import com.chillarcards.privatepractice.utills.Status
+import com.chillarcards.privatepractice.viewmodel.MobileScreenViewModel
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 
@@ -45,11 +46,12 @@ class MobileFragment : Fragment() {
     private var statusTrue: Boolean = false
     private var tempMobileNo: String = ""
     private var selectedItemId: Int = -1
-
+    private val mobileScreenViewModel by viewModel<MobileScreenViewModel>()
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var mVerificationId = ""
     private lateinit var mResendToken: PhoneAuthProvider.ForceResendingToken
+    private val args: MobileFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,80 +65,16 @@ class MobileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+            activity?.let {
+                activity?.packageManager!!.getPackageInfo(
+                    it.packageName,
+                    PackageManager.GET_ACTIVITIES
+                )
+            }
         val versionName = pInfo?.versionName //Version Name
         FirebaseApp.initializeApp(this.requireContext())
         firebaseAuth = FirebaseAuth.getInstance()
-
-        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
-                Log.d(TAG, "onVerificationCompleted:$credential")
-            }
-
-            override fun onVerificationFailed(e: FirebaseException) {
-                Log.w(TAG, "onVerificationFailed", e)
-
-                when (e) {
-                    is FirebaseAuthInvalidCredentialsException -> {
-                        // Invalid request
-                        Const.shortToast(requireContext(), "Invalid phone number format.")
-                    }
-                    is FirebaseTooManyRequestsException -> {
-                        // The SMS quota for the project has been exceeded
-                        Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
-                    }
-                    is FirebaseAuthMissingActivityForRecaptchaException -> {
-                        // reCAPTCHA verification attempted with null Activity
-                        Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
-                    }
-                    else -> {
-                        // Handle other Firebase exceptions
-                        Const.shortToast(requireContext(), "An error occurred: ${e.message}")
-                    }
-                }
-
-                binding.loginBtn.visibility = View.VISIBLE
-                binding.waitingBtn.visibility = View.GONE
-                hideProgress()
-            }
-
-
-//            override fun onVerificationFailed(e: FirebaseException) {
-//                // This callback is invoked in an invalid request for verification is made,
-//                // for instance if the the phone number format is not valid.
-//                Log.w(TAG, "onVerificationFailed", e)
-//
-//                Const.shortToast(requireContext(),"Failed to send OTP to given mobile number")
-//                binding.loginBtn.visibility =View.VISIBLE
-//                binding.waitingBtn.visibility =View.GONE
-//                hideProgress()
-//            }
-
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
-                // The SMS verification code has been sent to the provided phone number,
-                // we now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
-
-                mVerificationId = verificationId
-                mResendToken = token
-                Log.d(TAG, "onCodeSent:$verificationId")
-                findNavController().navigate(
-                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo,
-                        mVerificationId
-                    )
-                )
-                Const.shortToast(requireContext(),"OTP sent successfully")
-            }
-        }
+        invokeFirebaseOTPService()
 
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
 
@@ -151,7 +89,8 @@ class MobileFragment : Fragment() {
                     binding.mobile.isErrorEnabled = false
                     Const.enableButton(binding.loginBtn)
                     tempMobileNo = input
-                    val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val imm =
+                        context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
                 } else {
                     binding.mobile.error = null
@@ -159,8 +98,7 @@ class MobileFragment : Fragment() {
                     Const.enableButton(binding.loginBtn)
                     tempMobileNo = input
                 }
-            }
-            else {
+            } else {
                 binding.mobile.error = null
                 binding.mobile.isErrorEnabled = false
             }
@@ -168,94 +106,100 @@ class MobileFragment : Fragment() {
 
         setUpObserver()
 
-//        binding.loginBtn.setOnClickListener {
-//            val input = binding.mobileEt.text.toString()
-//            when {
-//                !mobileRegex.containsMatchIn(input) -> {
-//                    binding.mobile.error = getString(R.string.mob_validation)
-//                }
-//
-//                else -> {
-//                    // Perform reCAPTCHA validation
-//                    safetyNetClient.verifyWithRecaptcha(siteKey)
-//                        .addOnSuccessListener { response ->
-//                            val userResponseToken = response.tokenResult
-//                            if (!userResponseToken.isNullOrEmpty()) {
-//                                // Validate the reCAPTCHA token on your server
-//                                validateTokenOnServer(userResponseToken) { isValid ->
-//                                    if (isValid) {
-//                                        // Proceed with phone number verification if reCAPTCHA is valid
-//                                        startPhoneNumberVerification(input)
-//                                    } else {
-//                                        // Handle invalid reCAPTCHA token
-//                                        Toast.makeText(
-//                                            requireContext(),
-//                                            "reCAPTCHA validation failed. Please try again.",
-//                                            Toast.LENGTH_SHORT
-//                                        ).show()
-//                                        binding.loginBtn.visibility = View.VISIBLE
-//                                        binding.waitingBtn.visibility = View.GONE
-//
-//                                    }
-//                                }
-//                            } else {
-//                                // Handle empty token case
-//                                Toast.makeText(
-//                                    requireContext(),
-//                                    "reCAPTCHA validation failed. Please try again.",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                                binding.loginBtn.visibility = View.VISIBLE
-//                                binding.waitingBtn.visibility = View.GONE
-//
-//                            }
-//                        }
-//                        .addOnFailureListener { e ->
-//                            // Handle reCAPTCHA failure
-//                            Log.e("reCAPTCHA", "Error: ${e.message}")
-//                            Toast.makeText(
-//                                requireContext(),
-//                                "reCAPTCHA verification failed. Please try again.",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            binding.loginBtn.visibility = View.VISIBLE
-//                            binding.waitingBtn.visibility = View.GONE
-//
-//                        }
-//                }
-//            }
-//        }
-
 
         binding.loginBtn.setOnClickListener {
+
             val input = binding.mobileEt.text.toString()
             when {
                 !mobileRegex.containsMatchIn(input) -> {
+                    showProgress()
                     binding.mobile.error = getString(R.string.mob_validation)
                 }
+
                 else -> {
-                    binding.loginBtn.visibility =View.GONE
-                    binding.waitingBtn.visibility =View.VISIBLE
-                    showProgress()
-                    startPhoneNumberVerification(input)
+
+                    binding.loginBtn.visibility = View.GONE
+                    binding.waitingBtn.visibility = View.VISIBLE
+                    phoneVerify()
+
                 }
             }
         }
 
-        binding.waitingBtn.setOnClickListener{
-            Const.shortToast(requireContext(),"Please check your message inbox")
+        binding.waitingBtn.setOnClickListener {
+            Const.shortToast(requireContext(), "Please check your message inbox")
         }
 
         setTextColorForTerms()
 
     }
 
+    private fun invokeFirebaseOTPService() {
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.d(TAG, "onVerificationCompleted:$credential")
+                firebaseAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(requireActivity()) { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "signInWithCredential:success")
+                            val user = task.result?.user
+                        } else {
+                            Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        }
+                    }
+            }
 
-    fun onLoadSMS(){
+            override fun onVerificationFailed(e: FirebaseException) {
+                Log.w(TAG, "onVerificationFailed", e)
+
+//                when (e) {
+//                    is FirebaseAuthInvalidCredentialsException -> {
+//                        Const.shortToast(requireContext(), "Invalid phone number format.")
+//                    }
+//                    is FirebaseTooManyRequestsException -> {
+//                        Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+//                    }
+//                    is FirebaseAuthMissingActivityForRecaptchaException -> {
+//                        Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
+//                    }
+//                    else -> {
+//                        Const.shortToast(requireContext(), "An error occurred: ${e.message}")
+//                    }
+//                }
+
+                binding.loginBtn.visibility = View.VISIBLE
+                binding.waitingBtn.visibility = View.GONE
+                hideProgress()
+            }
+
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                hideProgress()
+                mVerificationId = verificationId
+                mResendToken = token
+                Log.d(TAG, "onCodeSent:$verificationId")
+                findNavController().navigate(
+                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(
+                        tempMobileNo,
+                        mVerificationId
+                    )
+                )
+                hideProgress()
+                Const.shortToast(requireContext(), "OTP sent successfully")
+            }
+        }
+
+    }
+
+
+    fun onLoadSMS() {
         // on the below line we are creating a try and catch block
         try {
 
-            val message ="123456 is your verification OTP for accessing the KR COIN wallet. Do not share this OTP or your number with anyone.yaMqX9A+vNH"
+            val message =
+                "123456 is your verification OTP for accessing the KR COIN wallet. Do not share this OTP or your number with anyone.yaMqX9A+vNH"
             val uri: Uri = Uri.parse("smsto:+91")
             val intent = Intent(Intent.ACTION_SENDTO, uri)
             intent.putExtra("sms_body", message)
@@ -338,7 +282,81 @@ class MobileFragment : Fragment() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    private fun forceCrash() {
+        throw RuntimeException("Test Crash") // Force a crash
+    }
+
+    private fun phoneVerify() {
+        mobileScreenViewModel.clear()
+        mobileScreenViewModel.run {
+            phone.value = binding.mobileEt.text.toString()
+            userCheck()
+        }
+        userCheckObserver()
+    }
+
+    private fun userCheckObserver() {
+        try {
+            mobileScreenViewModel.userCheck.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { userCheck ->
+                                when (userCheck.statusCode) {
+                                    200 -> {
+                                        Log.d(TAG, "User is verified.")
+                                        tempMobileNo.let {
+                                            startPhoneNumberVerification(it)
+                                        }
+
+
+                                        /*Const.shortToast(requireContext(),"User Verified")
+                                       findNavController().navigate(MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo,
+                                           mVerificationId))*/
+                                    }
+
+                                    404 -> {
+                                        Const.shortToast(
+                                            requireContext(),
+                                            "Not a registered phone number. Please contact customer support!"
+                                        )
+                                        binding.loginBtn.visibility = View.VISIBLE
+                                        binding.waitingBtn.visibility = View.GONE
+                                        hideProgress()
+                                    }
+
+                                    else -> null
+                                }
+                            }
+                        }
+
+                        Status.ERROR -> {
+                            Const.shortToast(requireContext(), "Error!")
+
+
+                        }
+
+                        Status.LOADING -> {
+                            Log.e(TAG, "Error: ${it.message}")
+                            binding.loginBtn.visibility = View.VISIBLE
+                            binding.waitingBtn.visibility = View.GONE
+                            hideProgress()
+                        }
+                    }
+                }
+
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Exception: ", e)
+            Const.shortToast(requireContext(), "An error occurred. Please try again.")
+            binding.loginBtn.visibility = View.VISIBLE
+            binding.waitingBtn.visibility = View.GONE
+            hideProgress()
+        }
+    }
+
     companion object {
         private const val TAG = "MobileFragment"
     }
+
 }

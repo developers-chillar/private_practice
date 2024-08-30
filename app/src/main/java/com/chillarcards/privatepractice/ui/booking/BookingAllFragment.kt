@@ -217,6 +217,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                         }
                     }
                 }
+             //   bookingViewModel.clear()
             }
 
 
@@ -271,6 +272,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                     }
                 }
             }
+         //   bookingViewModel.clear()
 
         } catch (e: Exception) {
             Log.e("abc_otp", "setUpObserver: ", e)
@@ -354,6 +356,8 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
             setBottomSheet(ValueArray)
         }
     }
+
+
     private fun makePhoneCall(phoneNumber: String) {
         if (phoneNumber.isNotEmpty()) {
             val permission = Manifest.permission.CALL_PHONE

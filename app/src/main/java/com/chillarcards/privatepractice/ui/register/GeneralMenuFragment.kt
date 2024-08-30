@@ -116,6 +116,7 @@ class GeneralMenuFragment : Fragment(),IAdapterViewUtills {
                         }
                     }
                 }
+              //  generalViewModel.clear()
             }
             generalViewModel.statusData.observe(viewLifecycleOwner) {
                 if (it != null) {
@@ -141,7 +142,9 @@ class GeneralMenuFragment : Fragment(),IAdapterViewUtills {
                             hideProgress()
                         }
                     }
+
                 }
+             //   generalViewModel.clear()
             }
 
         } catch (e: Exception) {

@@ -8,8 +8,8 @@ import com.chillarcards.privatepractice.data.api.ApiHelper
  * Chillar
  */
 class AuthRepository(private val apiHelper: ApiHelper) {
-    suspend fun verifyMobile(mobileNumber: String) =
-        apiHelper.verifyMobile(mobileNumber)
+    suspend fun verifyMobile(mobileNumber: String) = apiHelper.verifyMobile(mobileNumber)
+    suspend fun userCheck(phone:String)=apiHelper.userCheck(phone)
    suspend fun getProfile(mobileNumber: String) =
         apiHelper.getProfile(mobileNumber)
    suspend fun getWork(doctorId: String) =

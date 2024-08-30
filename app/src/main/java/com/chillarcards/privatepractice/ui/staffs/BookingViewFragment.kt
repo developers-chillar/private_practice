@@ -126,6 +126,7 @@ class BookingViewFragment : Fragment(), IAdapterViewUtills {
                         }
                     }
                 }
+             //   bookingViewModel.clear()
             }
 
 

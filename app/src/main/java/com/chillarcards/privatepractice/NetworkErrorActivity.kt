@@ -3,6 +3,8 @@ package com.chillarcards.privatepractice
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.chillarcards.privatepractice.databinding.ActivityNetworkErrorBinding
 import com.chillarcards.privatepractice.utills.ConnectivityReceiver
@@ -22,7 +24,7 @@ class NetworkErrorActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        active = true
         binding = ActivityNetworkErrorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -47,10 +49,20 @@ class NetworkErrorActivity : AppCompatActivity(),
     override fun onPause() {
         super.onPause()
         active = false
+      //  unregisterReceiver(ConnectivityReceiver())
     }
+
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        active = false
+//
+//    }
+
 
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
         if (isConnected)
             finish()
     }
+
+
 }

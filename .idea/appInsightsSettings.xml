@@ -22,10 +22,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.chillarcards.privatepractice" />
+                  <option name="mobileSdkAppId" value="1:1023776435782:android:e1802e800f01c624696447" />
+                  <option name="projectId" value="chillarprototype" />
+                  <option name="projectNumber" value="1023776435782" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

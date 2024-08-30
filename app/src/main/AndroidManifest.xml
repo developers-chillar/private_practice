@@ -40,7 +40,8 @@
 
         <activity
             android:name=".NetworkErrorActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

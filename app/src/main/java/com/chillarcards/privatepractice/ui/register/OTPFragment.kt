@@ -486,6 +486,7 @@ open class OTPFragment : Fragment() {
                         }
                     }
                 }
+
             }
 
         } catch (e: Exception) {

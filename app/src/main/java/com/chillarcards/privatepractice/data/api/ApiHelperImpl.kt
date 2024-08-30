@@ -15,6 +15,10 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
         RegisterRequestModel(phone)
     )
 
+    override suspend fun userCheck(phone: String): Response<UserCheckResClass> = apiService.userCheck(UserCheckReqClass(phone))
+
+
+
 //    override suspend fun getProfile(phone: String):
 //            Response<ProfileResponseModel> {
 //        return apiService.getProfile(phone)
