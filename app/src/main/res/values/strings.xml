@@ -99,6 +99,7 @@
 
     <!--  BUTTON-->
     <string name="booking">Share Booking Link</string>
+    <string name="add_leave">Add Leave</string>
     <string name="retry">try again</string>
     <string name="signin">Sign in</string>
     <string name="signup">Register</string>

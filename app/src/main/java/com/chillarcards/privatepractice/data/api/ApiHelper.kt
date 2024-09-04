@@ -37,9 +37,7 @@ interface ApiHelper {
         date: String,
     ): Response<BookingReportResponseModel>
 
-    suspend fun getUpdate(
-        bookingId: String
-    ): Response<StatusResponseModel>
-
+    suspend fun getUpdate(bookingId: String): Response<StatusResponseModel>
+    suspend fun getDoctorAvailability(doctorId: String,date:String): Response<AddLeaveResClass>
 
 }

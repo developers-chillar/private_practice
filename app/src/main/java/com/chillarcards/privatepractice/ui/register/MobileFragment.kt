@@ -106,7 +106,6 @@ class MobileFragment : Fragment() {
 
         setUpObserver()
 
-
         binding.loginBtn.setOnClickListener {
 
             val input = binding.mobileEt.text.toString()
@@ -133,6 +132,8 @@ class MobileFragment : Fragment() {
         setTextColorForTerms()
 
     }
+
+
 
     private fun invokeFirebaseOTPService() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {

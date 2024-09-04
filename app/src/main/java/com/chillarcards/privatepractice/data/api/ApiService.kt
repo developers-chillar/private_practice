@@ -62,5 +62,6 @@ interface ApiService {
     @POST("app/list-category")
     suspend fun getCategory(): Response<CategoryResponseModel>
 
-
+@POST("work/doc-availability")
+suspend fun getDoctorAvailability(@Body reqModel:AddLeaveReqClass): Response<AddLeaveResClass>
 }

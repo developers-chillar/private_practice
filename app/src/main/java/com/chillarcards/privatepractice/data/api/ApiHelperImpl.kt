@@ -58,10 +58,10 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     ): Response<BookingReportResponseModel> = apiService.getReport(
         BookingReportModel(doctorId,date)
     )
-    override suspend fun getUpdate(
-        bookingId: String
-    ): Response<StatusResponseModel> = apiService.getUpdate(
-        BookUpdateRequestModel(bookingId)
-    )
+    override suspend fun getUpdate(bookingId: String): Response<StatusResponseModel> = apiService.getUpdate(BookUpdateRequestModel(bookingId))
+
+    override suspend fun getDoctorAvailability(doctorId: String, date: String):Response<AddLeaveResClass> =
+        apiService.getDoctorAvailability(AddLeaveReqClass(doctorId,date))
+
 
 }

@@ -1,6 +1,7 @@
 package com.chillarcards.privatepractice.ui.home
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -133,6 +134,40 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         binding.menuIcon.setOnClickListener {
             openOptionsMenu(it)
         }
+        binding.addLeave.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                val currentYear = calendar.get(Calendar.YEAR)
+                val currentMonth = calendar.get(Calendar.MONTH)
+                val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, month, day ->
+                        // Handle the selected date
+                        val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
+                        bookingViewModel.run {
+                            doctorID.value = prefManager.getDoctorId().toString()
+                            date.value = selectedDate
+                            entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+                            addDoctorOnLeave()
+                        }
+                        doctorAvailableObserver()
+                    },
+                    currentYear,
+                    currentMonth,
+                    currentDay
+                )
+
+//            // Set the minimum date to today
+                datePickerDialog.datePicker.minDate = calendar.timeInMillis
+//
+//            // Set the maximum date to one week from today
+                calendar.add(Calendar.MONTH, 1)
+                datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+
+                datePickerDialog.show()
+
+
+        }
 
         binding.share.setOnClickListener {
             if(shareLink!="") {
@@ -168,6 +203,50 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         Log.d("abc_mob", "onDestroy: ")
         bookingViewModel.clear()
 
+    }
+
+    private fun doctorAvailableObserver() {
+        try {
+            bookingViewModel.doctorOnLeave.observe(viewLifecycleOwner) {
+                if (it != null) {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            hideProgress()
+                            it.data?.let { bookingData ->
+                                when (bookingData.statusCode) {
+                                    200 -> {
+                                        Const.shortToast(requireContext(),
+                                            bookingData.message.toString())
+                                    }
+                                    403 -> {
+                                        Const.shortToast(requireContext(),
+                                            bookingData.message.toString())
+
+                                    }
+                                    else -> Const.shortToast(requireContext(),
+                                        bookingData.message.toString()
+                                    )
+
+                                }
+                            }
+                        }
+                        Status.LOADING -> {
+                            showProgress()
+                        }
+                        Status.ERROR -> {
+                            hideProgress()
+                            Const.shortToast(requireContext(), it.message.toString())
+                            Const.shortToast(requireContext(),"403 profile")
+                        }
+                    }
+                }
+
+            }
+
+
+        } catch (e: Exception) {
+            Log.e("abc_otp", "setUpObserver: ", e)
+        }
     }
 
     private fun setUpObserver() {

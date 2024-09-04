@@ -31,4 +31,5 @@ class AuthRepository(private val apiHelper: ApiHelper) {
         apiHelper.getReport(doctorId,date)
     suspend fun getUpdate(bookingId: String) =
         apiHelper.getUpdate(bookingId)
+    suspend fun getDoctorAvailability(doctorId: String,date: String) =apiHelper.getDoctorAvailability(doctorId, date)
 }

@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chillarcards.privatepractice.data.model.AddLeaveResClass
 import com.chillarcards.privatepractice.data.model.BookingResponseModel
 import com.chillarcards.privatepractice.data.model.ShareLinkResponseModel
 import com.chillarcards.privatepractice.data.model.StatusResponseModel
 import com.chillarcards.privatepractice.data.repository.AuthRepository
+import com.chillarcards.privatepractice.di.module.viewModelModule
 import com.chillarcards.privatepractice.utills.NetworkHelper
 import com.chillarcards.privatepractice.utills.Resource
 import kotlinx.coroutines.NonCancellable
@@ -29,7 +31,8 @@ class BookingViewModel(
     val bookStatusData: LiveData<Resource<StatusResponseModel>?> get() = _bookUpdateData
     private val _bookLinkData = MutableLiveData<Resource<ShareLinkResponseModel>?>()
     val bookLinkData: LiveData<Resource<ShareLinkResponseModel>?> get() = _bookLinkData
-
+    private val _doctorOnLeave=MutableLiveData<Resource<AddLeaveResClass>?>()
+    val doctorOnLeave:LiveData<Resource<AddLeaveResClass>?> get() = _doctorOnLeave
     var doctorID = MutableLiveData<String>()
     var date = MutableLiveData<String>()
     var entityId = MutableLiveData<String>()
@@ -106,9 +109,37 @@ class BookingViewModel(
         }
     }
 
+    fun addDoctorOnLeave(){
+        viewModelScope.launch(NonCancellable) {
+            try {
+                _doctorOnLeave.postValue(Resource.loading(null))
+                if (networkHelper.isNetworkConnected()) {
+                    authRepository.getDoctorAvailability(
+                        doctorID.value.toString(),
+                        date.value.toString()
+                    ).let {
+                        if (it.isSuccessful) {
+                            _doctorOnLeave.postValue(Resource.success(it.body()))
+                        } else {
+                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
+                            _doctorOnLeave.postValue(Resource.error(it.errorBody().toString(), null))
+                        }
+                    }
+                } else {
+                    _doctorOnLeave.postValue(Resource.error("No Internet Connection", null))
+                }
+            } catch (e: Exception) {
+                Log.e("abc_otp", "verifyOTP: ", e)
+            }
+        }
+    }
+
+
+
     fun clear() {
         _bookingData.value = null
         _bookUpdateData.value = null
         _bookLinkData.value = null
+        _doctorOnLeave.value=null
     }
 }
