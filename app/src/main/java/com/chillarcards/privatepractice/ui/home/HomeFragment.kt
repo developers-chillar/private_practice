@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
@@ -50,7 +51,7 @@ import java.util.Locale
 import kotlin.system.exitProcess
 
 class HomeFragment : Fragment(), IAdapterViewUtills {
-
+    private var toast: Toast? = null
     lateinit var binding: FragmentHomeBinding
     private val args: HomeFragmentArgs by navArgs()
     private lateinit var notificationViewModel: NotificationViewModel
@@ -148,7 +149,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                             doctorID.value = prefManager.getDoctorId().toString()
                             date.value = selectedDate
                             entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
-                            addDoctorOnLeave()
+                            bookingViewModel.addDoctorOnLeave()
                         }
                         doctorAvailableObserver()
                     },
@@ -215,16 +216,13 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                             it.data?.let { bookingData ->
                                 when (bookingData.statusCode) {
                                     200 -> {
-                                        Const.shortToast(requireContext(),
-                                            bookingData.message.toString())
+                                        showToast(bookingData.message.toString())
                                     }
                                     403 -> {
-                                        Const.shortToast(requireContext(),
-                                            bookingData.message.toString())
+                                        showToast(bookingData.message.toString())
 
                                     }
-                                    else -> Const.shortToast(requireContext(),
-                                        bookingData.message.toString()
+                                    else -> Const.shortToast(requireContext(), bookingData.message.toString()
                                     )
 
                                 }
@@ -727,6 +725,15 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                 Const.shortToast(requireContext(), "Permission denied")
             }
         }
+    }
+
+    private fun showToast(message: String) {
+        // Cancel any existing toast
+        toast?.cancel()
+
+        // Show a new toast
+        toast = Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT)
+        toast?.show()
     }
 
 }
