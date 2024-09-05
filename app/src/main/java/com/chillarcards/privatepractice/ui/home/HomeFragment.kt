@@ -222,6 +222,10 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         showToast(bookingData.message.toString())
 
                                     }
+                                    500-> {
+                                        showToast(bookingData.message.toString())
+
+                                    }
                                     else -> Const.shortToast(requireContext(), bookingData.message.toString()
                                     )
 
@@ -488,9 +492,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                     403 -> {
                                         prefManager.setRefresh("1")
                                         val authViewModel by viewModel<RegisterViewModel>()
-                                        Const.getNewTokenAPI(
-                                            requireContext(),
-                                            authViewModel,
+                                        Const.getNewTokenAPI(requireContext(), authViewModel,
                                             viewLifecycleOwner
                                         )
 

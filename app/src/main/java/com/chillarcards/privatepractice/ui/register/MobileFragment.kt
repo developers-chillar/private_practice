@@ -29,7 +29,10 @@ import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.MobileScreenViewModel
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthMissingActivityForRecaptchaException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
@@ -153,20 +156,20 @@ class MobileFragment : Fragment() {
             override fun onVerificationFailed(e: FirebaseException) {
                 Log.w(TAG, "onVerificationFailed", e)
 
-//                when (e) {
-//                    is FirebaseAuthInvalidCredentialsException -> {
-//                        Const.shortToast(requireContext(), "Invalid phone number format.")
-//                    }
-//                    is FirebaseTooManyRequestsException -> {
-//                        Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
-//                    }
-//                    is FirebaseAuthMissingActivityForRecaptchaException -> {
-//                        Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
-//                    }
-//                    else -> {
-//                        Const.shortToast(requireContext(), "An error occurred: ${e.message}")
-//                    }
-//                }
+                when (e) {
+                    is FirebaseAuthInvalidCredentialsException -> {
+                        Const.shortToast(requireContext(), "Invalid phone number format.")
+                    }
+                    is FirebaseTooManyRequestsException -> {
+                        Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+                    }
+                    is FirebaseAuthMissingActivityForRecaptchaException -> {
+                        Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
+                    }
+                    else -> {
+                        Const.shortToast(requireContext(), "An error occurred: ${e.message}")
+                    }
+                }
 
                 binding.loginBtn.visibility = View.VISIBLE
                 binding.waitingBtn.visibility = View.GONE
@@ -317,6 +320,7 @@ class MobileFragment : Fragment() {
                                     }
 
                                     404 -> {
+                                        Log.d(TAG, "Status Code 404: ${userCheck.message}")
                                         Const.shortToast(
                                             requireContext(),
                                             "Not a registered phone number. Please contact customer support!"
@@ -326,12 +330,13 @@ class MobileFragment : Fragment() {
                                         hideProgress()
                                     }
 
-                                    else -> null
+                                    else ->   Log.d(TAG, "Unhandled status code: ${userCheck.statusCode}")
                                 }
                             }
                         }
 
                         Status.ERROR -> {
+                            Log.e(TAG, "Error response: ${it.message}")
                             Const.shortToast(requireContext(), "Error!")
 
 
