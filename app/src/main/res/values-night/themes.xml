@@ -74,4 +74,7 @@
     <style name="mySpinnerItemSelectedStyle" parent="@android:style/Widget.Holo.TextView.SpinnerItem">
         <item name="android:textColor">@color/app_theme</item>
     </style>
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="colorControlHighlight">#FFDDDDDD</item> <!-- Ripple color -->
+    </style>
 </resources>

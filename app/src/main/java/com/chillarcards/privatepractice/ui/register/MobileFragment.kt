@@ -3,6 +3,7 @@ package com.chillarcards.privatepractice.ui.register
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -110,11 +111,10 @@ class MobileFragment : Fragment() {
         setUpObserver()
 
         binding.loginBtn.setOnClickListener {
-
             val input = binding.mobileEt.text.toString()
             when {
                 !mobileRegex.containsMatchIn(input) -> {
-                    showProgress()
+                 //   showProgress()
                     binding.mobile.error = getString(R.string.mob_validation)
                 }
 
@@ -126,6 +126,15 @@ class MobileFragment : Fragment() {
 
                 }
             }
+            binding.progressBar.visibility=View.VISIBLE
+        }
+
+        binding.tvContact.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:+91 9995699899") // Replace with the actual phone number
+            startActivity(intent)
+
+            // showChooseImageDialog()
         }
 
         binding.waitingBtn.setOnClickListener {
@@ -159,15 +168,19 @@ class MobileFragment : Fragment() {
                 when (e) {
                     is FirebaseAuthInvalidCredentialsException -> {
                         Const.shortToast(requireContext(), "Invalid phone number format.")
+                        binding.waitingBtn.visibility = View.GONE
                     }
                     is FirebaseTooManyRequestsException -> {
                         Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+                        binding.waitingBtn.visibility = View.GONE
                     }
                     is FirebaseAuthMissingActivityForRecaptchaException -> {
                         Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
+                        binding.waitingBtn.visibility = View.GONE
                     }
                     else -> {
                         Const.shortToast(requireContext(), "An error occurred: ${e.message}")
+                        binding.waitingBtn.visibility = View.GONE
                     }
                 }
 
@@ -181,15 +194,12 @@ class MobileFragment : Fragment() {
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
                 hideProgress()
+                binding.progressBar.visibility=View.GONE
                 mVerificationId = verificationId
                 mResendToken = token
                 Log.d(TAG, "onCodeSent:$verificationId")
                 findNavController().navigate(
-                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(
-                        tempMobileNo,
-                        mVerificationId
-                    )
-                )
+                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo, mVerificationId))
                 hideProgress()
                 Const.shortToast(requireContext(), "OTP sent successfully")
             }
@@ -327,6 +337,7 @@ class MobileFragment : Fragment() {
                                         )
                                         binding.loginBtn.visibility = View.VISIBLE
                                         binding.waitingBtn.visibility = View.GONE
+                                        binding.progressBar.visibility=View.GONE
                                         hideProgress()
                                     }
 
@@ -336,6 +347,7 @@ class MobileFragment : Fragment() {
                         }
 
                         Status.ERROR -> {
+                            binding.progressBar.visibility=View.GONE
                             Log.e(TAG, "Error response: ${it.message}")
                             Const.shortToast(requireContext(), "Error!")
 
