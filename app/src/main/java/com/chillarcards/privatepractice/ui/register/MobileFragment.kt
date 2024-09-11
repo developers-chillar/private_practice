@@ -169,20 +169,25 @@ class MobileFragment : Fragment() {
                     is FirebaseAuthInvalidCredentialsException -> {
                         Const.shortToast(requireContext(), "Invalid phone number format.")
                         binding.waitingBtn.visibility = View.GONE
+                        binding.progressBar.visibility=View.GONE
                     }
                     is FirebaseTooManyRequestsException -> {
                         Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
                         binding.waitingBtn.visibility = View.GONE
+                        binding.progressBar.visibility=View.GONE
                     }
                     is FirebaseAuthMissingActivityForRecaptchaException -> {
                         Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
                         binding.waitingBtn.visibility = View.GONE
+                        binding.progressBar.visibility=View.GONE
                     }
                     else -> {
                         Const.shortToast(requireContext(), "An error occurred: ${e.message}")
                         binding.waitingBtn.visibility = View.GONE
+                        binding.progressBar.visibility=View.GONE
                     }
                 }
+                binding.progressBar.visibility=View.GONE
 
                 binding.loginBtn.visibility = View.VISIBLE
                 binding.waitingBtn.visibility = View.GONE
