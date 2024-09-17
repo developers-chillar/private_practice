@@ -24,188 +24,222 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="@dimen/_180sdp"
-                        android:layout_height="@dimen/_180sdp"
-                        android:layout_marginTop="@dimen/_22sdp"
-                        app:cardBackgroundColor="@color/white"
-
-                        app:cardCornerRadius="@dimen/_360sdp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_logo">
 
                         <ImageView
-                            android:id="@+id/logo"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:contentDescription="TODO"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/login" />
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/version"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/text_black"
-                        android:textSize="@dimen/_5ssp"
-                        android:visibility="visible"
-                        app:layout_constraintTop_toBottomOf="@id/logo" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:gravity="start"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/sub_title"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14ssp"
-                        android:textStyle="bold"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:gravity="start"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/sub_title_2"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/mobile"
-                        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:layout_marginBottom="@dimen/_7sdp"
-                        android:elevation="@dimen/_5sdp"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                        app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                        app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                        app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                        app:boxStrokeColor="@color/color_pri_v"
-                        app:boxStrokeErrorColor="@color/primary_peach"
-                        app:boxStrokeWidth="0.2dp"
-                        app:endIconDrawable="@drawable/ic_close"
-                        app:endIconMode="clear_text"
-                        app:errorTextColor="@color/black"
-                        app:hintEnabled="false"
-                        app:layout_constraintBottom_toTopOf="@+id/terms"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/version"
-                        app:layout_constraintVertical_bias="0.1"
-                        app:prefixText="+91">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/mobile_et"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:digits="0123456789"
-                            android:hint="@string/enter_mobile_number"
-                            android:imeOptions="actionDone"
-                            android:inputType="phone"
-                            android:maxLength="10"
-                            android:paddingVertical="@dimen/_11sdp"
-                            android:textSize="@dimen/_12ssp"
-                            tools:ignore="RtlSymmetry" />
+                            android:layout_marginTop="41dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@drawable/welcome_stethescope"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.047"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                        <ImageView
+                            android:layout_width="430dp"
+                            android:layout_height="472dp"
+                            android:src="@drawable/dr_image_female"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/service_type"
-                        style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:layout_marginBottom="@dimen/_7sdp"
-                        android:background="@drawable/border"
-                        android:elevation="@dimen/_5sdp"
-                        android:visibility="gone"
-                        app:boxBackgroundColor="@color/white"
-                        app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
-                        app:boxCornerRadiusBottomStart="@dimen/_22sdp"
-                        app:boxCornerRadiusTopEnd="@dimen/_22sdp"
-                        app:boxCornerRadiusTopStart="@dimen/_22sdp"
-                        app:boxStrokeColor="@color/color_pri_v"
-                        app:boxStrokeErrorColor="@color/primary_peach"
-                        app:boxStrokeWidth="0.2dp"
-                        app:errorTextColor="@color/secondary_peach"
-                        app:hintEnabled="false"
-                        app:layout_constraintBottom_toTopOf="@+id/terms"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/version"
-                        app:layout_constraintVertical_bias="0.1"
+                        android:layout_height="match_parent">
 
-                        >
-
-                        <Spinner
-                            android:id="@+id/spinner"
-                            style="@style/mySpinnerItemSelectedStyle"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@android:dimen/app_icon_size"
-                            android:overlapAnchor="false"
-                            android:spinnerMode="dropdown" />
+                            android:layout_height="wrap_content">
 
-                    </com.google.android.material.textfield.TextInputLayout>
+                            <TextView
+                                android:id="@+id/version"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/text_black"
+                                android:textSize="@dimen/_5ssp"
+                                android:visibility="visible"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/bottom_text"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/login_btn"
-                        style="@style/CustomButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:layout_marginTop="@dimen/_50sdp"
-                        android:layout_marginBottom="@dimen/_12sdp"
-                        android:alpha="0.55"
-                        android:background="@drawable/button_gradient"
-                        android:enabled="false"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:text="@string/contin"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primary_blue"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        app:backgroundTint="@null"
-                        app:layout_constraintTop_toBottomOf="@id/mobile" />
+                            <TextView
+                                android:id="@+id/tvSIgnIn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:gravity="center"
+                                android:padding="@dimen/_5sdp"
+                                android:text="@string/sub_title"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14ssp"
+                                android:textStyle="bold"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/waiting_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_18sdp"
-                        android:layout_marginTop="@dimen/_50sdp"
-                        android:layout_marginBottom="@dimen/_12sdp"
-                        android:alpha="0.55"
-                        android:background="@drawable/button_gradient"
-                        android:enabled="false"
-                        android:paddingVertical="@dimen/_10sdp"
-                        android:text="@string/wait"
-                        android:textAllCaps="true"
-                        android:textColor="@color/primary_blue"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        android:visibility="gone"
-                        app:backgroundTint="@null"
-                        app:layout_constraintTop_toBottomOf="@id/mobile" />
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:gravity="start"
+                                android:visibility="gone"
+                                android:padding="@dimen/_5sdp"
+                                android:text="@string/sub_title_2"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12ssp"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/mobile"
+                                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:layout_marginBottom="@dimen/_7sdp"
+                                android:elevation="@dimen/_5sdp"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+                                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+                                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+                                app:boxCornerRadiusTopStart="@dimen/_22sdp"
+                                app:boxStrokeColor="@color/color_pri_v"
+                                app:boxStrokeErrorColor="@color/primary_peach"
+                                app:boxStrokeWidth="0.2dp"
+                                app:endIconDrawable="@drawable/ic_close"
+                                app:endIconMode="clear_text"
+                                app:errorTextColor="@color/black"
+                                app:hintEnabled="false"
+                                app:prefixText="+91"
+                                app:layout_constraintTop_toBottomOf="@+id/tvSIgnIn">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/mobile_et"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:digits="0123456789"
+                                    android:hint="@string/enter_mobile_number"
+                                    android:imeOptions="actionDone"
+                                    android:inputType="phone"
+                                    android:maxLength="10"
+                                    android:paddingVertical="@dimen/_11sdp"
+                                    android:textSize="@dimen/_12ssp"
+                                    tools:ignore="RtlSymmetry" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/service_type"
+                                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:layout_marginBottom="@dimen/_7sdp"
+                                android:background="@drawable/border"
+                                android:elevation="@dimen/_5sdp"
+                                android:visibility="gone"
+                                app:boxBackgroundColor="@color/white"
+                                app:boxCornerRadiusBottomEnd="@dimen/_22sdp"
+                                app:boxCornerRadiusBottomStart="@dimen/_22sdp"
+                                app:boxCornerRadiusTopEnd="@dimen/_22sdp"
+                                app:boxCornerRadiusTopStart="@dimen/_22sdp"
+                                app:boxStrokeColor="@color/color_pri_v"
+                                app:boxStrokeErrorColor="@color/primary_peach"
+                                app:boxStrokeWidth="0.2dp"
+                                app:errorTextColor="@color/secondary_peach"
+                                app:hintEnabled="false"
+                                app:layout_constraintBottom_toTopOf="@+id/terms"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/version"
+                                app:layout_constraintVertical_bias="0.1"
+
+                                >
+
+                                <Spinner
+                                    android:id="@+id/spinner"
+                                    style="@style/mySpinnerItemSelectedStyle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@android:dimen/app_icon_size"
+                                    android:overlapAnchor="false"
+                                    android:spinnerMode="dropdown" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/login_btn"
+                                style="@style/CustomButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:layout_marginTop="25dp"
+                                android:layout_marginBottom="@dimen/_12sdp"
+                                android:alpha="0.55"
+                                android:background="@drawable/button_gradient"
+                                android:enabled="false"
+                                android:paddingVertical="@dimen/_10sdp"
+                                android:text="@string/contin"
+                                android:textAllCaps="true"
+                                android:textColor="@color/primary_blue"
+                                android:textSize="@dimen/_12ssp"
+                                android:textStyle="bold"
+                                app:backgroundTint="@null"
+                                app:layout_constraintTop_toBottomOf="@id/mobile" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/waiting_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_18sdp"
+                                android:layout_marginTop="@dimen/_50sdp"
+                                android:layout_marginBottom="@dimen/_12sdp"
+                                android:alpha="0.55"
+                                android:background="@drawable/button_gradient"
+                                android:enabled="false"
+                                android:paddingVertical="@dimen/_10sdp"
+                                android:text="@string/wait"
+                                android:textAllCaps="true"
+                                android:textColor="@color/primary_blue"
+                                android:textSize="@dimen/_12ssp"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                app:backgroundTint="@null"
+                                app:layout_constraintTop_toBottomOf="@id/mobile" />
+
+                            <TextView
+                                android:id="@+id/bottom_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_marginBottom="@dimen/_10sdp"
+                                android:ellipsize="marquee"
+                                android:singleLine="true"
+                                android:text="@string/compy"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_8ssp" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                    </FrameLayout>
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -272,18 +306,7 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/bottom_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:ellipsize="marquee"
-                    android:singleLine="true"
-                    android:text="@string/compy"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_8ssp" />
+
 
             </RelativeLayout>
 

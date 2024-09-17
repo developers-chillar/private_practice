@@ -185,14 +185,32 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         }
     }
 
-    private fun getCurrentDate(){
+    private fun getCurrentDate() {
+        // Get the current date
         val currentDate = Calendar.getInstance()
-        val dayOfWeek = currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH)
-        val dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH)
-        val year = currentDate.get(Calendar.YEAR)
-        binding.daydate.text = "$dayOfWeek $dayOfMonth"
-        binding.year.text = year.toString()
+
+        // Extract the day of the week, day of the month, month, and year
+        val dayOfWeek = currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH) // e.g., Friday
+        val dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH) // e.g., 06
+        val month = currentDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) // e.g., September
+        val year = currentDate.get(Calendar.YEAR) // e.g., 2024
+
+        // Set values to corresponding TextViews
+        binding.daydate.text = dayOfWeek // Show day of the week (e.g., "Friday")
+        binding.date.text = dayOfMonth.toString() // Show the day (e.g., "06")
+        binding.year.text = "$month $year" // Show month and year (e.g., "September 2024")
     }
+
+
+//    private fun getCurrentDate(){
+//        val currentDate = Calendar.getInstance()
+//        val dayOfWeek = currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.ENGLISH)
+//        val dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH)
+//        val year = currentDate.get(Calendar.YEAR)
+//        binding.daydate.text = "$dayOfWeek $dayOfMonth"
+//        binding.date.text= dayOfMonth.toString()
+//        binding.year.text = "$dayOfMonth $year"
+//    }
 
     override fun onStop() {
         super.onStop()
@@ -261,8 +279,8 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                             it.data?.let { bookingData ->
                                 when (bookingData.statusCode) {
                                     200 -> {
-                                        binding.logoIcon.text= "Hi "+bookingData.data.doctorName
-                                        binding.ttlApointTv.text = "Today's Appointments : "+bookingData.data.totalBooking.toString()
+                                        binding.logoIcon.text= bookingData.data.doctorName
+                                        binding.ttlApointTv.text = "Total Bookings : "+bookingData.data.totalBooking.toString()
                                         binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()
                                         binding.cancelTv.text = "Pending  : "+bookingData.data.pendingAppointments.toString()
 

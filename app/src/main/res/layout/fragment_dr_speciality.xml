@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+
+        <ImageView
+            android:id="@+id/tvMedicalImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/welcome_stethescope"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="10dp"
+            android:background="@drawable/borders_new_design"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMedicalImage">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvGoodName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginTop="69dp"
+                    android:layout_marginEnd="39dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="39dp"
+                    android:text="Your Speciality?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginTop="50dp"
+                    android:text="Specialities"
+                    app:layout_constraintEnd_toEndOf="@+id/tvGoodName"
+                    app:layout_constraintStart_toStartOf="@+id/tvGoodName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGoodName" />
+
+                <EditText
+                    android:id="@+id/etGdName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select specialisation"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:textSize="13sp"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:paddingStart="15dp"
+                    android:layout_marginTop="7dp"
+                    app:prefixText="Dr."
+                    android:drawableEnd="@drawable/arrow_down"
+                    android:paddingEnd="10dp"
+                    android:background="@drawable/borders_new_design"
+                    app:layout_constraintEnd_toEndOf="@+id/tvName"
+                    app:layout_constraintStart_toStartOf="@+id/tvName"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="40dp"
+                    android:gravity="center"
+                    android:text="CONTINUE"
+                    android:textColor="@color/white"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:background="@drawable/border_btn_design"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/etGdName"
+                    app:layout_constraintStart_toStartOf="@+id/etGdName"
+                    app:layout_constraintTop_toBottomOf="@+id/etGdName" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

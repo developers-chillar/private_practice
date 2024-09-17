@@ -49,7 +49,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 
-open class OTPFragment : Fragment() {
+open class OTPFragment : Fragment(R.layout.fragment_otp) {
 
     lateinit var binding: FragmentOtpBinding
 

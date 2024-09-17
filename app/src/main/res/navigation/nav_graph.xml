@@ -25,6 +25,9 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_LoginFragment_to_welcomeOnBoardScreenFragment"
+            app:destination="@id/welcomeOnBoardScreenFragment" />
 
     </fragment>
 
@@ -395,6 +398,14 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeOnBoardScreenFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.WelcomeOnBoardScreenFragment"
+        android:label="WelcomeOnBoardScreenFragment" >
+        <action
+            android:id="@+id/action_welcomeOnBoardScreenFragment_to_mobileFragment"
+            app:destination="@id/mobileFragment" />
     </fragment>
 
 </navigation>

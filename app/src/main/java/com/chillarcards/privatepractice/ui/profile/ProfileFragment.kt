@@ -30,7 +30,7 @@ import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment : Fragment(), IAdapterViewUtills {
+class ProfileFragment : Fragment(R.layout.fragment_profile), IAdapterViewUtills {
 
     lateinit var binding: FragmentProfileBinding
     private lateinit var prefManager: PrefManager

@@ -4,7 +4,7 @@
     <string name="compy">Chillar Payments Solutions Pvt ltd</string>
     <string name="currency">₹</string>
     <string name="head">Create Account</string>
-    <string name="sub_title">Sign in</string>
+    <string name="sub_title">SIGN IN</string>
     <string name="sub_title_2">Enter your Registered Phone Number</string>
     <string name="terms_and_conditions">By proceeding, you agree to the <b><u>Terms And Conditions</u></b></string>
     <string name="ver">"Ver\u0020"</string>
@@ -13,7 +13,7 @@
     <string name="version">"Version\u0020"</string>
     <string name="general_head">Welcome on board</string>
     <string name="alert_heading">Are you sure?</string>
-    <string name="otp_head">Enter Verification Code</string>
+    <string name="otp_head">Enter OTP</string>
     <string name="register_head">register</string>
     <string name="add_staff_head">Add Staff</string>
     <string name="add_service_head">Add Service</string>

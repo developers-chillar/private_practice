@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
@@ -38,7 +39,6 @@ class LoginFragment : Fragment() {
         Const.enableButton(binding.signinBtn)
         Const.enableButton(binding.signupBtn)
         setUpObserver()
-
         binding.signinBtn.setOnClickListener {
             findNavController().navigate(
                 LoginFragmentDirections.actionLoginFragmentToMobileFragment(
@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
 
         binding.signupBtn.setOnClickListener {
             findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToRegisterFragment(
+                LoginFragmentDirections.actionLoginFragmentToWelcomeOnBoardScreenFragment(
                 )
             )
         }

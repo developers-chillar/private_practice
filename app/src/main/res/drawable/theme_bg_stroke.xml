@@ -14,8 +14,8 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/button_theme_ix" />
-            <stroke android:width="@dimen/_1sdp" android:color="@color/black"/>
+            <solid android:color="@color/white" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/white"/>
             <corners android:radius="@dimen/_10sdp" />
         </shape>
     </item>

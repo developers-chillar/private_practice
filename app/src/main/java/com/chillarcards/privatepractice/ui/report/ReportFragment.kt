@@ -23,7 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class ReportFragment : Fragment() {
+class ReportFragment : Fragment(R.layout.fragment_report) {
 
     lateinit var binding: FragmentReportBinding
     private val reportViewModel by viewModel<ReportViewModel>()

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg">
+
+        <ImageView
+            android:id="@+id/tvMedicalImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/welcome_stethescope"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.047"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="24dp"
+            app:cardCornerRadius="10dp"
+            android:background="@drawable/borders_new_design"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMedicalImage">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvGoodName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="39dp"
+                    android:layout_marginTop="69dp"
+                    android:layout_marginEnd="39dp"
+                    android:gravity="center"
+                    android:paddingHorizontal="39dp"
+                    android:text="When will you be available for Private Practice?"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tvMorningWorkingHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:text="Morning Working Hours"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvGoodName" />
+
+                <LinearLayout
+                    android:id="@+id/layoutTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvMorningWorkingHours">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" Start Time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" End time" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutTimeSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTime">
+
+
+                    <EditText
+                        android:id="@+id/etStartTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingVertical="14dp"
+                        android:background="@drawable/borders_new_design"
+                        android:drawableEnd="@drawable/arrow_down"
+                        android:hint="08:00"
+                        android:paddingLeft="9dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginStart="17dp"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/borders_new_design"
+                        android:drawableEnd="@drawable/arrow_down"
+                        android:hint="18:00"
+                        android:paddingLeft="9dp"
+                        android:paddingEnd="10dp"
+                        android:paddingVertical="14dp"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginEnd="30dp"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvWorkingEveningHours"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="39dp"
+                    android:text="Evening Working Hours"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutTimeSlot" />
+
+                <LinearLayout
+                    android:id="@+id/layoutEveningTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvWorkingEveningHours">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" Start Time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=" End time" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutEveningTimeSlot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutEveningTime">
+
+
+                    <EditText
+                        android:id="@+id/etStartEveningTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingVertical="14dp"
+                        android:background="@drawable/borders_new_design"
+                        android:drawableEnd="@drawable/arrow_down"
+                        android:hint="08:00"
+                        android:paddingLeft="9dp"
+                        android:paddingEnd="10dp"
+                        android:layout_marginStart="17dp"
+                        android:textSize="13sp" />
+
+                    <EditText
+                        android:id="@+id/etEveningEndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/borders_new_design"
+                        android:drawableEnd="@drawable/arrow_down"
+                        android:hint="18:00"
+                        android:paddingLeft="9dp"
+                        android:paddingEnd="10dp"
+                        android:paddingVertical="14dp"
+                        android:layout_marginStart="34dp"
+                        android:layout_marginEnd="30dp"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_marginBottom="40dp"
+                    android:gravity="center"
+                    android:text="CONTINUE"
+                    android:textColor="@color/white"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:background="@drawable/border_btn_design"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/layoutEveningTimeSlot"
+                    app:layout_constraintStart_toStartOf="@+id/layoutEveningTimeSlot"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutEveningTimeSlot" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
