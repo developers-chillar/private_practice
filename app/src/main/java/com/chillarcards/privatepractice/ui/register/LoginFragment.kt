@@ -29,28 +29,30 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val pInfo = activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
         val versionName = pInfo?.versionName //Version Name
-
+        binding.signinBtn.setBackgroundResource(R.drawable.continue_button)
+        binding.signinBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        binding.signupBtn.setBackgroundResource(R.drawable.border_orange)
+        binding.signupBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
-
-
         Const.enableButton(binding.signinBtn)
         Const.enableButton(binding.signupBtn)
         setUpObserver()
         binding.signinBtn.setOnClickListener {
-            findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToMobileFragment(
-                )
-            )
+            binding.signinBtn.setBackgroundResource(R.drawable.continue_button)
+            binding.signinBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.signupBtn.setBackgroundResource(R.drawable.border_orange)
+            binding.signupBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToMobileFragment())
         }
 
         binding.signupBtn.setOnClickListener {
-            findNavController().navigate(
-                LoginFragmentDirections.actionLoginFragmentToWelcomeOnBoardScreenFragment(
-                )
-            )
+            binding.signupBtn.setBackgroundResource(R.drawable.continue_button)
+            binding.signupBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.signinBtn.setBackgroundResource(R.drawable.border_orange)
+            binding.signinBtn.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToWelcomeOnBoardScreenFragment())
         }
 
 
