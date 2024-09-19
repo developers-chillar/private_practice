@@ -126,7 +126,7 @@
                             android:drawableTop="@drawable/ic_setting"
                             android:gravity="center"
                             android:orientation="vertical"
-                            android:text="Setting"
+                            android:text="Settings"
                             android:textSize="@dimen/_10ssp"
                             android:textAllCaps="false"
                             android:textColor="#000000">

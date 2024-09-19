@@ -50,7 +50,7 @@ class GeneralMenuFragment : Fragment(),IAdapterViewUtills {
             builder.setTitle(R.string.alert_heading)
             //set message for alert dialog
             builder.setMessage(R.string.pop_alert_message)
-            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setIcon(R.mipmap.ic_launcher_new_design)
             builder.setCancelable(false)
 
             //performing positive action

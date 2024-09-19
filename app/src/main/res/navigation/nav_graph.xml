@@ -49,6 +49,7 @@
             app:argType="string"
             app:nullable="true" />
 
+
     </fragment>
 
     <fragment
@@ -77,6 +78,13 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+<!--        <argument-->
+<!--            android:name="userType"-->
+<!--            app:argType="string" />-->
+        <action
+            android:id="@+id/action_OTPFragment_to_goodNameFragment"
+            app:destination="@id/goodNameFragment" />
+
     </fragment>
 
     <fragment
@@ -165,9 +173,6 @@
         android:name="com.chillarcards.privatepractice.ui.register.WorkHoursFragment"
         android:label="WorkHoursFragment"
         tools:layout="@layout/fragment_work_hours">
-        <action
-            android:id="@+id/action_TimeFragment_to_HomeFragment"
-            app:destination="@id/homeBaseFragment" />
         <argument
             android:name="mobile"
             android:defaultValue=""
@@ -206,6 +211,9 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_TimeFragment"
+            app:destination="@id/TimeFragment" />
     </fragment>
 
     <fragment
@@ -403,9 +411,68 @@
         android:id="@+id/welcomeOnBoardScreenFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.WelcomeOnBoardScreenFragment"
         android:label="WelcomeOnBoardScreenFragment" >
+<!--        <argument-->
+<!--            android:name="userType"-->
+<!--            app:argType="string" />-->
         <action
             android:id="@+id/action_welcomeOnBoardScreenFragment_to_mobileFragment"
             app:destination="@id/mobileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goodNameFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.GoodNameFragment"
+        android:label="GoodNameFragment" >
+        <action
+            android:id="@+id/action_goodNameFragment_to_drSpecialityFragment"
+            app:destination="@id/drSpecialityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drSpecialityFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.DrSpecialityFragment"
+        android:label="DrSpecialityFragment" >
+        <action
+            android:id="@+id/action_drSpecialityFragment_to_privateConsultationFragment"
+            app:destination="@id/privateConsultationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/privateConsultationFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivateConsultationFragment"
+        android:label="PrivateConsultationFragment" >
+        <action
+            android:id="@+id/action_privateConsultationFragment_to_privatePracticeAvailableFragment"
+            app:destination="@id/privatePracticeAvailableFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/privatePracticeAvailableFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivatePracticeAvailableFragment"
+        android:label="PrivatePracticeAvailableFragment" >
+        <action
+            android:id="@+id/action_privatePracticeAvailableFragment_to_privatePracticeWorkingHoursFragment"
+            app:destination="@id/privatePracticeWorkingHoursFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/privatePracticeWorkingHoursFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivatePracticeWorkingHoursFragment"
+        android:label="PrivatePracticeWorkingHoursFragment" >
+        <action
+            android:id="@+id/action_privatePracticeWorkingHoursFragment_to_consultationDurationFragment"
+            app:destination="@id/consultationDurationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/consultationDurationFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.ConsultationDurationFragment"
+        android:label="ConsultationDurationFragment" >
+        <action
+            android:id="@+id/action_consultationDurationFragment_to_registrationCompletedFragment"
+            app:destination="@id/registrationCompletedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationCompletedFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.RegistrationCompletedFragment"
+        android:label="RegistrationCompletedFragment" >
+        <action
+            android:id="@+id/action_registrationCompletedFragment_to_homeBaseFragment"
+            app:destination="@id/homeBaseFragment" />
     </fragment>
 
 </navigation>

@@ -26,8 +26,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_logo">
                 <ImageView
-                    android:layout_width="430dp"
-                    android:layout_height="472dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/medical_help"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -265,7 +265,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_12sdp"
-                            android:alpha="0.55"
                             android:layout_marginTop="17dp"
                             android:gravity="center"
                             android:text="Submit"

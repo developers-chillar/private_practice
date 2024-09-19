@@ -2,9 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:paddingBottom="32dp">
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/app_theme_color"
+        android:background="@drawable/borders_new_design">
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:src="@drawable/white_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/medical_help"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="version 1.0.0"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDrName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:hint="Dr. Zaheer Ali"
+            android:gravity="center"
+            android:textColorHint="@color/black"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvVersion"/>
+
+        <LinearLayout
+            android:id="@+id/okButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDrName">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/logout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="logout"
+                android:textAllCaps="true"
+                android:textColor="@color/app_theme_color"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <!-- Heading -->
     <TextView
@@ -17,6 +118,7 @@
         android:textColor="@android:color/black"
         android:gravity="center"
         android:padding="16dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
@@ -28,6 +130,7 @@
         android:layout_height="wrap_content"
         android:text="Are you sure you want to logout?"
         android:textColor="@color/text_black"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/headingTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,65 +138,7 @@
         android:padding="@dimen/_10sdp"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@android:dimen/app_icon_size"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:weightSum="1"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/customerNameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/_18sdp">
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:gravity="center">
 
-        <!-- Call Button -->
-        <TextView
-            android:id="@+id/okButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="logout"
-            android:background="@drawable/button_gradient"
-            android:paddingVertical="@dimen/_10sdp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:textColor="@color/primary_blue"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:layout_marginStart="@dimen/_14sdp"
-        android:orientation="vertical"
-        android:gravity="center|center_vertical"
-        android:layout_gravity="center">
-        <!-- Completed Button -->
-        <TextView
-            android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:background="@drawable/button_gradient"
-            android:paddingVertical="@dimen/_10sdp"
-            android:gravity="center"
-            android:textAllCaps="true"
-            android:textColor="@color/primary_blue"
-            android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
-            app:backgroundTint="@null"
-            />
-    </LinearLayout>
-
-    </LinearLayout>
 
 
 </LinearLayout>

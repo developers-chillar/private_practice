@@ -78,13 +78,16 @@
                     android:paddingBottom="14dp"
                     android:paddingStart="15dp"
                     android:layout_marginTop="7dp"
-                    app:prefixText="Dr."
+                    android:text="Dr."
+                    android:singleLine="true"
+                    android:maxLength="12"
                     android:background="@drawable/borders_new_design"
                     app:layout_constraintEnd_toEndOf="@+id/tvName"
                     app:layout_constraintStart_toStartOf="@+id/tvName"
                     app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
                 <TextView
+                    android:id="@+id/tvContinue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"

@@ -1,5 +1,6 @@
 package com.chillarcards.privatepractice.ui.register
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -61,6 +62,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     private val mobileViewModel by viewModel<RegisterViewModel>()
     private var mVerificationId = ""
     private var mResendToken: ForceResendingToken? = null
+    val userType = arguments?.getString("userType")
 
     private var aOk = false
     private var bOk = false
@@ -87,7 +89,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
 
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(R.string.pop_alert_message)
-            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setIcon(R.mipmap.ic_launcher_new_design)
             builder.setCancelable(false)
 
             //performing positive action
@@ -332,6 +334,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         startTimer()
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun startTimer() {
         if (this@OTPFragment::timer.isInitialized)
             timer.cancel()
@@ -448,11 +451,17 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                                         prefManager.setDoctorId(mobileData.data.doctor_id.toString())
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
-
-                                        findNavController().navigate(
-                                            OTPFragmentDirections.
-                                            actionOTPFragmentToHomeFragment()
-                                        )
+                                      //  findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
+                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
+//                                        if (userType=="signin") {
+//                                            prefManager.setIsLoggedIn(true)
+//                                            findNavController().navigate(
+//                                                OTPFragmentDirections.actionOTPFragmentToHomeFragment())
+//                                        }
+//                                        else if(userType=="registration"){
+//                                            prefManager.setIsLoggedIn(true)
+//                                            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
+//                                        }
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){

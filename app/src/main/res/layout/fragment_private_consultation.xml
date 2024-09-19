@@ -66,92 +66,114 @@
                     app:layout_constraintStart_toStartOf="@+id/tvGoodName"
                     app:layout_constraintTop_toBottomOf="@+id/tvGoodName" />
 
-                <LinearLayout
+                <HorizontalScrollView
                     android:id="@+id/layoutDatePicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="7"
-                    android:layout_marginTop="21dp"
+                    android:scrollbars="none"
                     app:layout_constraintEnd_toEndOf="@+id/tvName"
                     app:layout_constraintStart_toStartOf="@+id/tvName"
                     app:layout_constraintTop_toBottomOf="@+id/tvName">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Sun" />
+                        android:orientation="horizontal"
+                        android:weightSum="7"
+                        android:layout_marginTop="21dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Mon" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Sun"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Tue" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Mon"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Wed" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Tue"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Thu" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Wed"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="5dp"
-                        android:text="Fri" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Thu"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/background_grey"
-                        android:layout_weight="1"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="14dp"
-                        android:layout_marginEnd="16dp"
-                        android:text="Sat" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="5dp"
+                            android:text="Fri"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_grey"
+                            android:layout_weight="1"
+                            android:paddingHorizontal="15dp"
+                            android:paddingVertical="14dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="Sat"
+                            android:ellipsize="end"
+                            android:maxLines="1" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
 
 
                 <TextView
+                    android:id="@+id/tvContinue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"

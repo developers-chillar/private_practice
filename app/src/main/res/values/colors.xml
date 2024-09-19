@@ -44,5 +44,6 @@
     <color name="head">#C7CCD9</color>
     <color name="sub">#E5E5EA</color>
     <color name="white_x">#C3FFFFFF</color>
+    <color name="app_theme_color">#F76806</color>
 
 </resources>

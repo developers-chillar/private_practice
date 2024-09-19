@@ -52,8 +52,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Doctor Name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textFontWeight="600"
                 android:layout_marginStart="27dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvHello"
@@ -105,6 +107,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="600"
                                 android:textSize="13sp"
                                 android:layout_marginTop="36dp"
                                 android:textStyle="bold"/>
@@ -114,6 +118,8 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:textColor="#F76806"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="600"
                                 android:textSize="42sp"
                                 android:textStyle="bold" />
 
@@ -122,6 +128,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="600"
                                 android:textSize="13sp"
                                 android:layout_marginBottom="51dp"
                                 android:textStyle="bold"/>
@@ -141,8 +149,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Today  Bookings"
-                                android:textSize="@dimen/_13ssp"
-                                android:textStyle="bold"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="500"
+                                android:textSize="13sp"
                                 app:layout_constraintStart_toEndOf="@+id/no_img"
                                 app:layout_constraintTop_toTopOf="parent" />
                             <TextView
@@ -160,13 +169,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Completed  :  "
-                                android:textSize="@dimen/_12ssp" />
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="500"
+                                android:textSize="13sp" />
                             <TextView
                                 android:id="@+id/cancel_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Pending    : "
-                                android:textSize="@dimen/_12ssp" />
+                                android:fontFamily="@font/montserrat_bold"
+                                android:textFontWeight="500"
+                                android:textSize="13sp" />
                             <TextView
                                 android:visibility="gone"
                                 android:id="@+id/direct_tv"
@@ -196,7 +209,9 @@
                     android:layout_height="wrap_content"
                     android:text="Edit Date/Time"
                     android:gravity="center"
-                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="500"
+                    android:textSize="13sp"
                     android:layout_weight="1"
                     android:textColor="#F76806"
                     android:paddingVertical="13dp"
@@ -216,7 +231,9 @@
                     android:layout_height="wrap_content"
                     android:text="@string/add_leave"
                     android:gravity="center"
-                    android:textSize="@dimen/_13ssp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textFontWeight="500"
+                    android:textSize="13sp"
                     android:layout_weight="1"
                     android:textColor="#F76806"
                     android:paddingVertical="13dp"
@@ -253,7 +270,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/booking"
-                            android:textSize="@dimen/_13ssp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:textFontWeight="500"
+                            android:textSize="13sp"
                             android:paddingVertical="14dp"
                             android:textColor="@color/white"
                             android:gravity="end"/>
@@ -374,9 +393,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Today’s Bookings"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_11sdp"
-                        />
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textFontWeight="500"
+                        android:textSize="13sp" />
 
                 </LinearLayout>
                 <LinearLayout

@@ -93,6 +93,7 @@
                 <ImageView
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
+                    android:visibility="gone"
                     android:src="@drawable/ic_profile"
                     android:contentDescription="TODO" />
 
@@ -106,10 +107,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Profile Setting"
+                    android:text="Profile Settings"
                     android:textColor="@color/text_black"
+                    android:textStyle="bold"
+                    android:textFontWeight="600"
+                    android:fontFamily="@font/montserrat_bold"
                     android:gravity="center_vertical"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
             <LinearLayout
@@ -123,7 +127,7 @@
                 <ImageView
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"
-                    android:src="@drawable/ic_next"
+                    android:src="@drawable/arrow_right"
                     android:contentDescription="TODO" />
 
             </LinearLayout>
@@ -431,6 +435,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:src="@drawable/ic_time"
+                    android:visibility="gone"
                     android:contentDescription="TODO" />
 
             </LinearLayout>
@@ -445,9 +450,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Working Hours"
+                    android:textStyle="bold"
+                    android:textFontWeight="600"
+                    android:fontFamily="@font/montserrat_bold"
                     android:textColor="@color/text_black"
                     android:gravity="center_vertical"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -462,7 +470,7 @@
                 <ImageView
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"
-                    android:src="@drawable/ic_next"
+                    android:src="@drawable/arrow_right"
                     android:contentDescription="TODO" />
             </LinearLayout>
 
@@ -487,6 +495,7 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:src="@drawable/ic_bank"
+                    android:visibility="gone"
                     android:contentDescription="TODO" />
 
             </LinearLayout>
@@ -501,9 +510,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="Bank Account Setting"
+                    android:text="Bank Account Settings"
+                    android:textStyle="bold"
+                    android:textFontWeight="600"
+                    android:fontFamily="@font/montserrat_bold"
                     android:textColor="@color/text_black"
-                    android:textSize="@dimen/_13ssp" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
@@ -518,7 +530,7 @@
                 <ImageView
                     android:layout_width="@dimen/_18sdp"
                     android:layout_height="@dimen/_18sdp"
-                    android:src="@drawable/ic_next"
+                    android:src="@drawable/arrow_right"
                     android:contentDescription="TODO" />
 
             </LinearLayout>

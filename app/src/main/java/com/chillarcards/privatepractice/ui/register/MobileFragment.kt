@@ -203,8 +203,7 @@ class MobileFragment : Fragment() {
                 mVerificationId = verificationId
                 mResendToken = token
                 Log.d(TAG, "onCodeSent:$verificationId")
-                findNavController().navigate(
-                    MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo, mVerificationId))
+                findNavController().navigate(MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo, mVerificationId))
                 hideProgress()
                 Const.shortToast(requireContext(), "OTP sent successfully")
             }

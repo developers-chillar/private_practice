@@ -109,11 +109,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                 currentMonth,
                 currentDay
             )
-
-//            // Set the minimum date to today
            datePickerDialog.datePicker.minDate = calendar.timeInMillis
-//
-//            // Set the maximum date to one week from today
             calendar.add(Calendar.MONTH, 1)
             datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
@@ -150,13 +146,17 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                         calendar.time = date
                                         val dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())
                                         val dateOfMonth = calendar.get(Calendar.DAY_OF_MONTH).toString().padStart(2, '0')
-                                        val month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+                                        val month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault())
                                         val year = calendar.get(Calendar.YEAR)
 
-                                        binding.currentDate.text = "$dayOfWeek"
-                                        binding.currentDay.text = dateOfMonth
-                                        binding.currentMonth.text=month
-                                        binding.currentYear.text = year.toString()
+//                                        binding.currentDate.text = "$dayOfWeek"
+//                                        binding.currentDay.text = dateOfMonth
+//                                        binding.currentMonth.text=month
+//                                        binding.currentYear.text = year.toString()
+
+                                        binding.daydate.text = dayOfWeek // Show day of the week (e.g., "Friday")
+                                        binding.date.text = dateOfMonth.toString() // Show the day (e.g., "06")
+                                        binding.year.text = "$month $year" // Show month and year (e.g., "September 2024")
 
                                         binding.ttlApointTv.text = "Appointments : "+bookingData.data.totalBooking.toString()
                                         binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()

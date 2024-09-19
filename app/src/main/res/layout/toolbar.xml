@@ -12,18 +12,17 @@
         android:layout_margin="@dimen/_5sdp"
         android:contentDescription="@string/app_name"
         android:padding="@dimen/_10sdp"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/arrow_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/text_black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
-        android:textColor="@color/text_black"
+        android:textColor="@color/app_theme_color"
         android:textStyle="bold"
         android:textSize="@dimen/_13ssp"
         app:layout_constraintBottom_toBottomOf="@id/toolbar_back"

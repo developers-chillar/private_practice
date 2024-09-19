@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.profile.AddnewProfileFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+        <EditText
+            android:id="@+id/etGdName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/borders_new_design"
+            android:hint="Full name"
+            android:paddingStart="15dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="14dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+        <EditText
+            android:id="@+id/etMobileNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="33dp"
+            android:background="@drawable/borders_new_design"
+            android:hint="Mobile number"
+            android:paddingStart="15dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="14dp"
+            android:textSize="13sp"
+            android:layout_marginTop="27dp"
+            app:layout_constraintEnd_toEndOf="@+id/etGdName"
+            app:layout_constraintStart_toStartOf="@+id/etGdName"
+            app:layout_constraintTop_toBottomOf="@+id/etGdName" />
+
+            <EditText
+                android:id="@+id/etQualification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/borders_new_design"
+                android:hint="Qualification"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="@+id/etMobileNumber"
+                app:layout_constraintStart_toStartOf="@+id/etMobileNumber"
+                app:layout_constraintTop_toBottomOf="@+id/etMobileNumber" />
+
+            <EditText
+                android:id="@+id/etDesignation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/borders_new_design"
+                android:hint="Designation"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="@+id/etQualification"
+                app:layout_constraintStart_toStartOf="@+id/etQualification"
+                app:layout_constraintTop_toBottomOf="@+id/etQualification" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/borders_new_design"
+                android:hint="Description"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:minLines="8"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="@+id/etDesignation"
+                app:layout_constraintStart_toStartOf="@+id/etDesignation"
+                app:layout_constraintTop_toBottomOf="@+id/etDesignation" />
+
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/borders_new_design"
+                android:hint="Address"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:minLines="8"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="@+id/etDescription"
+                app:layout_constraintStart_toStartOf="@+id/etDescription"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+            <TextView
+                android:id="@+id/tvUploadImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/upload_image_border"
+                android:hint="Upload image"
+                android:textColorHint="@color/app_theme_color"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:minLines="8"
+                android:layout_marginTop="27dp"
+                app:layout_constraintEnd_toEndOf="@+id/etDescription"
+                app:layout_constraintStart_toStartOf="@+id/etDescription"
+                app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Continue"
+                android:layout_marginStart="33dp"
+                android:layout_marginEnd="33dp"
+                android:textColor="@color/app_theme_color"
+                android:paddingStart="15dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="14dp"
+                android:textSize="13sp"
+                android:minLines="8"
+                android:layout_marginTop="27dp"
+                android:background="@drawable/continue_button"
+                app:layout_constraintTop_toBottomOf="@+id/tvUploadImage">
+
+            </TextView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</layout>

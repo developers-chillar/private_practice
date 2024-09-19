@@ -1,6 +1,7 @@
 package com.chillarcards.privatepractice.ui.home
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -80,7 +82,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(R.string.pop_back_message)
-            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setIcon(R.mipmap.ic_launcher_new_design)
             builder.setCancelable(false)
 
             //performing positive action
@@ -134,6 +136,9 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
         binding.menuIcon.setOnClickListener {
             openOptionsMenu(it)
+        }
+        binding.tvEditDate.setOnClickListener {
+            findNavController().navigate(R.id.TimeFragment)
         }
         binding.addLeave.setOnClickListener {
                 val calendar = Calendar.getInstance()
@@ -192,7 +197,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         // Extract the day of the week, day of the month, month, and year
         val dayOfWeek = currentDate.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.ENGLISH) // e.g., Friday
         val dayOfMonth = currentDate.get(Calendar.DAY_OF_MONTH) // e.g., 06
-        val month = currentDate.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH) // e.g., September
+        val month = currentDate.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.ENGLISH) // e.g., September
         val year = currentDate.get(Calendar.YEAR) // e.g., 2024
 
         // Set values to corresponding TextViews
@@ -283,9 +288,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         binding.ttlApointTv.text = "Total Bookings : "+bookingData.data.totalBooking.toString()
                                         binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()
                                         binding.cancelTv.text = "Pending  : "+bookingData.data.pendingAppointments.toString()
-
                                         doctorName = bookingData.data.doctorName
-
                                         val bookingAdapter = BookingAdapter(
                                             bookingData.data.appointmentList, context,this@HomeFragment)
                                         binding.tranRv.adapter = bookingAdapter
@@ -554,8 +557,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         inflater.inflate(R.menu.menu_top, popup.menu)
 
         val version = popup.menu.findItem(R.id.version)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val pInfo = activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
         val versionName = pInfo?.versionName //Version Name
         version.title = "Version $versionName"
 
@@ -623,18 +625,25 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
         popup.show()
     }
+    @SuppressLint("MissingInflatedId")
     private fun setBottomSheet() {
 
         val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.logout, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(bottomSheetView)
-
-        val completeButton: TextView = bottomSheetView.findViewById(R.id.cancelButton)
+        val doctorName:TextView=bottomSheetView.findViewById(R.id.tvDrName)
+        val bookingData = bookingViewModel.bookingData.value?.data
+        doctorName.text = bookingData?.data?.doctorName
+        val pInfo = activity?.let { it.packageManager.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val versionName = pInfo?.versionName
+        val tvVersion: TextView = bottomSheetView.findViewById(R.id.tvVersion)
+        tvVersion.text = "Version $versionName"
+        val completeButton: ImageView = bottomSheetView.findViewById(R.id.ivClose)
         completeButton.setOnClickListener {
             bottomSheetDialog.dismiss()
         }
 
-        val callButton: TextView = bottomSheetView.findViewById(R.id.okButton)
+        val callButton: LinearLayout = bottomSheetView.findViewById(R.id.okButton)
         callButton.setOnClickListener {
             performLogout()
             bottomSheetDialog.dismiss()

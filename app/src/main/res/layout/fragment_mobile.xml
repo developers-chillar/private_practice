@@ -48,8 +48,8 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
-                            android:layout_width="430dp"
-                            android:layout_height="472dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="400dp"
                             android:src="@drawable/dr_image_female"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"

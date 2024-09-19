@@ -7,10 +7,16 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg">
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/tvMedicalImage"
@@ -28,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="25dp"
             android:layout_marginEnd="24dp"
             app:cardCornerRadius="10dp"
             android:background="@drawable/borders_new_design"
@@ -38,7 +44,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
 
                 <TextView
                     android:id="@+id/tvGoodName"
@@ -47,7 +54,6 @@
                     android:layout_marginStart="39dp"
                     android:layout_marginTop="69dp"
                     android:layout_marginEnd="39dp"
-                    android:gravity="center"
                     android:paddingHorizontal="39dp"
                     android:text="When will you be available for Private Practice?"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -60,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
+                    android:layout_marginTop="10dp"
                     android:text="Morning Working Hours"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +122,8 @@
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
                         android:layout_marginStart="17dp"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColorHint="@color/black"/>
 
                     <EditText
                         android:id="@+id/etEndTime"
@@ -130,7 +138,8 @@
                         android:paddingVertical="14dp"
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColorHint="@color/black"/>
 
                 </LinearLayout>
 
@@ -195,7 +204,8 @@
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
                         android:layout_marginStart="17dp"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColorHint="@color/black"/>
 
                     <EditText
                         android:id="@+id/etEveningEndTime"
@@ -210,13 +220,15 @@
                         android:paddingVertical="14dp"
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textColorHint="@color/black"/>
 
                 </LinearLayout>
 
 
 
                 <TextView
+                    android:id="@+id/tvContinue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
@@ -241,6 +253,8 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 
 </layout>

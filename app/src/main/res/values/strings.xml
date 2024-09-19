@@ -29,8 +29,9 @@
     <string name="book_info">Booking Information</string>
     <string name="book_appointment">Book Appointment</string>
     <string name="sales_report">Report</string>
-    <string name="general">General Settings</string>
+    <string name="general">Settings</string>
     <string name="profile">Profile Settings</string>
+    <string name="add_profile">Profile</string>
     <string name="estimate">Estimate Bill</string>
     <string name="serv_req">Required Service</string>
     <string name="notify">Notification</string>
