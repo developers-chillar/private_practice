@@ -23,7 +23,7 @@ class WelcomeOnBoardScreenFragment : Fragment(R.layout.fragment_welcome_on_board
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.layoutRegistration.setOnClickListener {
-            findNavController().navigate(WelcomeOnBoardScreenFragmentDirections.actionWelcomeOnBoardScreenFragmentToMobileFragment())
+            findNavController().navigate(WelcomeOnBoardScreenFragmentDirections.actionWelcomeOnBoardScreenFragmentToSelfRegistrationFragment())
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentPrivatePracticeAvailableBinding
@@ -23,7 +24,13 @@ lateinit var binding: FragmentPrivatePracticeAvailableBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvContinue.setOnClickListener {
-            findNavController().navigate(PrivatePracticeAvailableFragmentDirections.actionPrivatePracticeAvailableFragmentToPrivatePracticeWorkingHoursFragment())
+            if (binding.rgDays.checkedRadioButtonId == -1){
+                Toast.makeText(requireContext(), "Please select one option", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                findNavController().navigate(PrivatePracticeAvailableFragmentDirections.actionPrivatePracticeAvailableFragmentToPrivatePracticeWorkingHoursFragment())
+
+            }
         }
     }
 

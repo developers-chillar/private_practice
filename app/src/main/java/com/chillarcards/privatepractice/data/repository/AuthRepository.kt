@@ -32,4 +32,7 @@ class AuthRepository(private val apiHelper: ApiHelper) {
     suspend fun getUpdate(bookingId: String) =
         apiHelper.getUpdate(bookingId)
     suspend fun getDoctorAvailability(doctorId: String,date: String) =apiHelper.getDoctorAvailability(doctorId, date)
+
+    suspend fun getRegistrationAuthorization(phone: String) =apiHelper.registrationAuthorization(phone)
+    suspend fun getDrSpecialities()=apiHelper.getDrSpecialities()
 }

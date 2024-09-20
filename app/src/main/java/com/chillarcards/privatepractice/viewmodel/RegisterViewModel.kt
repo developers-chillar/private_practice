@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chillarcards.privatepractice.data.model.RegisterModel
+import com.chillarcards.privatepractice.data.model.SelfOnBoardingAuthRegisterResClass
 import com.chillarcards.privatepractice.data.repository.AuthRepository
 import com.chillarcards.privatepractice.utills.NetworkHelper
 import com.chillarcards.privatepractice.utills.Resource
@@ -25,8 +26,8 @@ class RegisterViewModel(
     val regData: LiveData<Resource<RegisterModel>?> get() = _regData
     private val _tokenData = MutableLiveData<Resource<RegisterModel>?>()
     val tokenData: LiveData<Resource<RegisterModel>?> get() = _tokenData
-
     var mob = MutableLiveData<String>()
+
 
     fun verifyMobile() {
         viewModelScope.launch(NonCancellable) {
@@ -60,11 +61,11 @@ class RegisterViewModel(
                         mob.value.toString()
                     ).let {
                         if (it.isSuccessful) {
-                            Log.e("apiresponse", "Response Body: ${it.body()}")
+
                             _tokenData.postValue(Resource.success(it.body()))
 
                         } else {
-                            Log.e("apiresponse", "Error Body: ${it.errorBody()?.string()}")
+
                             _tokenData.postValue(Resource.error(it.errorBody().toString(), null))
                         }
                     }
@@ -76,6 +77,8 @@ class RegisterViewModel(
             }
         }
     }
+
+
 
     fun clear() {
         _regData.value = null

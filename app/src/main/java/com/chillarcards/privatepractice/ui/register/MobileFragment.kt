@@ -196,8 +196,7 @@ class MobileFragment : Fragment() {
 
             override fun onCodeSent(
                 verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
+                token: PhoneAuthProvider.ForceResendingToken) {
                 hideProgress()
                 binding.progressBar.visibility=View.GONE
                 mVerificationId = verificationId

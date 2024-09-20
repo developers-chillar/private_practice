@@ -25,7 +25,14 @@ lateinit var binding:FragmentConsultationDurationBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvContinue.setOnClickListener {
-            findNavController().navigate(ConsultationDurationFragmentDirections.actionConsultationDurationFragmentToRegistrationCompletedFragment())
+            if (binding.etGdName.text.isNullOrEmpty()){
+                binding.etGdName.error="Enter Duration"
+                return@setOnClickListener
+            }
+            else{
+                findNavController().navigate(ConsultationDurationFragmentDirections.actionConsultationDurationFragmentToRegistrationCompletedFragment())
+
+            }
         }
     }
 }

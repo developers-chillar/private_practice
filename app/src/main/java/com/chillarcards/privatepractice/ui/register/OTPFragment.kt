@@ -62,7 +62,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     private val mobileViewModel by viewModel<RegisterViewModel>()
     private var mVerificationId = ""
     private var mResendToken: ForceResendingToken? = null
-    val userType = arguments?.getString("userType")
+    private var userAction: String? = null
 
     private var aOk = false
     private var bOk = false
@@ -80,6 +80,10 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                 alertMsg(requireContext())
             }
         })
+        arguments?.let {
+            val args = OTPFragmentArgs.fromBundle(it)
+            userAction = args.userAction
+        }
     }
 
     fun alertMsg(context: Context) {
@@ -140,6 +144,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         binding.resendText.visibility = View.GONE
 
         binding.confirmBtn.setOnClickListener {
+            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
             binding.textinputError.visibility=View.GONE
 
             if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
@@ -149,7 +154,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                     "${binding.otpA.text.toString()}${binding.otpB.text.toString()}${binding.otpC.text.toString()}${binding.otpD.text.toString()}${binding.otpE.text.toString()}${binding.otpF.text.toString()}"
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
-                    verifyPhoneNumberWithCode(otp)
+                 //   verifyPhoneNumberWithCode(otp)
                 }
                 else
                     Const.shortToast(requireContext(), getString(R.string.enter_otp))
@@ -431,6 +436,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         }
         otpObserver()
 
+
     }
 
     private fun otpObserver() {
@@ -452,15 +458,12 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
                                       //  findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
-                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
-//                                        if (userType=="signin") {
-//                                            prefManager.setIsLoggedIn(true)
-//                                            findNavController().navigate(
-//                                                OTPFragmentDirections.actionOTPFragmentToHomeFragment())
-//                                        }
-//                                        else if(userType=="registration"){
-//                                            prefManager.setIsLoggedIn(true)
+                                       // findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
+//                                        if (userAction=="signup"){
 //                                            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
+//                                        }
+//                                        else if(userAction=="signin"){
+//                                            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
 //                                        }
                                     }
                                     "400" -> {
@@ -502,6 +505,8 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
     }
+
+
 
     private fun gotoGeneralHome() {
         try {

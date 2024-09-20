@@ -63,5 +63,10 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getDoctorAvailability(doctorId: String, date: String):Response<AddLeaveResClass> =
         apiService.getDoctorAvailability(AddLeaveReqClass(doctorId,date))
 
+    override suspend fun registrationAuthorization(phone: String): Response<SelfOnBoardingAuthRegisterResClass> =
+        apiService.registrationAuthorization(SelfOnBoardingAuthRegisterReqClass(phone))
+
+    override suspend fun getDrSpecialities(): Response<DrSpecilaityResClass> =apiService.getDrSpecialities()
+
 
 }

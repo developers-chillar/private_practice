@@ -76,6 +76,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tvName">
 
                     <LinearLayout
+                        android:id="@+id/layoutWeek"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -83,6 +84,7 @@
                         android:layout_marginTop="21dp">
 
                         <TextView
+                            android:id="@+id/tvSun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -92,10 +94,13 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginEnd="5dp"
                             android:text="Sun"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvMon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -104,10 +109,13 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="5dp"
                             android:text="Mon"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvTue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -116,10 +124,13 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="5dp"
                             android:text="Tue"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvWed"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -128,10 +139,13 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="5dp"
                             android:text="Wed"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvThu"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -140,10 +154,13 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="5dp"
                             android:text="Thu"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvFri"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -152,10 +169,13 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="5dp"
                             android:text="Fri"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 
                         <TextView
+                            android:id="@+id/tvSat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/background_grey"
@@ -164,6 +184,8 @@
                             android:paddingVertical="14dp"
                             android:layout_marginEnd="16dp"
                             android:text="Sat"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:ellipsize="end"
                             android:maxLines="1" />
 

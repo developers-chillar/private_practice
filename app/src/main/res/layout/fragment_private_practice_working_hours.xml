@@ -110,7 +110,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/layoutTime">
 
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/etStartTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -121,11 +121,13 @@
                         android:hint="08:00"
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:maxLength="9"
                         android:layout_marginStart="17dp"
                         android:textSize="13sp"
                         android:textColorHint="@color/black"/>
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/etEndTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -135,6 +137,8 @@
                         android:hint="18:00"
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:maxLength="9"
                         android:paddingVertical="14dp"
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"
@@ -192,7 +196,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/layoutEveningTime">
 
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/etStartEveningTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -203,11 +207,13 @@
                         android:hint="08:00"
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:maxLength="9"
                         android:layout_marginStart="17dp"
                         android:textSize="13sp"
                         android:textColorHint="@color/black"/>
 
-                    <EditText
+                    <AutoCompleteTextView
                         android:id="@+id/etEveningEndTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -217,6 +223,8 @@
                         android:hint="18:00"
                         android:paddingLeft="9dp"
                         android:paddingEnd="10dp"
+                        android:singleLine="true"
+                        android:maxLength="9"
                         android:paddingVertical="14dp"
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"

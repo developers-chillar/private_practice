@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentRegistrationCompletedBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_completed) {
 
@@ -22,10 +25,10 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.layoutRegistartionDone.setOnClickListener {
+        lifecycleScope.launch {
+            delay(3000)
+
             findNavController().navigate(RegistrationCompletedFragmentDirections.actionRegistrationCompletedFragmentToHomeBaseFragment())
         }
-
     }
-
 }

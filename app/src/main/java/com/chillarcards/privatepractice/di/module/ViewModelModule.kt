@@ -40,4 +40,9 @@ val viewModelModule = module {
         StatusViewModel(get(), get())
     }
     single { MobileScreenViewModel(get(),get()) }
+
+    single {
+        DrSpecialityViewModel(get(),get())
+
+    }
 }

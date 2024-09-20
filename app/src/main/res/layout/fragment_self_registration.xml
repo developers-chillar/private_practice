@@ -49,7 +49,7 @@
                     android:layout_marginEnd="39dp"
                     android:gravity="center"
                     android:paddingHorizontal="39dp"
-                    android:text="Your Speciality?"
+                    android:text="Enter your phone number to get started?"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -61,34 +61,48 @@
                     android:layout_marginStart="17dp"
                     android:layout_marginEnd="17dp"
                     android:layout_marginTop="50dp"
-                    android:text="Specialities"
+                    android:text="Mobile"
                     app:layout_constraintEnd_toEndOf="@+id/tvGoodName"
                     app:layout_constraintStart_toStartOf="@+id/tvGoodName"
                     app:layout_constraintTop_toBottomOf="@+id/tvGoodName" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/etGdName"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/mobile"
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.FilledBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Select specialisation"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginEnd="17dp"
-                    android:textSize="13sp"
-                    android:paddingTop="14dp"
-                    android:paddingBottom="14dp"
-                    android:paddingStart="15dp"
-                    android:layout_marginTop="7dp"
-                    app:prefixText="Dr."
-                    android:focusable="true"
-                    android:drawableEnd="@drawable/arrow_down"
-                    android:paddingEnd="10dp"
+                    android:layout_marginHorizontal="@dimen/_18sdp"
+                    android:layout_marginBottom="@dimen/_7sdp"
+                    android:elevation="@dimen/_5sdp"
+                    app:boxBackgroundColor="@color/white"
+                    app:endIconDrawable="@drawable/ic_close"
+                    app:endIconMode="clear_text"
+                    app:errorTextColor="@color/black"
+                    app:hintEnabled="false"
+                    app:prefixText="+91"
                     android:background="@drawable/borders_new_design"
                     app:layout_constraintEnd_toEndOf="@+id/tvName"
                     app:layout_constraintStart_toStartOf="@+id/tvName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etGdName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789"
+                        android:hint="@string/enter_mobile_number"
+                        android:imeOptions="actionDone"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:singleLine="true"
+                        android:paddingVertical="@dimen/_11sdp"
+                        android:textSize="@dimen/_12ssp"
+                        tools:ignore="RtlSymmetry" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tvContinue"
+                    android:id="@+id/login_btn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
@@ -102,9 +116,9 @@
                     android:paddingBottom="14dp"
                     android:background="@drawable/border_btn_design"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/etGdName"
-                    app:layout_constraintStart_toStartOf="@+id/etGdName"
-                    app:layout_constraintTop_toBottomOf="@+id/etGdName" />
+                    app:layout_constraintEnd_toEndOf="@+id/mobile"
+                    app:layout_constraintStart_toStartOf="@+id/mobile"
+                    app:layout_constraintTop_toBottomOf="@+id/mobile" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -63,6 +63,10 @@
         <action
             android:id="@+id/action_OTPFragment_to_RegFragment"
             app:destination="@id/GeneralHomeFragment" />
+
+        <action
+            android:id="@+id/action_OTPFragment_to_goodNameFragment"
+            app:destination="@id/goodNameFragment" />
         <argument
             android:name="mobile"
             android:defaultValue=""
@@ -78,12 +82,11 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
-<!--        <argument-->
-<!--            android:name="userType"-->
-<!--            app:argType="string" />-->
-        <action
-            android:id="@+id/action_OTPFragment_to_goodNameFragment"
-            app:destination="@id/goodNameFragment" />
+        <argument
+            android:name="userAction"
+            app:argType="string"
+            app:nullable="true"/>
+
 
     </fragment>
 
@@ -415,8 +418,8 @@
 <!--            android:name="userType"-->
 <!--            app:argType="string" />-->
         <action
-            android:id="@+id/action_welcomeOnBoardScreenFragment_to_mobileFragment"
-            app:destination="@id/mobileFragment" />
+            android:id="@+id/action_welcomeOnBoardScreenFragment_to_selfRegistrationFragment"
+            app:destination="@id/selfRegistrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/goodNameFragment"
@@ -473,6 +476,14 @@
         <action
             android:id="@+id/action_registrationCompletedFragment_to_homeBaseFragment"
             app:destination="@id/homeBaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selfRegistrationFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.SelfRegistrationFragment"
+        android:label="SelfRegistrationFragment" >
+        <action
+            android:id="@+id/action_selfRegistrationFragment_to_OTPFragment"
+            app:destination="@id/OTPFragment" />
     </fragment>
 
 </navigation>
