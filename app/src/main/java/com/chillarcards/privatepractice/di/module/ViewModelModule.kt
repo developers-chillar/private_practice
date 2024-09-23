@@ -45,4 +45,8 @@ val viewModelModule = module {
         DrSpecialityViewModel(get(),get())
 
     }
+
+    single {
+        RegistrationCompletedViewModel(get(),get())
+    }
 }

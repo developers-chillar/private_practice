@@ -59,9 +59,8 @@ lateinit var prefManager: PrefManager
                                                 Toast.makeText(requireContext(),"Choose At least one option",Toast.LENGTH_SHORT).show()
 
                                             } else {
-                                                findNavController().navigate(
-                                                    DrSpecialityFragmentDirections.actionDrSpecialityFragmentToPrivateConsultationFragment()
-                                                )
+                                                val action=DrSpecialityFragmentDirections.actionDrSpecialityFragmentToPrivateConsultationFragment()
+                                               findNavController().navigate(action)
                                             }
                                         }
                                     }

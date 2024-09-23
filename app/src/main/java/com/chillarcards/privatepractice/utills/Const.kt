@@ -80,8 +80,16 @@ class Const {
                                 "200" -> {
                                     prefManager.setRefresh("0")
                                     Log.d("abc_const", "getNewTokenAPI: ${authData.data.access_token}")
-                                    prefManager.setToken(authData.data.access_token)
+                                 //   prefManager.setToken(authData.data.access_token)
+                                    val accessToken = authData.data.access_token
+                                    if (!accessToken.isNullOrEmpty()) {
+                                        prefManager.setToken(accessToken)
+                                    } else {
+                                        Log.e("TokenError", "Access token is null or empty.")
+                                        // Handle the case where the token is null or empty, if needed
+                                    }
                                 }
+
                                 else -> {
                                     shortToast(context, authData.message)
                                 }

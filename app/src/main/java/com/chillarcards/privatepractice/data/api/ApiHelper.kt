@@ -27,11 +27,7 @@ interface ApiHelper {
     suspend fun getBankDetails():  Response<BankResponseModel>
     suspend fun getShopClose():  Response<StatusResponseModel>
     suspend fun getCategory():  Response<CategoryResponseModel>
-    suspend fun getBookigDetails(
-        doctorId: String,
-        date: String,
-        entityId: String
-    ): Response<BookingResponseModel>
+    suspend fun getBookigDetails(doctorId: String, date: String, entityId: String): Response<BookingResponseModel>
     suspend fun getReport(
         doctorId: String,
         date: String,
@@ -41,5 +37,7 @@ interface ApiHelper {
     suspend fun getDoctorAvailability(doctorId: String,date:String): Response<AddLeaveResClass>
     suspend fun registrationAuthorization(phone:String):Response<SelfOnBoardingAuthRegisterResClass>
     suspend fun getDrSpecialities():Response<DrSpecilaityResClass>
+    suspend fun getDoctorOnboard(doctor_phone:String, doctor_name:String, department_id:Int, consultation_time:Int, entity_id:Int, doctor_id:Int, workingHours:List<WorkingHours>):
+            Response<DoctorOnboardingResponseClass>
 
 }

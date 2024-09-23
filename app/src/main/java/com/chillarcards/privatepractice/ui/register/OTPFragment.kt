@@ -136,6 +136,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         otpViewActions()
 
         val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
+        Log.d("masskedphonenumber","masked phone numebr is :${maskedPhoneNumber.toString()}")
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
         if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
             binding.textinputError.visibility=View.GONE
@@ -144,7 +145,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         binding.resendText.visibility = View.GONE
 
         binding.confirmBtn.setOnClickListener {
-            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
             binding.textinputError.visibility=View.GONE
 
             if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
@@ -154,7 +154,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                     "${binding.otpA.text.toString()}${binding.otpB.text.toString()}${binding.otpC.text.toString()}${binding.otpD.text.toString()}${binding.otpE.text.toString()}${binding.otpF.text.toString()}"
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
-                 //   verifyPhoneNumberWithCode(otp)
+                    verifyPhoneNumberWithCode(otp)
                 }
                 else
                     Const.shortToast(requireContext(), getString(R.string.enter_otp))
@@ -242,7 +242,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                 if (binding.timer.text == "00:60")
                     startTimer()
 
-             //   startSMSListener()
+                startSMSListener()
 
                 Const.shortToast(requireContext(),"OTP sent successfully")
             }
@@ -259,14 +259,18 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     }
 
     private fun clearOTP() {
-        binding.textinputError.visibility=View.GONE
-        binding.otpA.setText("")
-        binding.otpB.setText("")
-        binding.otpC.setText("")
-        binding.otpD.setText("")
-        binding.otpE.setText("")
-        binding.otpF.setText("")
-        binding.otpA.requestFocus()
+//        binding.textinputError.visibility=View.GONE
+//        binding.otpA.setText("")
+//        binding.otpB.setText("")
+//        binding.otpC.setText("")
+//        binding.otpD.setText("")
+//        binding.otpE.setText("")
+//        binding.otpF.setText("")
+//        binding.otpA.requestFocus()
+        binding.textinputError.visibility = View.GONE
+        val otpFields = listOf(binding.otpA, binding.otpB, binding.otpC, binding.otpD, binding.otpE, binding.otpF)
+        otpFields.forEach { it.setText("") }
+        otpFields.first().requestFocus()
     }
 
     private fun EditText.isEmpty(): Boolean {
@@ -383,8 +387,15 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     }
 
     private fun verifyPhoneNumberWithCode(code: String) {
-        val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
-        signInWithPhoneAuthCredential(credential)
+//        val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
+//        signInWithPhoneAuthCredential(credential)
+        if (args.verificationID != null) {
+            val credential = PhoneAuthProvider.getCredential(args.verificationID!!, code)
+            signInWithPhoneAuthCredential(credential)
+        } else {
+            // Handle the case where verificationID is null
+            Log.e("VerifyPhone", "Verification ID is null")
+        }
     }
 
     private fun resendVerificationCode(phoneNumber: String) {
@@ -420,13 +431,14 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                     binding.otpE.setText("")
                     binding.otpF.setText("")
                     binding.otpA.requestFocus()
+                    Log.e("SignInError", task.exception?.message ?: "Unknown error")
                 }
             }
         }
     }
 
     companion object {
-        private const val TAG = "OTPFragment"
+        const val TAG = "OTPFragment"
     }
 
     private fun mobileVerify() {
@@ -457,14 +469,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                                         prefManager.setDoctorId(mobileData.data.doctor_id.toString())
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
-                                      //  findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
-                                       // findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
-//                                        if (userAction=="signup"){
-//                                            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToGoodNameFragment())
-//                                        }
-//                                        else if(userAction=="signin"){
-//                                            findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
-//                                        }
+                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){

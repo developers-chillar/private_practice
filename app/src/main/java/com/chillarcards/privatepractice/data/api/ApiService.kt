@@ -77,4 +77,8 @@ suspend fun registrationAuthorization(@Body reqModel:SelfOnBoardingAuthRegisterR
 
 @POST("auth/list-specialities")
 suspend fun getDrSpecialities():Response<DrSpecilaityResClass>
+
+@POST("auth/onboard-doctor")
+
+suspend fun getDoctorOnboard(@Body reqModel:DoctorWorkingHoursRequestClass):Response<DoctorOnboardingResponseClass>
 }

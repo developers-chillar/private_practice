@@ -425,6 +425,7 @@
         android:id="@+id/goodNameFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.GoodNameFragment"
         android:label="GoodNameFragment" >
+
         <action
             android:id="@+id/action_goodNameFragment_to_drSpecialityFragment"
             app:destination="@id/drSpecialityFragment" />
@@ -433,6 +434,7 @@
         android:id="@+id/drSpecialityFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.DrSpecialityFragment"
         android:label="DrSpecialityFragment" >
+
         <action
             android:id="@+id/action_drSpecialityFragment_to_privateConsultationFragment"
             app:destination="@id/privateConsultationFragment" />
@@ -441,6 +443,7 @@
         android:id="@+id/privateConsultationFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivateConsultationFragment"
         android:label="PrivateConsultationFragment" >
+
         <action
             android:id="@+id/action_privateConsultationFragment_to_privatePracticeAvailableFragment"
             app:destination="@id/privatePracticeAvailableFragment" />
@@ -481,9 +484,36 @@
         android:id="@+id/selfRegistrationFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.SelfRegistrationFragment"
         android:label="SelfRegistrationFragment" >
+
+
         <action
-            android:id="@+id/action_selfRegistrationFragment_to_OTPFragment"
-            app:destination="@id/OTPFragment" />
+            android:id="@+id/action_selfRegistrationFragment_to_regstrationOTPFragment"
+            app:destination="@id/regstrationOTPFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/regstrationOTPFragment"
+        android:name="com.chillarcards.privatepractice.ui.selfonboard.RegstrationOTPFragment"
+        android:label="RegstrationOTPFragment" >
+
+        <argument
+            android:name="mobile"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="verificationID"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+
+        <argument
+            android:name="userAction"
+            app:argType="string"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_regstrationOTPFragment_to_goodNameFragment"
+            app:destination="@id/goodNameFragment" />
     </fragment>
 
 </navigation>

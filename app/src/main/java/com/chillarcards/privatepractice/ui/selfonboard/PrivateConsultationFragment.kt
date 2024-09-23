@@ -9,9 +9,12 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentPrivateConsultationBinding
+import com.chillarcards.privatepractice.viewmodel.RegistrationCompletedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PrivateConsultationFragment : Fragment(R.layout.fragment_private_consultation), View.OnClickListener {
     lateinit var binding: FragmentPrivateConsultationBinding
+    private val viewmodel by viewModel<RegistrationCompletedViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,7 +34,8 @@ class PrivateConsultationFragment : Fragment(R.layout.fragment_private_consultat
         binding.tvSat.setOnClickListener(this)
         binding.tvContinue.setOnClickListener {
             if (isAnyDaySelected()){
-                findNavController().navigate(PrivateConsultationFragmentDirections.actionPrivateConsultationFragmentToPrivatePracticeAvailableFragment())
+                val action=PrivateConsultationFragmentDirections.actionPrivateConsultationFragmentToPrivatePracticeAvailableFragment()
+              findNavController().navigate(action)
             }
             else{
                 Toast.makeText(requireContext(), "Please select at least one day", Toast.LENGTH_SHORT).show()
@@ -54,6 +58,7 @@ class PrivateConsultationFragment : Fragment(R.layout.fragment_private_consultat
 
         when {
             binding.tvSun.isSelected -> {
+
                 binding.tvSun.setBackgroundResource(R.drawable.background_orange)
                 binding.tvSun.setTextColor(resources.getColor(R.color.white))
             }
@@ -112,37 +117,75 @@ class PrivateConsultationFragment : Fragment(R.layout.fragment_private_consultat
            R.id.tvSun->{
                binding.tvSun.isSelected=!binding.tvSun.isSelected
                weekClick()
+               handleDaySelection("Sunday")
            }
            R.id.tvMon->{
                binding.tvMon.isSelected=!binding.tvMon.isSelected
                weekClick()
+               handleDaySelection("Monday")
            }
            R.id.tvTue->{
                binding.tvTue.isSelected=!binding.tvTue.isSelected
                weekClick()
+               handleDaySelection("Tuesday")
            }
            R.id.tvWed->{
                binding.tvWed.isSelected=!binding.tvWed.isSelected
                weekClick()
+               handleDaySelection("Wednesday")
            }
 
            R.id.tvThu->{
                binding.tvThu.isSelected=!binding.tvThu.isSelected
                weekClick()
+               handleDaySelection("Thursday")
            }
 
            R.id.tvFri->{
                binding.tvFri.isSelected=!binding.tvFri.isSelected
                weekClick()
+               handleDaySelection("Friday")
+
            }
            R.id.tvSat->{
                binding.tvSat.isSelected=!binding.tvSat.isSelected
                weekClick()
+               handleDaySelection("Saturday")
            }
            else->{
                Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
            }
        }
+    }
+
+    private fun handleDaySelection(day: String) {
+        // Set the selected day in the ViewModel
+        viewmodel.selectedDay.value = day
+        Toast.makeText(requireContext(), "$day selected", Toast.LENGTH_SHORT).show()
+
+        // Optionally, update the UI to show the selected day
+        highlightSelectedDay(day)
+    }
+    private fun highlightSelectedDay(day: String) {
+        // Reset all day TextViews to default state
+        binding.tvSun.isSelected = false
+        binding.tvMon.isSelected = false
+        binding.tvTue.isSelected = false
+        binding.tvWed.isSelected = false
+        binding.tvThu.isSelected = false
+        binding.tvFri.isSelected = false
+        binding.tvSat.isSelected = false
+
+        // Highlight the selected day
+        when (day) {
+            "Sunday" -> binding.tvSun.isSelected = true
+            "Monday" -> binding.tvMon.isSelected = true
+            "Tuesday" -> binding.tvTue.isSelected = true
+            "Wednesday" -> binding.tvWed.isSelected = true
+            "Thursday" -> binding.tvThu.isSelected = true
+            "Friday" -> binding.tvFri.isSelected = true
+            "Saturday" -> binding.tvSat.isSelected = true
+        }
     }
 
 

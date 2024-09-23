@@ -2,6 +2,8 @@ package com.chillarcards.privatepractice.utills
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import com.chillarcards.privatepractice.utills.PrefManager.Companion.DRNAME
 
 class PrefManager(_context: Context) {
 
@@ -18,6 +20,10 @@ class PrefManager(_context: Context) {
         private const val DOCTORID = "DOCTORID"
         private const val entityId = "EntityId"
         private const val DEPTID = "DEPTID"
+        private const val DRNAME = "DRNAME"
+        private const val PHONENUMBER = "PHONENUMBER"
+        private const val CONSULATATIONDURATION = "CONSULATATIONDURATION"
+        private const val ENTITYID = "ENTITYID"
 
         // shared pref mode
         private const val PRIVATE_MODE = Context.MODE_PRIVATE
@@ -38,10 +44,19 @@ class PrefManager(_context: Context) {
     fun getToken(): String {
         return pref.getString(TOKEN, "") ?: ""
     }
-    fun setToken(token: String) {
-        editor.putString(TOKEN, token)
-        editor.commit()
+//    fun setToken(token: String) {
+//        editor.putString(TOKEN, token)
+//        editor.commit()
+//    }
+fun setToken(token: String?) {
+    if (token != null) {
+        editor.putString("token", token)
+        editor.apply() // Use apply() for asynchronous saving
+    } else {
+        Log.e("PrefManager", "Attempted to save a null token.")
+        // Handle the case where token is null, if needed
     }
+}
     fun getRefToken(): String {
         return pref.getString(REFRESHTOKEN, "") ?: ""
     }
@@ -95,6 +110,42 @@ class PrefManager(_context: Context) {
         editor.commit()
     }
 
+
+    fun getDrName(): String {
+        return pref.getString(DRNAME,"") ?: ""
+    }
+    fun setDrName(value: String) {
+        editor.putString(DRNAME, value)
+        editor.commit()
+    }
+
+    fun getPhoneNumber(): String? {
+        return pref.getString(PHONENUMBER, null)
+    }
+
+    fun setPhoneNumber(value: String) {
+        editor.putString(PHONENUMBER, value)
+        editor.commit()
+
+    }
+
+
+
+    fun getConsultationDuration(): Int {
+        return pref.getInt(CONSULATATIONDURATION,0)
+    }
+    fun setConsultationDuration(value: Int) {
+        editor.putInt(CONSULATATIONDURATION, value)
+        editor.commit()
+    }
+
+    fun getIntEntityId(): Int {
+        return pref.getInt(ENTITYID, 0)
+    }
+    fun setIntEntityId(value: Int) {
+        editor.putInt(ENTITYID, value)
+        editor.commit()
+    }
 
 
     fun clearAll() {
