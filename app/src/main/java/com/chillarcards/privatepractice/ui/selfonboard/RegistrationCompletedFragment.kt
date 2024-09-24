@@ -46,9 +46,9 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
             Log.d("PrefManager", "Doctor Name: ${prefManager.getDrName()}")
             viewmodel.departmentId.value =prefManager.getDeptId()
             Log.d("PrefManager", "Department ID: ${prefManager.getDeptId()}")
-            viewmodel.entityId.value = 2
+            viewmodel.entityId.value = prefManager.getEntityId().toIntOrNull()
             Log.d("PrefManager", "Entity ID: ${prefManager.getIntEntityId()}")
-            viewmodel.doctorId.value = 1
+            viewmodel.doctorId.value = prefManager.getDoctorId().toIntOrNull()
             Log.d("PrefManager", "Doctor ID: ${prefManager.getDoctorId().toIntOrNull() ?: 0}")
             viewmodel.consultationTime.value =prefManager.getConsultationDuration()
             Log.d("PrefManager", "Consultation Time: ${prefManager.getConsultationDuration()}")

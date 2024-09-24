@@ -1,6 +1,5 @@
 package com.chillarcards.privatepractice.ui.register
 
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -50,7 +49,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
 
-open class OTPFragment : Fragment(R.layout.fragment_otp) {
+open class OTPFragment : Fragment() {
 
     lateinit var binding: FragmentOtpBinding
 
@@ -62,7 +61,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     private val mobileViewModel by viewModel<RegisterViewModel>()
     private var mVerificationId = ""
     private var mResendToken: ForceResendingToken? = null
-    private var userAction: String? = null
 
     private var aOk = false
     private var bOk = false
@@ -80,10 +78,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                 alertMsg(requireContext())
             }
         })
-        arguments?.let {
-            val args = OTPFragmentArgs.fromBundle(it)
-            userAction = args.userAction
-        }
     }
 
     fun alertMsg(context: Context) {
@@ -93,7 +87,7 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
 
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(R.string.pop_alert_message)
-            builder.setIcon(R.mipmap.ic_launcher_new_design)
+            builder.setIcon(R.mipmap.ic_launcher)
             builder.setCancelable(false)
 
             //performing positive action
@@ -136,7 +130,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         otpViewActions()
 
         val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
-        Log.d("masskedphonenumber","masked phone numebr is :${maskedPhoneNumber.toString()}")
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
         if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
             binding.textinputError.visibility=View.GONE
@@ -193,19 +186,10 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     private fun createCallbacks(): OnVerificationStateChangedCallbacks {
         return object : OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
                 Log.d(TAG, "onVerificationCompleted:$credential")
                 signInWithPhoneAuthCredential(credential)
             }
-
             override fun onVerificationFailed(e: FirebaseException) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
                 binding.textinputError.visibility=View.VISIBLE
                 when (e) {
@@ -228,21 +212,16 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                 }
             }
 
-            override fun onCodeSent(
-                verificationId: String,
-                token: ForceResendingToken
-            ) {
-                // The SMS verification code has been sent to the provided phone number,
-                // we now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
+            override fun onCodeSent(verificationId: String, token: ForceResendingToken) {
                 mVerificationId = verificationId
                 mResendToken = token
+                this@OTPFragment.mVerificationId = verificationId
                 Log.d(TAG, "onCodeSent:$verificationId")
 
                 if (binding.timer.text == "00:60")
                     startTimer()
 
-                startSMSListener()
+                //   startSMSListener()
 
                 Const.shortToast(requireContext(),"OTP sent successfully")
             }
@@ -259,18 +238,14 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     }
 
     private fun clearOTP() {
-//        binding.textinputError.visibility=View.GONE
-//        binding.otpA.setText("")
-//        binding.otpB.setText("")
-//        binding.otpC.setText("")
-//        binding.otpD.setText("")
-//        binding.otpE.setText("")
-//        binding.otpF.setText("")
-//        binding.otpA.requestFocus()
-        binding.textinputError.visibility = View.GONE
-        val otpFields = listOf(binding.otpA, binding.otpB, binding.otpC, binding.otpD, binding.otpE, binding.otpF)
-        otpFields.forEach { it.setText("") }
-        otpFields.first().requestFocus()
+        binding.textinputError.visibility=View.GONE
+        binding.otpA.setText("")
+        binding.otpB.setText("")
+        binding.otpC.setText("")
+        binding.otpD.setText("")
+        binding.otpE.setText("")
+        binding.otpF.setText("")
+        binding.otpA.requestFocus()
     }
 
     private fun EditText.isEmpty(): Boolean {
@@ -343,35 +318,34 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
         startTimer()
     }
 
-    @SuppressLint("SuspiciousIndentation")
     private fun startTimer() {
         if (this@OTPFragment::timer.isInitialized)
             timer.cancel()
-            timer = object : CountDownTimer(60000, 1000) {
-                override fun onTick(millisUntilFinished: Long) {
-                    val s = "00:${(millisUntilFinished / 1000)}"
-                    binding.timer.text = s
-                    binding.resendText.visibility = View.GONE
-                }
-
-                override fun onFinish() {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        try {
-                            Const.disableButton(binding.confirmBtn)
-                            binding.sec.visibility = View.GONE
-                            if (isAdded) {
-                                binding.timer.text = getString(R.string.otp_expired)
-                            }
-                            binding.resendText.visibility = View.VISIBLE
-                            binding.textinputError.visibility =View.GONE
-
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }, 1000)
-                }
+        timer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val s = "00:${(millisUntilFinished / 1000)}"
+                binding.timer.text = s
+                binding.resendText.visibility = View.GONE
             }
-            timer.start()
+
+            override fun onFinish() {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    try {
+                        Const.disableButton(binding.confirmBtn)
+                        binding.sec.visibility = View.GONE
+                        if (isAdded) {
+                            binding.timer.text = getString(R.string.otp_expired)
+                        }
+                        binding.resendText.visibility = View.VISIBLE
+                        binding.textinputError.visibility =View.GONE
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }, 1000)
+            }
+        }
+        timer.start()
     }
 
 
@@ -387,21 +361,10 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     }
 
     private fun verifyPhoneNumberWithCode(code: String) {
-//        val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
-//        signInWithPhoneAuthCredential(credential)
-        val verificationID = args.verificationID // Ensure this is set during phone number verification
-        if (verificationID != null) {
-            try {
-                val credential = PhoneAuthProvider.getCredential(verificationID, code)
-                signInWithPhoneAuthCredential(credential)
-            } catch (e: IllegalArgumentException) {
-                Log.e("VerifyPhone", "Invalid arguments: ${e.message}")
-            }
-        } else {
-            // Handle the case where verificationID is null
-            Log.e("VerifyPhone", "Verification ID is null. Cannot verify phone number.")
-            // Notify the user or retry the verification process if needed
-        }
+        val verificationID = args.verificationID?.toString() ?: return
+        val credential = PhoneAuthProvider.getCredential(verificationID, code)
+        Log.d("verificationID","verificationID:$verificationID")
+        signInWithPhoneAuthCredential(credential)
     }
 
     private fun resendVerificationCode(phoneNumber: String) {
@@ -412,39 +375,38 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
             .setActivity(requireActivity())
             .setCallbacks(createCallbacks()
             )
-          //  .setForceResendingToken(mResendToken) // ForceResendingToken from callbacks
+            //  .setForceResendingToken(mResendToken) // ForceResendingToken from callbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         firebaseAuth.signInWithCredential(credential)
-        .addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                // Sign in success
-                val user = task.result?.user
-                mobileVerify()
-            } else {
-                // Sign in failed
-                if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                    // The verification code entered was invalid
-                    binding.textinputError.visibility=View.VISIBLE
-                    binding.textinputError.text="Invalid OTP"
+            .addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success
+                    val user = task.result?.user
+                    mobileVerify()
+                } else {
+                    // Sign in failed
+                    if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        // The verification code entered was invalid
+                        binding.textinputError.visibility=View.VISIBLE
+                        binding.textinputError.text="Invalid OTP"
 
-                    binding.otpA.setText("")
-                    binding.otpB.setText("")
-                    binding.otpC.setText("")
-                    binding.otpD.setText("")
-                    binding.otpE.setText("")
-                    binding.otpF.setText("")
-                    binding.otpA.requestFocus()
-                    Log.e("SignInError", task.exception?.message ?: "Unknown error")
+                        binding.otpA.setText("")
+                        binding.otpB.setText("")
+                        binding.otpC.setText("")
+                        binding.otpD.setText("")
+                        binding.otpE.setText("")
+                        binding.otpF.setText("")
+                        binding.otpA.requestFocus()
+                    }
                 }
             }
-        }
     }
 
     companion object {
-        const val TAG = "OTPFragment"
+        private const val TAG = "OTPFragment"
     }
 
     private fun mobileVerify() {
@@ -453,7 +415,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
             verifyMobile()
         }
         otpObserver()
-
 
     }
 
@@ -475,7 +436,10 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
                                         prefManager.setDoctorId(mobileData.data.doctor_id.toString())
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
-                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
+                                        findNavController().navigate(
+                                            OTPFragmentDirections.
+                                            actionOTPFragmentToHomeFragment()
+                                        )
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){
@@ -516,8 +480,6 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
     }
-
-
 
     private fun gotoGeneralHome() {
         try {

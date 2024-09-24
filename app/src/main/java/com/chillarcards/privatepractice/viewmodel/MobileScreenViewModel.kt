@@ -20,6 +20,7 @@ class MobileScreenViewModel(private val authRepository: AuthRepository,
     private val _userCheck= MutableLiveData<Resource<UserCheckResClass>?>()
     val userCheck: LiveData<Resource<UserCheckResClass>?> get()=_userCheck
     var phone = MutableLiveData<String>()
+    var doctorPhone = MutableLiveData<String>()
     private val _verifyPhoneNumber = MutableLiveData<Resource<SelfOnBoardingAuthRegisterResClass>?>()
     val verifyPhoneNumber: LiveData<Resource<SelfOnBoardingAuthRegisterResClass>?> get() = _verifyPhoneNumber
      fun userCheck(){
@@ -51,7 +52,7 @@ class MobileScreenViewModel(private val authRepository: AuthRepository,
             try {
                 _verifyPhoneNumber.postValue(Resource.loading(null))
                 if (networkHelper.isNetworkConnected()) {
-                    authRepository.getRegistrationAuthorization(phone.value.toString()).let {
+                    authRepository.getRegistrationAuthorization(doctorPhone.value.toString()).let {
                         if (it.isSuccessful) {
                             Log.e("apiresponse", "Response Body: ${it.body()}")
                             _verifyPhoneNumber.postValue(Resource.success(it.body()))
