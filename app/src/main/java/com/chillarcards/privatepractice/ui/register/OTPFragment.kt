@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -60,6 +61,10 @@ open class OTPFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private val mobileViewModel by viewModel<RegisterViewModel>()
     private var mVerificationId = ""
+    private var refToken = ""
+    private var accessToken = ""
+    private var doctorid = ""
+    private var phone = ""
     private var mResendToken: ForceResendingToken? = null
 
     private var aOk = false
@@ -361,10 +366,18 @@ open class OTPFragment : Fragment() {
     }
 
     private fun verifyPhoneNumberWithCode(code: String) {
-        val verificationID = args.verificationID?.toString() ?: return
-        val credential = PhoneAuthProvider.getCredential(verificationID, code)
-        Log.d("verificationID","verificationID:$verificationID")
+        val verificationID ="AD8T5It_o1tHEYTXp63b-wLsLBl4qZ1ieAIqkUXcrdZ6xJSKQTpt6VRTBYm4iqLtUlAxFfoeb7iTMcgdcAWds3li5YxmAF2_ku6wRPIeM3Vx-plDs3pLrsPQ6LzyuN5H6TvpTG36WYtQxpwXOQhdrJsFtPI55wWZZQ"
+        val credential = PhoneAuthProvider.getCredential(verificationID.toString(), code)
+        Log.d("verificationIDs","verificationID:$verificationID")
         signInWithPhoneAuthCredential(credential)
+
+//        try{
+//
+//        }
+//        catch(e:Exception){
+//            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show();
+//        }
+
     }
 
     private fun resendVerificationCode(phoneNumber: String) {
@@ -429,17 +442,21 @@ open class OTPFragment : Fragment() {
                                 when (mobileData.statusCode) {
                                     "200" -> {
                                         prefManager.clearAll()
-                                        prefManager.setMobileNo(mobileData.data.phone)
+                                    //    phone="7575757575"
+                                        prefManager.setPhoneNumber(mobileData.data.phone)
+                                     //   accessToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IlUyRnNkR1ZrWDEvSzlYTE1pYmlYSkNNSXlCcFpsMmhZeVk3dnVEQnJ2eHM9IiwiaWF0IjoxNzI3MTc1ODM1LCJleHAiOjE3MjcxNzk0MzV9.vy5Vt1LGiyfMe3CrNRWL65bovaFqAvzxr9CGB5ftDDc"
+                                     //   refToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IlUyRnNkR1ZrWDEvSzlYTE1pYmlYSkNNSXlCcFpsMmhZeVk3dnVEQnJ2eHM9IiwiaWF0IjoxNzI3MTc1ODM1LCJleHAiOjE3MjcyNjIyMzV9.WyBB-tNpMmFa-5mZwEX9x6XjO4YZ_QYwrQYNayV4FAc"
+
                                         prefManager.setRefToken(mobileData.data.refresh_token.trim())
+                                        Log.d("refresh_token","refresh_token:${mobileData.data.refresh_token}")
                                         prefManager.setToken(mobileData.data.access_token.trim())
+                                        Log.d("access_token","access_token:${mobileData.data.access_token}")
                                         prefManager.setStatus(mobileData.data.profile_completed)
-                                        prefManager.setDoctorId(mobileData.data.doctor_id.toString())
+                                      //  doctorid=1.toString()
+                                       prefManager.setDoctorId(mobileData.data.doctor_id.toString())
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
-                                        findNavController().navigate(
-                                            OTPFragmentDirections.
-                                            actionOTPFragmentToHomeFragment()
-                                        )
+                                        findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
                                     }
                                     "400" -> {
                                         if(mobileData.message.contentEquals("Invalid OTP.")){

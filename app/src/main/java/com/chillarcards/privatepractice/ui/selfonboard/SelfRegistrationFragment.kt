@@ -41,6 +41,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private var mVerificationId = ""
     private lateinit var mResendToken: PhoneAuthProvider.ForceResendingToken
+    lateinit var prefManager: PrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,6 +53,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefManager=PrefManager(requireContext())
         FirebaseApp.initializeApp(this.requireContext())
         firebaseAuth = FirebaseAuth.getInstance()
         invokeFirebaseOTPService()
@@ -121,8 +123,9 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
                 binding.progressBar.visibility = View.GONE
                 mVerificationId = verificationId
                 mResendToken = token
+                val verificationID=prefManager.SetVerificatiobID(mVerificationId)
                 Log.d("onCodeSent", "OTP Sent. Verification ID: $verificationId")
-                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo))
+                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo, verificationID.toString()))
                 Const.shortToast(requireContext(), "OTP sent successfully")
             }
         }

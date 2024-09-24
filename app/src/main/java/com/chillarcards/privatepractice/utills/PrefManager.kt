@@ -24,6 +24,7 @@ class PrefManager(_context: Context) {
         private const val PHONENUMBER = "PHONENUMBER"
         private const val CONSULATATIONDURATION = "CONSULATATIONDURATION"
         private const val ENTITYID = "ENTITYID"
+        private const val VERIFICATIONID = "VERIFICATIONID"
 
         // shared pref mode
         private const val PRIVATE_MODE = Context.MODE_PRIVATE
@@ -144,6 +145,14 @@ fun setToken(token: String?) {
     }
     fun setIntEntityId(value: Int) {
         editor.putInt(ENTITYID, value)
+        editor.commit()
+    }
+
+    fun getVerificatiobID(): String {
+        return pref.getString(VERIFICATIONID,"") ?: ""
+    }
+    fun SetVerificatiobID(value: String) {
+        editor.putString(VERIFICATIONID, value)
         editor.commit()
     }
 

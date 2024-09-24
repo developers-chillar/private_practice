@@ -64,9 +64,6 @@
             android:id="@+id/action_OTPFragment_to_RegFragment"
             app:destination="@id/GeneralHomeFragment" />
 
-        <action
-            android:id="@+id/action_OTPFragment_to_goodNameFragment"
-            app:destination="@id/goodNameFragment" />
         <argument
             android:name="mobile"
             android:defaultValue=""
@@ -86,6 +83,8 @@
             android:name="userAction"
             app:argType="string"
             app:nullable="true"/>
+
+
 
 
     </fragment>
