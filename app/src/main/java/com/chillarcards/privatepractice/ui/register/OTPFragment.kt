@@ -389,12 +389,18 @@ open class OTPFragment : Fragment(R.layout.fragment_otp) {
     private fun verifyPhoneNumberWithCode(code: String) {
 //        val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
 //        signInWithPhoneAuthCredential(credential)
-        if (args.verificationID != null) {
-            val credential = PhoneAuthProvider.getCredential(args.verificationID!!, code)
-            signInWithPhoneAuthCredential(credential)
+        val verificationID = args.verificationID // Ensure this is set during phone number verification
+        if (verificationID != null) {
+            try {
+                val credential = PhoneAuthProvider.getCredential(verificationID, code)
+                signInWithPhoneAuthCredential(credential)
+            } catch (e: IllegalArgumentException) {
+                Log.e("VerifyPhone", "Invalid arguments: ${e.message}")
+            }
         } else {
             // Handle the case where verificationID is null
-            Log.e("VerifyPhone", "Verification ID is null")
+            Log.e("VerifyPhone", "Verification ID is null. Cannot verify phone number.")
+            // Notify the user or retry the verification process if needed
         }
     }
 

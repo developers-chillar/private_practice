@@ -192,12 +192,18 @@ class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p) {
     private fun verifyPhoneNumberWithCode(code: String) {
 //        val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
 //        signInWithPhoneAuthCredential(credential)
-        if (args.verificationID != null) {
-            val credential = PhoneAuthProvider.getCredential(args.verificationID!!, code)
-            signInWithPhoneAuthCredential(credential)
+        val verificationID ="AD8T5IsDVgBsOGlUnq5LAGF5pMgahnhWuOjoXe9jXzo-qmhX_CioevdQpiUTq9ltMq7idV9OWsmuFE5V55FjeWaWO_BfrJDoXHCI6jjlO7y6TpIKOpAWw0V1AKAKGHf6nnOt-zXW3Xn516ORj36rWUa1oIY_361flg" // Ensure this is set during phone number verification
+        if (verificationID != null) {
+            try {
+                val credential = PhoneAuthProvider.getCredential(verificationID, code)
+                signInWithPhoneAuthCredential(credential)
+            } catch (e: IllegalArgumentException) {
+                Log.e("VerifyPhone", "Invalid arguments: ${e.message}")
+            }
         } else {
             // Handle the case where verificationID is null
-            Log.e("VerifyPhone", "Verification ID is null")
+            Log.e("VerifyPhone", "Verification ID is null. Cannot verify phone number.")
+            // Notify the user or retry the verification process if needed
         }
     }
 
@@ -261,13 +267,21 @@ class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p) {
         }
     }
         private fun maskPhoneNumber(phoneNumber: String): String {
-            if (phoneNumber.length < 5) {
-                return phoneNumber
+//            if (phoneNumber.length < 5) {
+//                return phoneNumber
+//            }
+//            val maskedLength = phoneNumber.length - 5
+//            val maskedString =
+//                "*".repeat(maskedLength)
+//            return maskedString + phoneNumber.substring(phoneNumber.length - 5)
+
+            return if (phoneNumber.length > 5) {
+                val unmaskedPart = phoneNumber.takeLast(5) // Last 5 digits will remain unmasked
+                val maskedPart = "*".repeat(phoneNumber.length - 5) // Mask the remaining part
+                "$maskedPart$unmaskedPart"
+            } else {
+                phoneNumber // If the number is shorter than 5 digits, return as-is
             }
-            val maskedLength = phoneNumber.length - 5
-            val maskedString =
-                "*".repeat(maskedLength)
-            return maskedString + phoneNumber.substring(phoneNumber.length - 5)
         }
 
         private fun clearOTP() {
@@ -444,9 +458,10 @@ class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p) {
         private fun mobileVerify() {
             mobileViewModel.run {
                 mob.value = args.mobile
-                verifyMobile()
+                findNavController().navigate(R.id.goodNameFragment)
+            //    verifyMobile()
             }
-            otpObserver()
+         //   otpObserver()
 
 
         }

@@ -200,6 +200,7 @@ class MobileFragment : Fragment() {
                 hideProgress()
                 binding.progressBar.visibility=View.GONE
                 mVerificationId = verificationId
+                Log.d("verificationid","your id:$verificationId")
                 mResendToken = token
                 Log.d(TAG, "onCodeSent:$verificationId")
                 findNavController().navigate(MobileFragmentDirections.actionMobileFragmentToOTPFragment(tempMobileNo, mVerificationId))

@@ -155,9 +155,10 @@ lateinit var binding: FragmentSelfRegistrationBinding
               //  hideProgress()
                 binding.progressBar.visibility=View.GONE
                 mVerificationId = verificationId
+                Log.d("verification","id verify:$mVerificationId")
                 mResendToken = token
                 Log.d("onCodeSent", "onCodeSent:$verificationId")
-                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo))
+                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo,mVerificationId))
              //   hideProgress()
                 Const.shortToast(requireContext(), "OTP sent successfully")
             }
