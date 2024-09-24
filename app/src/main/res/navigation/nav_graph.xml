@@ -79,12 +79,6 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
-        <argument
-            android:name="userAction"
-            app:argType="string"
-            app:nullable="true"/>
-
-
 
 
     </fragment>
@@ -493,6 +487,7 @@
         android:id="@+id/regstrationOTPFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.RegstrationOTPFragment"
         android:label="RegstrationOTPFragment" >
+
 
         <argument
             android:name="mobile"

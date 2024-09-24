@@ -95,7 +95,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
             builder.setTitle(R.string.alert_heading)
             builder.setMessage(R.string.pop_alert_message)
-            builder.setIcon(R.mipmap.ic_launcher)
+            builder.setIcon(R.mipmap.ic_launcher_new_design)
             builder.setCancelable(false)
 
             //performing positive action
@@ -137,7 +137,8 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
         otpViewActions()
 
-        val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
+        val maskedPhoneNumber = maskPhoneNumber(prefManager.getMobileNo())
+        Log.d("maskedPhoneNumber","maskedPhoneNumber is:${maskedPhoneNumber}")
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
         if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
             binding.textinputError.visibility=View.GONE
@@ -155,12 +156,12 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
                     mobileViewModel.run {
-                        phone.value = prefManager.getPhoneNumber()
+                        phone.value = prefManager.getMobileNo()
                         Log.d("getPhoneNumber","temp-phone:${phone.value.toString()}")
                         verifyRegistrationMobileNumber()
                     }
                     phoneRegister()
-                   // verifyPhoneNumberWithCode(otp)
+                    verifyPhoneNumberWithCode(otp)
                 }
                 else
                     Const.shortToast(requireContext(), getString(R.string.enter_otp))
@@ -425,7 +426,8 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                 200->{
                                     Log.d("userAuth", "User is verified.")
                                     val prefManager = PrefManager(requireContext())
-                                    prefManager.setPhoneNumber(args.mobile.toString())
+                                    prefManager.setMobileNo(args.mobile.toString())
+                                    Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
                                     val entityId = resData.data.entityId ?: 0
                                     prefManager.setIntEntityId(entityId)
                                     val doctorId=resData.data.doctorId
