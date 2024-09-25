@@ -6,7 +6,7 @@ data class SelfOnBoardingAuthRegisterResClass(
     val data: PhoneNumberData
 )
 data class PhoneNumberData(
-    val entityId: Int?,
-    val doctorId: Int?,
-    val doctorPhone: String?
+    val entity_id: Int?,
+    val doctor_id: Int?,
+    val profile_completed: String?
 )

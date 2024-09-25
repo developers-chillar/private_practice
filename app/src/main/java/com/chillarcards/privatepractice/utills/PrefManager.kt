@@ -81,14 +81,14 @@ fun setToken(token: String?) {
     }
     fun getDoctorId(): String {
        // return pref.getInt(DOCTORID, 0)
-        return pref.getString(DOCTORID, "") ?: ""
+        return pref.getString(DOCTORID, "0") ?: "0"
     }
     fun setDoctorId(value: String) {
         editor.putString(DOCTORID, value)
         editor.commit()
     }
     fun getEntityId(): String {
-        return pref.getString(entityId, "") ?: ""
+        return pref.getString(entityId, "0") ?: "0"
     }
     fun setEntityId(value: String) {
         editor.putString(entityId, value)

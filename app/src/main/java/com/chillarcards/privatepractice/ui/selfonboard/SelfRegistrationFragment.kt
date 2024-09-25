@@ -66,6 +66,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
                     binding.mobile.error = "Enter a valid mobile number"
                 } else {
                     binding.mobile.error = null
+                    binding.mobile.isErrorEnabled = false
                     tempMobileNo = input
                 }
             }
@@ -78,16 +79,18 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
             } else {
                 // Hide the error and trigger the phone verification
                 binding.mobile.error = null
-                binding.progressBar.visibility = View.VISIBLE
+                binding.mobile.isErrorEnabled = false
+
                 phoneVerify()
             }
+            binding.progressBar.visibility=View.VISIBLE
         }
+
     }
 
     private fun invokeFirebaseOTPService() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // Automatically sign in when the verification is completed (instant verification)
                 firebaseAuth.signInWithCredential(credential)
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
@@ -103,30 +106,37 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
                 when (e) {
                     is FirebaseAuthInvalidCredentialsException -> {
                         Const.shortToast(requireContext(), "Invalid phone number format.")
+                        binding.progressBar.visibility=View.GONE
                     }
                     is FirebaseTooManyRequestsException -> {
                         Const.shortToast(requireContext(), "SMS quota exceeded. Please try again later.")
+                        binding.progressBar.visibility=View.GONE
                     }
                     is FirebaseAuthMissingActivityForRecaptchaException -> {
                         Const.shortToast(requireContext(), "reCAPTCHA verification failed.")
+                        binding.progressBar.visibility=View.GONE
                     }
                     else -> {
                         Const.shortToast(requireContext(), "Error: ${e.message}")
+                        binding.progressBar.visibility=View.GONE
                     }
                 }
+                binding.progressBar.visibility=View.GONE
             }
 
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                binding.progressBar.visibility = View.GONE
                 mVerificationId = verificationId
                 mResendToken = token
-                val verificationID=prefManager.SetVerificatiobID(mVerificationId)
+                binding.progressBar.visibility = View.GONE
+                prefManager.SetVerificatiobID(mVerificationId)
                 Log.d("onCodeSent", "OTP Sent. Verification ID: $verificationId")
-                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo, verificationID.toString()))
+                binding.progressBar.visibility=View.GONE
+                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo, prefManager.getVerificatiobID()))
                 Const.shortToast(requireContext(), "OTP sent successfully")
+
             }
         }
     }
@@ -145,6 +155,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
         val inputMobile = binding.etGdName.text.toString()
         if (inputMobile.matches(mobileRegex)) {
             startPhoneNumberVerification(tempMobileNo)
+            binding.mobile.error = null
         } else {
             binding.mobile.error = "Invalid mobile number"
         }

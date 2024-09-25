@@ -469,6 +469,11 @@
         android:id="@+id/registrationCompletedFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.RegistrationCompletedFragment"
         android:label="RegistrationCompletedFragment" >
+        <argument
+            android:name="mobile"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_registrationCompletedFragment_to_homeBaseFragment"
             app:destination="@id/homeBaseFragment" />
@@ -501,10 +506,6 @@
             app:argType="string"
             app:nullable="true" />
 
-        <argument
-            android:name="userAction"
-            app:argType="string"
-            app:nullable="true"/>
         <action
             android:id="@+id/action_regstrationOTPFragment_to_goodNameFragment"
             app:destination="@id/goodNameFragment" />

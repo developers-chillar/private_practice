@@ -51,15 +51,19 @@ class BookingViewModel(
                         if (it.isSuccessful) {
                             _bookingData.postValue(Resource.success(it.body()))
                         } else {
-                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
-                            _bookingData.postValue(Resource.error(it.errorBody().toString(), null))
+                            val errorBody = it.errorBody()?.string() ?: "Unknown error"
+                            Log.e("getBookingList", "API call failed with code: ${it.code()}, message: ${it.message()}, error: $errorBody")
+                            _bookingData.postValue(Resource.error("Error ${it.code()}: ${it.message()}", null))
+
                         }
                     }
                 } else {
                     _bookingData.postValue(Resource.error("No Internet Connection", null))
                 }
             } catch (e: Exception) {
-                Log.e("abc_otp", "verifyOTP: ", e)
+                Log.e("getBookingList", "Exception occurred: ", e)
+                _bookingData.postValue(Resource.error("An unexpected error occurred", null))
+
             }
         }
     }

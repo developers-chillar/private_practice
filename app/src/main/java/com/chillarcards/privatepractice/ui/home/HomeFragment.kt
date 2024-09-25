@@ -284,6 +284,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                             it.data?.let { bookingData ->
                                 when (bookingData.statusCode) {
                                     200 -> {
+                                        Log.d("TokenLog", "200")
                                         binding.logoIcon.text= bookingData.data.doctorName
                                         binding.ttlApointTv.text = "Total Bookings : "+bookingData.data.totalBooking.toString()
                                         binding.completedTv.text = "Completed  : "+bookingData.data.completedAppointments.toString()
@@ -332,13 +333,21 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         }
                                     }
                                     403 -> {
+                                        Log.d("TokenLog", "4.3")
                                         prefManager.setRefresh("1")
                                         val authViewModel by viewModel<RegisterViewModel>()
-                                        Const.getNewTokenAPI(
-                                            requireContext(),
-                                            authViewModel,
-                                            viewLifecycleOwner
-                                        )
+                                        if (prefManager.getRefresh() != "1") {
+                                            prefManager.setRefresh("1")
+                                            Const.getNewTokenAPI(requireContext(), authViewModel, viewLifecycleOwner)
+                                            Toast.makeText(requireContext(),"token updated",Toast.LENGTH_SHORT).show()
+                                            val newRefreshToken = prefManager.getRefToken()
+                                            Log.d("TokenLog", "New Refresh Token: $newRefreshToken")
+                                        } else {
+                                            Log.d("TokenLog", "Refresh token already updated")
+                                        }
+
+
+
                                     }
                                     else -> Const.shortToast(requireContext(), bookingData.message)
                                 }

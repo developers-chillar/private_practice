@@ -335,10 +335,7 @@ class MobileFragment : Fragment() {
 
                                     404 -> {
                                         Log.d(TAG, "Status Code 404: ${userCheck.message}")
-                                        Const.shortToast(
-                                            requireContext(),
-                                            "Not a registered phone number. Please contact customer support!"
-                                        )
+                                        Const.shortToast(requireContext(), "Not a registered phone number. Please contact customer support!")
                                         binding.loginBtn.visibility = View.VISIBLE
                                         binding.waitingBtn.visibility = View.GONE
                                         binding.progressBar.visibility=View.GONE

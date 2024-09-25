@@ -27,7 +27,7 @@ interface ApiHelper {
     suspend fun getBankDetails():  Response<BankResponseModel>
     suspend fun getShopClose():  Response<StatusResponseModel>
     suspend fun getCategory():  Response<CategoryResponseModel>
-    suspend fun getBookigDetails(doctorId: String, date: String, entityId: String): Response<BookingResponseModel>
+    suspend fun getBookigDetails(doctor_id: String, date: String, entity_id: String): Response<BookingResponseModel>
     suspend fun getReport(
         doctorId: String,
         date: String,

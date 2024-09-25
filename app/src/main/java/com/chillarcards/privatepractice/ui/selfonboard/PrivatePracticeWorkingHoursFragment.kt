@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentPrivatePracticeWorkingHoursBinding
@@ -33,8 +34,7 @@ class PrivatePracticeWorkingHoursFragment :
         val startEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
         val endEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
 
-        val startMorningTimeAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_items, startMoriningTime)
+        val startMorningTimeAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_items, startMoriningTime)
         val endMoriningTimeAdapter =
             ArrayAdapter(requireContext(), R.layout.drop_down_items, endMoriningTime)
         val startEveningTimeAdapter =
@@ -43,13 +43,30 @@ class PrivatePracticeWorkingHoursFragment :
             ArrayAdapter(requireContext(), R.layout.drop_down_items, endEveningTime)
 
         binding.etStartTime.setAdapter(startMorningTimeAdapter)
-        binding.etStartTime.showDropDown()
+       // binding.etStartTime.showDropDown()
         binding.etEndTime.setAdapter(endMoriningTimeAdapter)
-        binding.etEndTime.showDropDown()
+       // binding.etEndTime.showDropDown()
         binding.etStartEveningTime.setAdapter(startEveningTimeAdapter)
-        binding.etStartEveningTime.showDropDown()
+       // binding.etStartEveningTime.showDropDown()
         binding.etEveningEndTime.setAdapter(endEveningTimeAdapter)
-        binding.etEveningEndTime.showDropDown()
+      //  binding.etEveningEndTime.showDropDown()
+
+        binding.etStartTime.setOnClickListener {
+            binding.etStartTime.showDropDown()
+        }
+
+        binding.etEndTime.setOnClickListener {
+            binding.etEndTime.showDropDown()
+        }
+
+        binding.etStartEveningTime.setOnClickListener {
+            binding.etStartEveningTime.showDropDown()
+        }
+
+        binding.etEveningEndTime.setOnClickListener {
+            binding.etEveningEndTime.showDropDown()
+        }
+
 
         binding.tvContinue.setOnClickListener {
             when {

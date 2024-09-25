@@ -63,7 +63,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
     private lateinit var prefManager: PrefManager
     private lateinit var timer: CountDownTimer
     private val digitRegex = "^\\d$".toRegex()
-    private val args: OTPFragmentArgs by navArgs()
+    private val args: RegstrationOTPFragmentArgs by navArgs()
     private lateinit var firebaseAuth: FirebaseAuth
    // private val mobileViewModel by viewModel<RegisterViewModel>()
     private val mobileViewModel by viewModel<MobileScreenViewModel>()
@@ -137,7 +137,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
         otpViewActions()
 
-        val maskedPhoneNumber = maskPhoneNumber(prefManager.getMobileNo())
+        val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
         Log.d("maskedPhoneNumber","maskedPhoneNumber is:${maskedPhoneNumber}")
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
         if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
@@ -145,7 +145,6 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
         }
         binding.resendText.visibility = View.GONE
-
         binding.confirmBtn.setOnClickListener {
             binding.textinputError.visibility=View.GONE
             if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
@@ -155,12 +154,6 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                     "${binding.otpA.text.toString()}${binding.otpB.text.toString()}${binding.otpC.text.toString()}${binding.otpD.text.toString()}${binding.otpE.text.toString()}${binding.otpF.text.toString()}"
                 Log.d("abc_otp", "onViewCreated: $otp")
                 if (otp.isNotEmpty()){
-                    mobileViewModel.run {
-                        phone.value = prefManager.getMobileNo()
-                        Log.d("getPhoneNumber","temp-phone:${phone.value.toString()}")
-                        verifyRegistrationMobileNumber()
-                    }
-                    phoneRegister()
                     verifyPhoneNumberWithCode(otp)
                 }
                 else
@@ -363,6 +356,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
     private fun verifyPhoneNumberWithCode(code: String) {
         val credential = PhoneAuthProvider.getCredential(args.verificationID.toString(), code)
+        Log.d("verificationregotp", "verifyPhoneNumberWithCode: ${args.verificationID}")
         signInWithPhoneAuthCredential(credential)
     }
 
@@ -383,7 +377,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                 if (task.isSuccessful) {
                     // Sign in success
                     val user = task.result?.user
-                  //  mobileVerify()
+                    mobileVerify()
                 } else {
                     // Sign in failed
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
@@ -407,14 +401,14 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         private const val TAG = "OTPFragment"
     }
 
-//    private fun mobileVerify() {
-//        mobileViewModel.run {
-//            phone.value = args.mobile
-//            verifyRegistrationMobileNumber()
-//        }
-//        phoneRegister()
-//
-//    }
+    private fun mobileVerify() {
+        mobileViewModel.run {
+            phone.value = args.mobile
+            verifyRegistrationMobileNumber()
+        }
+        phoneRegister()
+
+    }
 
     private fun phoneRegister(){
         try{mobileViewModel.verifyPhoneNumber.observe(viewLifecycleOwner){
@@ -428,9 +422,9 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     val prefManager = PrefManager(requireContext())
                                     prefManager.setMobileNo(args.mobile.toString())
                                     Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
-                                    val entityId = resData.data.entityId ?: 0
-                                    prefManager.setIntEntityId(entityId)
-                                    val doctorId=resData.data.doctorId
+                                    val entityId = resData.data.entity_id ?: 0 // Provide a default if entityId is null
+                                    prefManager.setEntityId(entityId.toString())
+                                    val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
                                    findNavController().navigate(R.id.goodNameFragment)
 

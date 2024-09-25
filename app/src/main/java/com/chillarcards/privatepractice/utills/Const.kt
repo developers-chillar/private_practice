@@ -3,6 +3,7 @@ package com.chillarcards.privatepractice.utills
 import android.content.Context
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LifecycleOwner
 import com.chillarcards.privatepractice.R
@@ -85,6 +86,7 @@ class Const {
 //                                    if (!accessToken.isNullOrEmpty()) {
 //                                        prefManager.setToken(accessToken)
 //                                    } else {
+//                                        Toast.makeText(context, "Access token is null or empty.", Toast.LENGTH_SHORT).show()
 //                                        Log.e("TokenError", "Access token is null or empty.")
 //                                        // Handle the case where the token is null or empty, if needed
 //                                    }

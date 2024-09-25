@@ -27,7 +27,7 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
     lateinit var binding: FragmentRegistrationCompletedBinding
     lateinit var prefManager: PrefManager
     private val viewmodel by viewModel<RegistrationCompletedViewModel>()
-
+    private val args: RegistrationCompletedFragmentArgs by navArgs()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,30 +40,22 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
         super.onViewCreated(view, savedInstanceState)
         prefManager = PrefManager(requireContext())
         viewmodel.run {
-            viewmodel.doctorPhone.value = prefManager.getPhoneNumber()
-            Log.d("PrefManager", "Doctor Phone: ${prefManager.getPhoneNumber()}")
+            viewmodel.doctorPhone.value =prefManager.getMobileNo()
             viewmodel.doctorName.value =prefManager.getDrName()
-            Log.d("PrefManager", "Doctor Name: ${prefManager.getDrName()}")
             viewmodel.departmentId.value =prefManager.getDeptId()
-            Log.d("PrefManager", "Department ID: ${prefManager.getDeptId()}")
-            viewmodel.entityId.value = prefManager.getEntityId().toIntOrNull()
-            Log.d("PrefManager", "Entity ID: ${prefManager.getIntEntityId()}")
-            viewmodel.doctorId.value = prefManager.getDoctorId().toIntOrNull()
-            Log.d("PrefManager", "Doctor ID: ${prefManager.getDoctorId().toIntOrNull() ?: 0}")
+            viewmodel.entityId.value = prefManager.getEntityId().takeIf { it.isNotEmpty() && it != "null" }?.toInt() ?: 0
+            Log.d("prefernceses","entityId is:${viewmodel.entityId.value}")
+            viewmodel.doctorId.value = prefManager.getDoctorId().takeIf { it.isNotEmpty() && it != "null" }?.toInt() ?: 0
+            Log.d("prefernceses","doctorId is:${viewmodel.doctorId.value}")
             viewmodel.consultationTime.value =prefManager.getConsultationDuration()
-            Log.d("PrefManager", "Consultation Time: ${prefManager.getConsultationDuration()}")
             viewmodel.selectedDay.observe(viewLifecycleOwner) { day ->
-                Log.d("Selected Day", "Selected day is: $day")
             }
            viewmodel.session.observe(viewLifecycleOwner){ session->
-           Log.d("Selected session", "Selected session is: $session")
            }
             startTime.observe(viewLifecycleOwner) { startTime ->
-                Log.d("Selected start time", "Selected start time is: $startTime")
             }
 
             endTime.observe(viewLifecycleOwner) { endTime ->
-                Log.d("Selected end time", "Selected end time is: $endTime")
             }
             selfRegistrationCompleted()
         }
@@ -81,6 +73,8 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
                                     200->{
                                         lifecycleScope.launch {
                                             delay(3000)
+                                            prefManager.setToken(it.data.data.access_token.trim())
+                                            prefManager.setRefToken(it.data.data.refresh_token.trim())
                                             findNavController().navigate(RegistrationCompletedFragmentDirections.actionRegistrationCompletedFragmentToHomeBaseFragment())
                                         }
 
@@ -100,7 +94,7 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
                             Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-                            Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
+                          //  Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

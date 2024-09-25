@@ -14,12 +14,12 @@ data class WorkRequestModel(
     val doctor_id: String
 )
 data class BookingRequestModel(
-    val doctorId: String,
+    val doctor_id: String,
     val date: String,
-    val entityId : String
+    val entity_id : String
 )
 data class BookingReportModel(
-    val doctorId: String,
+    val doctor_id: String,
     val date: String,
 )
 data class BookUpdateRequestModel(
