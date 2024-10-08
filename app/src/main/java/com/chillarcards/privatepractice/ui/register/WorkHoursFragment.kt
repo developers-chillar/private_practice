@@ -45,6 +45,7 @@ class WorkHoursFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefManager=PrefManager(requireContext())
         Const.enableButton(binding.confirmBtn)
         setToolbar()
 

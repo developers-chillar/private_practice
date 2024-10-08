@@ -1,7 +1,10 @@
 package com.chillarcards.privatepractice.ui.register
 
 import android.content.BroadcastReceiver
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
+import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Typeface
@@ -18,10 +21,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -121,8 +124,7 @@ open class OTPFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pInfo =
-            activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
+        val pInfo = activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
         val versionName = pInfo?.versionName //Version Name
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
 
@@ -469,7 +471,7 @@ open class OTPFragment : Fragment() {
                                     "422" -> {
                                         Const.messageToast(requireContext(), mobileData.message, "This application is exclusively for doctors registered through our web portal.")
                                         findNavController().popBackStack()
-                                        mobileViewModel.clear()
+                                       mobileViewModel.clear()
                                     }
                                     else -> Const.shortToast(requireContext(), mobileData.message)
                                 }
@@ -535,4 +537,6 @@ open class OTPFragment : Fragment() {
             // Proceed with verification or any other action you need
         }
     }
+
+
 }

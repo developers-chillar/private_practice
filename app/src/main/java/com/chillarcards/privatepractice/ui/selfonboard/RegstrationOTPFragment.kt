@@ -1,40 +1,35 @@
 package com.chillarcards.privatepractice.ui.selfonboard
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
+import android.content.ClipData
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Typeface
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.os.Looper
+import android.text.ClipboardManager
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
-import androidx.navigation.Navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chillarcards.privatepractice.R
-import com.chillarcards.privatepractice.databinding.FragmentOtpBinding
 import com.chillarcards.privatepractice.databinding.FragmentRegstrationOTPBinding
-import com.chillarcards.privatepractice.ui.register.OTPFragment
-import com.chillarcards.privatepractice.ui.register.OTPFragment.Companion
-import com.chillarcards.privatepractice.ui.register.OTPFragmentArgs
-import com.chillarcards.privatepractice.ui.register.OTPFragmentDirections
 import com.chillarcards.privatepractice.utills.Const
 import com.chillarcards.privatepractice.utills.GenericKeyEvent
 import com.chillarcards.privatepractice.utills.GenericTextWatcher
@@ -42,7 +37,6 @@ import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.MobileScreenViewModel
 import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
-import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -268,32 +262,39 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         binding.otpA.addTextChangedListener {
             aOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            focusOnFirstIfEmpty() // Focus on the first EditText if it's empty
+            focusOnFirstIfEmpty()
+            setClipboard(requireContext(), binding.otpA.text.toString())
+        // Focus on the first EditText if it's empty
         }
         binding.otpB.addTextChangedListener(GenericTextWatcher(binding.otpB, binding.otpC))
         binding.otpB.addTextChangedListener {
             bOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            setClipboard(requireContext(), binding.otpB.text.toString())
         }
         binding.otpC.addTextChangedListener(GenericTextWatcher(binding.otpC, binding.otpD))
         binding.otpC.addTextChangedListener {
             cOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            setClipboard(requireContext(), binding.otpC.text.toString())
         }
         binding.otpD.addTextChangedListener(GenericTextWatcher(binding.otpD, binding.otpE))
         binding.otpD.addTextChangedListener {
             dOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            setClipboard(requireContext(), binding.otpD.text.toString())
         }
         binding.otpE.addTextChangedListener(GenericTextWatcher(binding.otpE, binding.otpF))
         binding.otpE.addTextChangedListener {
             eOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            setClipboard(requireContext(), binding.otpE.text.toString())
         }
         binding.otpF.addTextChangedListener(GenericTextWatcher(binding.otpF, null))
         binding.otpF.addTextChangedListener {
             fOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            setClipboard(requireContext(), binding.otpF.text.toString())
         }
 
         // Attach key listener to handle navigation between EditText fields
@@ -431,7 +432,16 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                 }
 
                                 400->{
-                                    Const.shortToast(requireContext(),resData.message.toString())
+                                    Log.d("userAuth", "User is verified.")
+                                    val prefManager = PrefManager(requireContext())
+                                    prefManager.setMobileNo(args.mobile.toString())
+                                    Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
+                                    val entityId = resData.data.entity_id ?: 0 // Provide a default if entityId is null
+                                    prefManager.setEntityId(entityId.toString())
+                                    val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
+                                    prefManager.setDoctorId(doctorId.toString())
+                                    findNavController().navigate(R.id.homeBaseFragment)
+                                //    Const.shortToast(requireContext(),resData.message.toString())
 
                                 }
 
@@ -444,8 +454,16 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                         }
                     }
 
-                    Status.ERROR->{
-                        Const.shortToast(requireContext(),it.message.toString())
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(),"Token not updated in register login regi otp frag",Toast.LENGTH_SHORT).show()
+                        Log.d("TokenLog", "403: Token expired, refreshing token1")
+                        prefManager.setRefresh("1")
+                        val authViewModel by viewModel<RegisterViewModel>()
+                        Const.getNewTokenAPI(
+                            requireContext(),
+                            authViewModel,
+                            viewLifecycleOwner
+                        )
                     }
                     Status.LOADING->{
 
@@ -456,6 +474,18 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         }
         catch(e:Exception){
 
+        }
+    }
+
+    private fun setClipboard(context: Context, text: String) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.text = text
+        } else {
+            val clipboard =
+                context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+            val clip = ClipData.newPlainText("Copied Text", text)
+            clipboard.setPrimaryClip(clip)
         }
     }
 

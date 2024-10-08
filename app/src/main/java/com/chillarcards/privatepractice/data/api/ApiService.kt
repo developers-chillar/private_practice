@@ -4,6 +4,7 @@ import com.chillarcards.privatepractice.data.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 /**
@@ -19,7 +20,7 @@ interface ApiService {
         @Body reqModel: RegisterRequestModel
     ): Response<RegisterModel>
 
-    @POST("auth/user-check ")
+    @POST("auth/user-check")
     suspend fun userCheck(@Body reqModel: UserCheckReqClass): Response<UserCheckResClass>
 
 //    @Headers("Content-Type: application/json;charset=UTF-8") //no need

@@ -28,10 +28,7 @@ interface ApiHelper {
     suspend fun getShopClose():  Response<StatusResponseModel>
     suspend fun getCategory():  Response<CategoryResponseModel>
     suspend fun getBookigDetails(doctor_id: String, date: String, entity_id: String): Response<BookingResponseModel>
-    suspend fun getReport(
-        doctorId: String,
-        date: String,
-    ): Response<BookingReportResponseModel>
+    suspend fun getReport(doctorId: String, date: String, ): Response<BookingReportResponseModel>
 
     suspend fun getUpdate(bookingId: String): Response<StatusResponseModel>
     suspend fun getDoctorAvailability(doctorId: String,date:String): Response<AddLeaveResClass>

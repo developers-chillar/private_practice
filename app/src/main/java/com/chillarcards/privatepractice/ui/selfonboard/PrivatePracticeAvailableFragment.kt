@@ -35,7 +35,8 @@ lateinit var binding: FragmentPrivatePracticeAvailableBinding
                 val selectedRadioButton: RadioButton = view.findViewById(binding.rgDays.checkedRadioButtonId)
                 val selectSession = selectedRadioButton.text.toString()
                 viewmodel.session.value = selectSession
-                val action=PrivatePracticeAvailableFragmentDirections.actionPrivatePracticeAvailableFragmentToPrivatePracticeWorkingHoursFragment()
+
+                val action=PrivatePracticeAvailableFragmentDirections.actionPrivatePracticeAvailableFragmentToPrivatePracticeWorkingHoursFragment(selectSession)
                 findNavController().navigate(action)
 
             }

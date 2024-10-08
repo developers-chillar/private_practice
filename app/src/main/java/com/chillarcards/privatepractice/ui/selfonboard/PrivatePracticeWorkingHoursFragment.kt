@@ -67,38 +67,137 @@ class PrivatePracticeWorkingHoursFragment :
             binding.etEveningEndTime.showDropDown()
         }
 
+        val selectedSession = arguments?.let {
+            PrivatePracticeWorkingHoursFragmentArgs.fromBundle(it).session
+        }
+
+        when (selectedSession) {
+            "Morning" -> {
+                binding.tvWorkingEveningHours.visibility = View.GONE
+                binding.layoutEveningTime.visibility = View.GONE
+                binding.layoutEveningTimeSlot.visibility=View.GONE
+                binding.tvMorningWorkingHours.visibility = View.VISIBLE
+                binding.layoutTime.visibility = View.VISIBLE
+                binding.layoutTimeSlot.visibility=View.VISIBLE
+
+            }
+            "Evening" -> {
+                binding.tvMorningWorkingHours.visibility = View.GONE
+                binding.layoutTime.visibility = View.GONE
+                binding.layoutTimeSlot.visibility=View.GONE
+                binding.tvWorkingEveningHours.visibility = View.VISIBLE
+                binding.layoutEveningTime.visibility = View.VISIBLE
+                binding.layoutEveningTimeSlot.visibility=View.VISIBLE
+            }
+            "Both" -> {
+                binding.tvWorkingEveningHours.visibility = View.VISIBLE
+                binding.layoutEveningTime.visibility = View.VISIBLE
+                binding.tvMorningWorkingHours.visibility = View.VISIBLE
+                binding.layoutTime.visibility = View.VISIBLE
+                binding.layoutTime.visibility = View.VISIBLE
+                binding.layoutEveningTimeSlot.visibility=View.VISIBLE
+                binding.layoutTimeSlot.visibility=View.VISIBLE
+            }
+        }
 
         binding.tvContinue.setOnClickListener {
-            when {
-                binding.etStartTime.text.toString().isEmpty() -> {
-                    binding.etStartTime.error = "Please select start time"
-
-                }
-
-                binding.etEndTime.text.toString().isEmpty() -> {
-                    binding.etEndTime.error = "Please select end time"
-                }
-
-                binding.etStartEveningTime.text.toString().isEmpty() -> {
-                    binding.etStartEveningTime.error = "Please select start time"
-                }
-
-                binding.etEveningEndTime.text.toString().isEmpty() -> {
-                    binding.etEveningEndTime.error = "Please select end time"
-                }
-
-                else -> {
-                    viewmodel.startTime.value = binding.etStartTime.text.toString()
-                    viewmodel.endTime.value = binding.etEndTime.text.toString()
-                    viewmodel.startTime.value = binding.etStartEveningTime.text.toString()
-                    viewmodel.endTime.value = binding.etEveningEndTime.text.toString()
-                    val action=PrivatePracticeWorkingHoursFragmentDirections.actionPrivatePracticeWorkingHoursFragmentToConsultationDurationFragment()
-                    findNavController().navigate(action)
-                }
+            val selectedSession = arguments?.let {
+                PrivatePracticeWorkingHoursFragmentArgs.fromBundle(it).session
             }
 
+            when (selectedSession) {
+                "Morning" -> {
+                    if (binding.etStartTime.text.toString().isEmpty()) {
+                        binding.etStartTime.error = "Please select morning start time"
+                    } else if (binding.etEndTime.text.toString().isEmpty()) {
+                        binding.etEndTime.error = "Please select morning end time"
+                    } else {
+                        // Save morning times to ViewModel
+                        viewmodel.startTime.value = binding.etStartTime.text.toString()
+                        viewmodel.endTime.value = binding.etEndTime.text.toString()
 
+                        // Navigate to next fragment
+                        val action = PrivatePracticeWorkingHoursFragmentDirections
+                            .actionPrivatePracticeWorkingHoursFragmentToConsultationDurationFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+
+                "Evening" -> {
+                    if (binding.etStartEveningTime.text.toString().isEmpty()) {
+                        binding.etStartEveningTime.error = "Please select evening start time"
+                    } else if (binding.etEveningEndTime.text.toString().isEmpty()) {
+                        binding.etEveningEndTime.error = "Please select evening end time"
+                    } else {
+                        // Save evening times to ViewModel
+                        viewmodel.startTime.value = binding.etStartEveningTime.text.toString()
+                        viewmodel.endTime.value = binding.etEveningEndTime.text.toString()
+
+                        // Navigate to next fragment
+                        val action = PrivatePracticeWorkingHoursFragmentDirections
+                            .actionPrivatePracticeWorkingHoursFragmentToConsultationDurationFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+
+                "Both" -> {
+                    if (binding.etStartTime.text.toString().isEmpty()) {
+                        binding.etStartTime.error = "Please select morning start time"
+                    } else if (binding.etEndTime.text.toString().isEmpty()) {
+                        binding.etEndTime.error = "Please select morning end time"
+                    } else if (binding.etStartEveningTime.text.toString().isEmpty()) {
+                        binding.etStartEveningTime.error = "Please select evening start time"
+                    } else if (binding.etEveningEndTime.text.toString().isEmpty()) {
+                        binding.etEveningEndTime.error = "Please select evening end time"
+                    } else {
+                        // Save both morning and evening times to ViewModel
+                        viewmodel.startTime.value = binding.etStartTime.text.toString()
+                        viewmodel.endTime.value = binding.etEndTime.text.toString()
+                        viewmodel.startTime.value = binding.etStartEveningTime.text.toString()
+                        viewmodel.endTime.value = binding.etEveningEndTime.text.toString()
+
+                        // Navigate to next fragment
+                        val action = PrivatePracticeWorkingHoursFragmentDirections
+                            .actionPrivatePracticeWorkingHoursFragmentToConsultationDurationFragment()
+                        findNavController().navigate(action)
+                    }
+                }
+            }
         }
+
+
+
+//        binding.tvContinue.setOnClickListener {
+//            when {
+//                binding.etStartTime.text.toString().isEmpty() -> {
+//                    binding.etStartTime.error = "Please select start time"
+//
+//                }
+//
+//                binding.etEndTime.text.toString().isEmpty() -> {
+//                    binding.etEndTime.error = "Please select end time"
+//                }
+//
+//                binding.etStartEveningTime.text.toString().isEmpty() -> {
+//                    binding.etStartEveningTime.error = "Please select start time"
+//                }
+//
+//                binding.etEveningEndTime.text.toString().isEmpty() -> {
+//                    binding.etEveningEndTime.error = "Please select end time"
+//                }
+//
+//                else -> {
+//                    viewmodel.startTime.value = binding.etStartTime.text.toString()
+//                    viewmodel.endTime.value = binding.etEndTime.text.toString()
+//                    viewmodel.startTime.value = binding.etStartEveningTime.text.toString()
+//                    viewmodel.endTime.value = binding.etEveningEndTime.text.toString()
+//                    val action=PrivatePracticeWorkingHoursFragmentDirections.actionPrivatePracticeWorkingHoursFragmentToConsultationDurationFragment()
+//                    findNavController().navigate(action)
+//                }
+//            }
+//
+//
+//        }
     }
 
 

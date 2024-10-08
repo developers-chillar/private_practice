@@ -10,6 +10,7 @@ import com.chillarcards.privatepractice.data.model.UserCheckResClass
 import com.chillarcards.privatepractice.data.repository.AuthRepository
 import com.chillarcards.privatepractice.utills.NetworkHelper
 import com.chillarcards.privatepractice.utills.Resource
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -48,7 +49,7 @@ class MobileScreenViewModel(private val authRepository: AuthRepository,
     }
 
     fun verifyRegistrationMobileNumber() {
-        viewModelScope.launch {
+        viewModelScope.launch(NonCancellable) {
             try {
                 _verifyPhoneNumber.postValue(Resource.loading(null))
                 if (networkHelper.isNetworkConnected()) {

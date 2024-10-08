@@ -126,6 +126,10 @@
                         android:maxLength="9"
                         android:layout_marginStart="17dp"
                         android:textSize="13sp"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:completionThreshold="1"
+                        android:dropDownHeight="wrap_content"
                         android:textColorHint="@color/black"/>
 
                     <AutoCompleteTextView
@@ -145,6 +149,10 @@
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"
                         android:textSize="13sp"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:completionThreshold="1"
+                        android:dropDownHeight="wrap_content"
                         android:textColorHint="@color/black"/>
 
                 </LinearLayout>
@@ -214,6 +222,10 @@
                         android:maxLength="9"
                         android:layout_marginStart="17dp"
                         android:textSize="13sp"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:completionThreshold="1"
+                        android:dropDownHeight="wrap_content"
                         android:textColorHint="@color/black"/>
 
                     <AutoCompleteTextView
@@ -233,6 +245,10 @@
                         android:layout_marginStart="34dp"
                         android:layout_marginEnd="30dp"
                         android:textSize="13sp"
+                        android:focusable="false"
+                        android:maxLines="1"
+                        android:completionThreshold="1"
+                        android:dropDownHeight="wrap_content"
                         android:textColorHint="@color/black"/>
 
                 </LinearLayout>

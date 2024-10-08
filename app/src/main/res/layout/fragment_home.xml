@@ -131,6 +131,7 @@
                                 android:fontFamily="@font/montserrat_bold"
                                 android:textFontWeight="600"
                                 android:textSize="13sp"
+                                android:paddingVertical="5dp"
                                 android:layout_marginBottom="51dp"
                                 android:textStyle="bold"/>
                         </LinearLayout>

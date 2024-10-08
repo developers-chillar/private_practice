@@ -10,8 +10,8 @@ import com.chillarcards.privatepractice.data.model.BookingResponseModel
 import com.chillarcards.privatepractice.data.model.ShareLinkResponseModel
 import com.chillarcards.privatepractice.data.model.StatusResponseModel
 import com.chillarcards.privatepractice.data.repository.AuthRepository
-import com.chillarcards.privatepractice.di.module.viewModelModule
 import com.chillarcards.privatepractice.utills.NetworkHelper
+import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Resource
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 class BookingViewModel(
     private val authRepository: AuthRepository,
-    private val networkHelper: NetworkHelper
+    private val networkHelper: NetworkHelper,
 ) : ViewModel() {
     private val _bookingData = MutableLiveData<Resource<BookingResponseModel>?>()
     val bookingData: LiveData<Resource<BookingResponseModel>?> get() = _bookingData
@@ -46,14 +46,17 @@ class BookingViewModel(
                     authRepository.getBookigDetails(
                         doctorID.value.toString(),
                         date.value.toString(),
-                        entityId.value.toString(),
+                        entityId.value.toString()
                     ).let {
                         if (it.isSuccessful) {
+                            Log.e("getBookingList0", "API call succes with code: ${it.code()}, message: ${it.message()}, error: ${it.body()}")
                             _bookingData.postValue(Resource.success(it.body()))
-                        } else {
+                        }
+                        else {
                             val errorBody = it.errorBody()?.string() ?: "Unknown error"
-                            Log.e("getBookingList", "API call failed with code: ${it.code()}, message: ${it.message()}, error: $errorBody")
+                            Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}, error: $errorBody")
                             _bookingData.postValue(Resource.error("Error ${it.code()}: ${it.message()}", null))
+
 
                         }
                     }
@@ -61,7 +64,7 @@ class BookingViewModel(
                     _bookingData.postValue(Resource.error("No Internet Connection", null))
                 }
             } catch (e: Exception) {
-                Log.e("getBookingList", "Exception occurred: ", e)
+                Log.e("getBookingList0", "Exception occurred: ", e)
                 _bookingData.postValue(Resource.error("An unexpected error occurred", null))
 
             }
@@ -79,7 +82,8 @@ class BookingViewModel(
                         if (it.isSuccessful) {
                             _bookUpdateData.postValue(Resource.success(it.body()))
                         } else {
-                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
+                            Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}, ")
+
                             _bookUpdateData.postValue(Resource.error(it.errorBody().toString(), null))
                         }
                     }
@@ -100,7 +104,8 @@ class BookingViewModel(
                         if (it.isSuccessful) {
                             _bookLinkData.postValue(Resource.success(it.body()))
                         } else {
-                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
+                            Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}")
+
                             _bookLinkData.postValue(Resource.error(it.errorBody().toString(), null))
                         }
                     }
@@ -125,7 +130,8 @@ class BookingViewModel(
                         if (it.isSuccessful) {
                             _doctorOnLeave.postValue(Resource.success(it.body()))
                         } else {
-                            Log.e("abc_otp", "verifyProfile 5: "+it.message().toString())
+                            Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}")
+
                             _doctorOnLeave.postValue(Resource.error(it.errorBody().toString(), null))
                         }
                     }

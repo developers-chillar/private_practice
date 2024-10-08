@@ -107,6 +107,7 @@ class BookingViewFragment : Fragment(), IAdapterViewUtills {
                             showProgress()
                         }
                         Status.ERROR -> {
+                            prefManager.getRefToken()
                             hideProgress()
                             Const.shortToast(requireContext(), it.message.toString())
                             Const.shortToast(requireContext(),"403 profile")

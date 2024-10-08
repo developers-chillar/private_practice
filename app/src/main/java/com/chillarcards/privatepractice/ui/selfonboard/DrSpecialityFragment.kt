@@ -37,6 +37,10 @@ lateinit var prefManager: PrefManager
         drSpecialityViewModel.run {
             drSpecialityViewModel.getDrSpecialized()
             drSpecialityObserver()
+
+        }
+        binding.etGdName.setOnClickListener {
+            binding.etGdName.showDropDown()
         }
     }
 
@@ -51,7 +55,7 @@ lateinit var prefManager: PrefManager
                                     200->{
                                       val adapter=ArrayAdapter(requireContext(),R.layout.drop_down_items,drSpecialities.data.map { it.department_name })
                                         binding.etGdName.setAdapter(adapter)
-                                        binding.etGdName.showDropDown()
+                                       // binding.etGdName.showDropDown()
                                         val deptId=drSpecialities.data.map { it.department_id }
                                         prefManager.setDeptId(deptId[0])
                                         binding.tvContinue.setOnClickListener {

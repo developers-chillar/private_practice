@@ -43,7 +43,12 @@ class PrefManager(_context: Context) {
     }
 
     fun getToken(): String {
+//        val hardcodedToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6IlUyRnNkR1ZrWDE4MnRpUk0vdVVnWDd6WVhhVk44Mms5NjlCNUhmUmN2YVk9IiwiaWF0IjoxNzI4MzA5MDg2LCJleHAiOjE3MjgzMTI2ODZ9.giVV1Hygg7JYJqtLuzHFVGPYHphFiApVJKupu8Nnf0I" // Replace with your actual token value
+//        Log.e("PrefManager1", "token: $hardcodedToken")
+//        return hardcodedToken
+        Log.e("PrefManager1", "token:${pref.getString(TOKEN, "") ?: ""} ")
         return pref.getString(TOKEN, "") ?: ""
+
     }
 //    fun setToken(token: String) {
 //        editor.putString(TOKEN, token)
@@ -51,10 +56,11 @@ class PrefManager(_context: Context) {
 //    }
 fun setToken(token: String?) {
     if (token != null) {
-        editor.putString("token", token)
-        editor.apply() // Use apply() for asynchronous saving
+        editor.putString(TOKEN, token)
+        editor.apply()
+        Log.e("PrefManager", "token: $token")// Use apply() for asynchronous saving
     } else {
-        Log.e("PrefManager", "Attempted to save a null token.")
+      //  Log.e("PrefManager", "Attempted to save a null token.")
         // Handle the case where token is null, if needed
     }
 }

@@ -453,6 +453,12 @@
         android:id="@+id/privatePracticeWorkingHoursFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivatePracticeWorkingHoursFragment"
         android:label="PrivatePracticeWorkingHoursFragment" >
+
+        <argument
+            android:name="session"
+            app:argType="string">
+
+        </argument>
         <action
             android:id="@+id/action_privatePracticeWorkingHoursFragment_to_consultationDurationFragment"
             app:destination="@id/consultationDurationFragment" />
@@ -509,6 +515,9 @@
         <action
             android:id="@+id/action_regstrationOTPFragment_to_goodNameFragment"
             app:destination="@id/goodNameFragment" />
+        <action
+            android:id="@+id/action_regstrationOTPFragment_to_homeBaseFragment"
+            app:destination="@id/homeBaseFragment" />
     </fragment>
 
 </navigation>

@@ -14,9 +14,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentRegistrationCompletedBinding
+import com.chillarcards.privatepractice.utills.Const
 import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.DrSpecialityViewModel
+import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
 import com.chillarcards.privatepractice.viewmodel.RegistrationCompletedViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -74,6 +76,7 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
                                         lifecycleScope.launch {
                                             delay(3000)
                                             prefManager.setToken(it.data.data.access_token.trim())
+                                            Log.d("ref_compl_token","tag:${prefManager.setToken(it.data.data.access_token.toString())}")
                                             prefManager.setRefToken(it.data.data.refresh_token.trim())
                                             findNavController().navigate(RegistrationCompletedFragmentDirections.actionRegistrationCompletedFragmentToHomeBaseFragment())
                                         }
@@ -91,7 +94,15 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
                         }
 
                         Status.ERROR -> {
-                            Toast.makeText(requireContext(),it.message,Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),"Token not updated in register login regi completed frag",Toast.LENGTH_SHORT).show()
+                            Log.d("TokenLog", "403: Token expired, refreshing token1")
+                            prefManager.setRefresh("1")
+                            val authViewModel by viewModel<RegisterViewModel>()
+                            Const.getNewTokenAPI(
+                                requireContext(),
+                                authViewModel,
+                                viewLifecycleOwner
+                            )
                         }
                         Status.LOADING -> {
                           //  Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()

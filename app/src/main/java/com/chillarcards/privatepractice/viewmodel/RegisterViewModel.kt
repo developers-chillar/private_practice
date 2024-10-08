@@ -24,9 +24,11 @@ class RegisterViewModel(
 ) : ViewModel() {
     private val _regData = MutableLiveData<Resource<RegisterModel>?>()
     val regData: LiveData<Resource<RegisterModel>?> get() = _regData
+
     private val _tokenData = MutableLiveData<Resource<RegisterModel>?>()
     val tokenData: LiveData<Resource<RegisterModel>?> get() = _tokenData
     var mob = MutableLiveData<String>()
+    var accessToken=MutableLiveData<String>()
 
 
     fun verifyMobile() {
@@ -61,11 +63,11 @@ class RegisterViewModel(
                         mob.value.toString()
                     ).let {
                         if (it.isSuccessful) {
-
+                            Log.e("getAUthToken", "getAuthToken: ${it.body()}")
                             _tokenData.postValue(Resource.success(it.body()))
 
                         } else {
-
+                            Log.e("getAUthTokenFailed", "getAuthToken: ${it.body()}")
                             _tokenData.postValue(Resource.error(it.errorBody().toString(), null))
                         }
                     }

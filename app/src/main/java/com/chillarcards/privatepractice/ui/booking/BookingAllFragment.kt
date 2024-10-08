@@ -183,12 +183,12 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                     }
                                     403 -> {
                                         prefManager.setRefresh("1")
-                                        val authViewModel by viewModel<RegisterViewModel>()
-                                        Const.getNewTokenAPI(
-                                            requireContext(),
-                                            authViewModel,
-                                            viewLifecycleOwner
-                                        )
+//                                        val authViewModel by viewModel<RegisterViewModel>()
+//                                        Const.getNewTokenAPI(
+//                                            requireContext(),
+//                                            authViewModel,
+//                                            viewLifecycleOwner
+//                                        )
 
                                     }
                                     else -> Const.shortToast(requireContext(), bookingData.message)
@@ -202,12 +202,12 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                         Status.ERROR -> {
                             hideProgress()
                             prefManager.setRefresh("1")
-                            val authViewModel by viewModel<RegisterViewModel>()
-                            Const.getNewTokenAPI(
-                                requireContext(),
-                                authViewModel,
-                                viewLifecycleOwner
-                            )
+//                            val authViewModel by viewModel<RegisterViewModel>()
+//                            Const.getNewTokenAPI(
+//                                requireContext(),
+//                                authViewModel,
+//                                viewLifecycleOwner
+//                            )
 
 //                            profileViewModel.run {
 //                                mob.value = prefManager.getMobileNo()
@@ -244,12 +244,12 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                     }
                                     403 -> {
                                         prefManager.setRefresh("1")
-                                        val authViewModel by viewModel<RegisterViewModel>()
-                                        Const.getNewTokenAPI(
-                                            requireContext(),
-                                            authViewModel,
-                                            viewLifecycleOwner
-                                        )
+//                                        val authViewModel by viewModel<RegisterViewModel>()
+//                                        Const.getNewTokenAPI(
+//                                            requireContext(),
+//                                            authViewModel,
+//                                            viewLifecycleOwner
+//                                        )
 
                                     }
                                     else -> Const.shortToast(requireContext(), bookStatusData.message)
@@ -261,12 +261,12 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                         }
                         Status.ERROR -> {
                             prefManager.setRefresh("1")
-                            val authViewModel by viewModel<RegisterViewModel>()
-                            Const.getNewTokenAPI(
-                                requireContext(),
-                                authViewModel,
-                                viewLifecycleOwner
-                            )
+//                            val authViewModel by viewModel<RegisterViewModel>()
+//                            Const.getNewTokenAPI(
+//                                requireContext(),
+//                                authViewModel,
+//                                viewLifecycleOwner
+//                            )
 
                         }
                     }
