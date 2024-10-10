@@ -61,13 +61,17 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
         // Add mobile number validation
         binding.etGdName.addTextChangedListener {
             val input = it.toString()
+
             if (input.isNotEmpty()) {
                 if (!input.matches(mobileRegex)) {
                     binding.mobile.error = "Enter a valid mobile number"
                 } else {
                     binding.mobile.error = null
                     binding.mobile.isErrorEnabled = false
-                    tempMobileNo = input
+
+                    tempMobileNo= prefManager.setMobileNo(input).toString()
+
+
                 }
             }
         }
@@ -136,6 +140,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
                 binding.progressBar.visibility=View.GONE
                 findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo, prefManager.getVerificatiobID()))
                 Const.shortToast(requireContext(), "OTP sent successfully")
+                Log.d("tempphoene",tempMobileNo)
 
             }
         }
@@ -154,7 +159,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
     private fun phoneVerify() {
         val inputMobile = binding.etGdName.text.toString()
         if (inputMobile.matches(mobileRegex)) {
-            startPhoneNumberVerification(tempMobileNo)
+            startPhoneNumberVerification(inputMobile)
             binding.mobile.error = null
         } else {
             binding.mobile.error = "Invalid mobile number"

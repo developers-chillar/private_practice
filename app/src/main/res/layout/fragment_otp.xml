@@ -106,7 +106,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:maxLength="6"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />

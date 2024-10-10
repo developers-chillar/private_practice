@@ -38,7 +38,10 @@ class GeneralViewModel(
                     authRepository.getGeneral(
                     ).let {
                         if (it.isSuccessful) {
+
                             _settingData.postValue(Resource.success(it.body()))
+                            var t = _settingData.value?.data?.data?.entityDetails?.firstOrNull()?.entityId
+                            Log.e("eNTITY", t.toString())
                         } else {
                             _settingData.postValue(Resource.error(it.errorBody().toString(), null))
                         }

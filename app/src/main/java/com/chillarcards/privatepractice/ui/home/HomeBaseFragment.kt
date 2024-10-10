@@ -43,25 +43,25 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         val navController = navHostFragment.navController
         binding.home.setOnClickListener {
             navController.navigate(R.id.homeFragment)
-            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.home)?.mutate()
-            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            binding.home.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-
-            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-
-            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
-
-            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
+//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.home)?.mutate()
+//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            binding.home.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+//
+//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
+//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
+//
+//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
+//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
+//
+//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
+//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
 
 
         }
@@ -70,69 +70,69 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         }
         binding.setting.setOnClickListener {
             navController.navigate(R.id.generalFragment)
-            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_setting)?.mutate()
-            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-
-            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-
-            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
-
-            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
+//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_setting)?.mutate()
+//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+//
+//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
+//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
+//
+//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
+//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
+//
+//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
+//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
         }
         binding.addProfile.setOnClickListener {
             navController.navigate(R.id.profileFragment)
-            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_profile)?.mutate()
-            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-
-            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-
-            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-
-            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
+//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_profile)?.mutate()
+//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+//
+//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
+//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
+//
+//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
+//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
+//
+//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
+//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
         }
 
         binding.walkBook.setOnClickListener {
-            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_calender)?.mutate()
-            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-
-            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-
-            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-
-            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
+//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_calender)?.mutate()
+//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
+//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
+//
+//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
+//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
+//
+//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
+//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
+//
+//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
+//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
 
 
             val calendar = Calendar.getInstance()

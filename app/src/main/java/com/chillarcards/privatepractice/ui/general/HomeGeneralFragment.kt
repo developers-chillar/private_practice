@@ -273,6 +273,7 @@ class HomeGeneralFragment : Fragment(), IAdapterViewUtills {
         if(Mode.equals("STAFFVIEW")) {
             val entityId = ValueArray[0].mastIDs.toString()
             prefManager.setEntityId(entityId)
+            Log.d("entityIDhomefra",entityId)
 
             findNavController().navigate(
                 HomeGeneralFragmentDirections.actionGeneralFragmentToHomeFragment(

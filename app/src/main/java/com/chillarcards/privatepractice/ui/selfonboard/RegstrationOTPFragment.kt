@@ -404,7 +404,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
 
     private fun mobileVerify() {
         mobileViewModel.run {
-            phone.value = args.mobile
+            doctorPhone.value = prefManager.getMobileNo()
             verifyRegistrationMobileNumber()
         }
         phoneRegister()
@@ -421,13 +421,17 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                 200->{
                                     Log.d("userAuth", "User is verified.")
                                     val prefManager = PrefManager(requireContext())
-                                    prefManager.setMobileNo(args.mobile.toString())
-                                    Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
+                                    //prefManager.setMobileNo(args.mobile.toString())
+                                   // Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
                                     val entityId = resData.data.entity_id ?: 0 // Provide a default if entityId is null
                                     prefManager.setEntityId(entityId.toString())
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
-                                   findNavController().navigate(R.id.goodNameFragment)
+                                    val profileCompleted = resData.data.profile_completed ?: 0
+                                    if (profileCompleted == 0) {
+                                        // If profile is not completed, navigate to NameFragment
+                                        findNavController().navigate(R.id.goodNameFragment)
+                                    }
 
                                 }
 
@@ -438,9 +442,10 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     Log.d("setMobileNo", "setMobileNo:${prefManager.setMobileNo(args.mobile.toString())}")
                                     val entityId = resData.data.entity_id ?: 0 // Provide a default if entityId is null
                                     prefManager.setEntityId(entityId.toString())
+                                    Log.d("entityIDDD",entityId.toString())
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
-                                    findNavController().navigate(R.id.homeBaseFragment)
+                                    findNavController().navigate(R.id.mobileFragment)
                                 //    Const.shortToast(requireContext(),resData.message.toString())
 
                                 }

@@ -438,7 +438,6 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="6"
                     tools:listitem="@layout/staff_adapter"/>
 
             </LinearLayout>

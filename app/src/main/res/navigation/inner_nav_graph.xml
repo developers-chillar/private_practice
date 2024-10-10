@@ -36,6 +36,12 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+
+        <argument
+            android:name="entityId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_homeFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />

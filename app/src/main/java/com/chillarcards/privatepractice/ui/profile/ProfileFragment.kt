@@ -50,9 +50,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IAdapterViewUtills 
         setToolbar()
       //  Const.enableButton(binding.confirmBtn)
         prefManager = PrefManager(requireContext())
+        profileViewModel.run {
+           mob.value = prefManager.getMobileNo()
+            Log.d("mob",profileViewModel.mob.value.toString())
+            getProfile()
+        }
 
-        profileViewModel.mob.value = prefManager.getMobileNo()
-        profileViewModel.getProfile()
 
         setUpObserver()
 
@@ -88,7 +91,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IAdapterViewUtills 
 
 
                                         //HIDE VIEW AS PER FIRST PHASE
-                                        if(profileData.data.additionalInfo.isNotEmpty()) {
+                                        val additionalInfo = profileData.data.additionalInfo
+                                        if (additionalInfo != null && additionalInfo.isNotEmpty()) {
                                             binding.topFeeFrame.visibility=View.GONE
                                             binding.pFee.visibility=View.GONE
 

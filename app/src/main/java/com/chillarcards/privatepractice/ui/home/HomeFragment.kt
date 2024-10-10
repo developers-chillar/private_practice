@@ -59,6 +59,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     private lateinit var notificationViewModel: NotificationViewModel
     private val bookingViewModel by viewModel<BookingViewModel>()
     private lateinit var prefManager: PrefManager
+
     private var doctorName =""
     private var phoneNo =""
     private val PERMISSION_REQUEST_CALL_PHONE = 1
@@ -124,6 +125,9 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             doctorID.value = prefManager.getDoctorId()
             date.value = formattedDate
             entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+            Log.d("entityIDHome", "onViewCreated: ${prefManager.getEntityId()}")
+
+            //   entityId.value = if (prefManager.getIntEntityId() == "-1") "" else prefManager.getIntEntityId()
          //   handleTokenExpiry()
             getBookingList()
         }
@@ -304,8 +308,8 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                                 e.printStackTrace()
                                             }
                                         }
-
-                                        if(bookingData.data.entityDetails.isNotEmpty()) {
+                                        val entityDetails = bookingData.data.entityDetails
+                                        if(entityDetails != null && entityDetails.isNotEmpty()) {
                                             if(bookingData.data.entityDetails.size>1){
                                                 binding.topStaffFrame.visibility=View.VISIBLE
                                                 val entityDataMastCols: List<EntityDetail>
@@ -352,7 +356,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                             showProgress()
                         }
                         Status.ERROR -> {
-                            Toast.makeText(requireContext(),"Token not updated in sign in  home frag",Toast.LENGTH_SHORT).show()
+                         //   Toast.makeText(requireContext(),"Token not updated in sign in  home frag",Toast.LENGTH_SHORT).show()
                             Log.d("TokenLog", "403: Token expired, refreshing token2")
                             hideProgress()
                             prefManager.setRefresh("1")

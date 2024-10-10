@@ -177,6 +177,7 @@ class BookingAllFragment : Fragment(), IAdapterViewUtills {
                                                 false
                                             )
                                         }else{
+                                          //  binding.nodata.setColorFilter(ContextCompat.getColor(requireContext(), R.color.black), android.graphics.PorterDuff.Mode.SRC_IN)
                                             binding.nodata.visibility=View.VISIBLE
                                             binding.tranRv.visibility=View.GONE
                                         }

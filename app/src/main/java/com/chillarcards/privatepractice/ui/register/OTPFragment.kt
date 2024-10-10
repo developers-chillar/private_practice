@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -31,6 +32,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.chillarcards.privatepractice.R
+import com.chillarcards.privatepractice.SmsBroadcastReceiver
 import com.chillarcards.privatepractice.databinding.FragmentOtpBinding
 import com.chillarcards.privatepractice.utills.Const
 import com.chillarcards.privatepractice.utills.GenericKeyEvent
@@ -54,9 +56,8 @@ import java.util.concurrent.TimeUnit
 
 
 open class OTPFragment : Fragment() {
-
     lateinit var binding: FragmentOtpBinding
-
+    private lateinit var smsBroadcastReceiver: SmsBroadcastReceiver
     private lateinit var prefManager: PrefManager
     private lateinit var timer: CountDownTimer
     private val digitRegex = "^\\d$".toRegex()
@@ -127,10 +128,8 @@ open class OTPFragment : Fragment() {
         val pInfo = activity?.let { activity?.packageManager!!.getPackageInfo(it.packageName, PackageManager.GET_ACTIVITIES) }
         val versionName = pInfo?.versionName //Version Name
         binding.version.text = "${getString(R.string.version)}" + Const.ver_title + versionName
-
         firebaseAuth = FirebaseAuth.getInstance()
         prefManager = PrefManager(requireContext())
-
         if (binding.timer.text == "00:60")
             startTimer()
 
@@ -269,6 +268,10 @@ open class OTPFragment : Fragment() {
         // Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
         binding.otpA.addTextChangedListener {
+//            otp->
+//            pasteOtpIntoFields(otp.toString())
+//            checkValidationStatus()
+//            startSMSListener()
             aOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
             focusOnFirstIfEmpty() // Focus on the first EditText if it's empty
@@ -307,6 +310,18 @@ open class OTPFragment : Fragment() {
         binding.otpE.setOnKeyListener(GenericKeyEvent(binding.otpE, binding.otpD))
         binding.otpF.setOnKeyListener(GenericKeyEvent(binding.otpF, binding.otpE))
     }
+
+    private fun pasteOtpIntoFields(otp: String) {
+        if (otp.length == 6) {
+            binding.otpA.setText(otp[0].toString())
+            binding.otpB.setText(otp[1].toString())
+            binding.otpC.setText(otp[2].toString())
+            binding.otpD.setText(otp[3].toString())
+            binding.otpE.setText(otp[4].toString())
+            binding.otpF.setText(otp[5].toString())
+        }
+    }
+
 
     private fun showProgress() {
         binding.confirmBtn.visibility = View.INVISIBLE
@@ -450,6 +465,8 @@ open class OTPFragment : Fragment() {
                                         prefManager.setToken(mobileData.data.access_token.trim())
                                         prefManager.setStatus(mobileData.data.profile_completed)
                                         prefManager.setDoctorId(mobileData.data.doctor_id.toString())
+                                        prefManager.setEntityId(mobileData.data.entity_id.toString())
+                                        Log.d("abc_otp", "otpObserver: ${mobileData.data.entity_id}")
                                         prefManager.setIsLoggedIn(true)
                                         prefManager.setRefresh("0")
                                         findNavController().navigate(OTPFragmentDirections.actionOTPFragmentToHomeFragment())
@@ -535,6 +552,33 @@ open class OTPFragment : Fragment() {
             binding.otpE.setText(otp[4].toString())
             binding.otpF.setText(otp[5].toString())
             // Proceed with verification or any other action you need
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Unregister the broadcast receiver to prevent memory leaks
+        requireActivity().unregisterReceiver(smsBroadcastReceiver)
+    }
+
+    private fun extractOTP(message: String) {
+        // Assuming OTP is a 6-digit code embedded in the SMS
+        val otpPattern = "(\\d{6})".toRegex()
+        val match = otpPattern.find(message)
+        match?.let {
+            val otp = it.value
+            pasteOtpIntoFields(otp) // Method already exists to fill in fields
+        }
+    }
+
+    private fun startSmsRetriever() {
+        val client = SmsRetriever.getClient(requireContext() /* context */)
+        val task = client.startSmsRetriever()
+        task.addOnSuccessListener {
+           Toast.makeText(requireContext(),"sms received",Toast.LENGTH_SHORT).show()
+        }
+        task.addOnFailureListener {
+            Toast.makeText(requireContext(),"sms hasn't received yet",Toast.LENGTH_SHORT).show()
         }
     }
 

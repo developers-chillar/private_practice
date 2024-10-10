@@ -25,6 +25,11 @@
             android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="entityId"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
         <action
             android:id="@+id/action_LoginFragment_to_welcomeOnBoardScreenFragment"
             app:destination="@id/welcomeOnBoardScreenFragment" />
@@ -502,7 +507,6 @@
 
         <argument
             android:name="mobile"
-            android:defaultValue=""
             app:argType="string"
             app:nullable="true" />
 
