@@ -60,7 +60,8 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
 
         // Add mobile number validation
         binding.etGdName.addTextChangedListener {
-            val input = it.toString()
+            //val input = it.toString()
+            val input = binding.etGdName.text.toString()
 
             if (input.isNotEmpty()) {
                 if (!input.matches(mobileRegex)) {
@@ -138,7 +139,7 @@ class SelfRegistrationFragment : Fragment(R.layout.fragment_self_registration) {
                 prefManager.SetVerificatiobID(mVerificationId)
                 Log.d("onCodeSent", "OTP Sent. Verification ID: $verificationId")
                 binding.progressBar.visibility=View.GONE
-                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(tempMobileNo, prefManager.getVerificatiobID()))
+                findNavController().navigate(SelfRegistrationFragmentDirections.actionSelfRegistrationFragmentToRegstrationOTPFragment(prefManager.getMobileNo(), prefManager.getVerificatiobID()))
                 Const.shortToast(requireContext(), "OTP sent successfully")
                 Log.d("tempphoene",tempMobileNo)
 

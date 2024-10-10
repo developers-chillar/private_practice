@@ -42,7 +42,7 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
         super.onViewCreated(view, savedInstanceState)
         prefManager = PrefManager(requireContext())
         viewmodel.run {
-            viewmodel.doctorPhone.value =prefManager.getMobileNo()
+            viewmodel.doctorPhone.value = prefManager.getMobileNo()
             viewmodel.doctorName.value =prefManager.getDrName()
             viewmodel.departmentId.value =prefManager.getDeptId()
             viewmodel.entityId.value = prefManager.getEntityId().takeIf { it.isNotEmpty() && it != "null" }?.toInt() ?: 0
