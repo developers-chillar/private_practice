@@ -64,7 +64,10 @@ class ClinicAdapter(private val items: List<EntityDetail>,
             if (item.entityId==-1){
                 ShopNameTextView.text = "All"
             }else{
-                ShopNameTextView.text = getFirstLetterAfterSpace(item.entityName)
+                ShopNameTextView.text = item.entityName?.let {
+                    getFirstLetterAfterSpace(it)
+                }
+               // ShopNameTextView.text = getFirstLetterAfterSpace(item.entityName)
             }
             staffView.setOnClickListener {
                 val commonDObj = CommonDBaseModel()

@@ -261,6 +261,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         // Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
         binding.otpA.addTextChangedListener {
+
             aOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
             focusOnFirstIfEmpty()
@@ -428,8 +429,11 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     prefManager.setEntityId(entityId.toString())
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
-                                    val profileCompleted = resData.data.profile_completed ?: 0
-                                    findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
+                                    val profileCompleted = resData.data.profile_completed
+                                    if (profileCompleted==0){
+                                        findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
+                                    }
+
 
 //                                    if (profileCompleted == 0) {
 //                                        // If profile is not completed, navigate to NameFragment
@@ -451,8 +455,11 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
                                   //  findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
+                                    val profileCompleted = resData.data.profile_completed
+                                    if(profileCompleted==1){
+                                        findNavController().navigate(R.id.mobileFragment)
+                                    }
 
-                                    findNavController().navigate(R.id.mobileFragment)
                                 //    Const.shortToast(requireContext(),resData.message.toString())
 
                                 }

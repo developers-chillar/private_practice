@@ -1,17 +1,20 @@
 package com.chillarcards.privatepractice.ui.selfonboard
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.chillarcards.privatepractice.R
 import com.chillarcards.privatepractice.databinding.FragmentPrivatePracticeWorkingHoursBinding
 import com.chillarcards.privatepractice.viewmodel.RegistrationCompletedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.Calendar
 
 
 class PrivatePracticeWorkingHoursFragment :
@@ -29,42 +32,46 @@ class PrivatePracticeWorkingHoursFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val startMoriningTime = arrayOf("08:00", "08:30", "09:00", "09:30", "10:00", "10.30", "11:00", "11.30", "12:00")
-        val endMoriningTime = arrayOf("08:00", "08:30", "09:00", "09:30", "10:00", "10.30", "11:00", "11.30", "12:00")
-        val startEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
-        val endEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
-
-        val startMorningTimeAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_items, startMoriningTime)
-        val endMoriningTimeAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_items, endMoriningTime)
-        val startEveningTimeAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_items, startEveningTime)
-        val endEveningTimeAdapter =
-            ArrayAdapter(requireContext(), R.layout.drop_down_items, endEveningTime)
-
-        binding.etStartTime.setAdapter(startMorningTimeAdapter)
-       // binding.etStartTime.showDropDown()
-        binding.etEndTime.setAdapter(endMoriningTimeAdapter)
-       // binding.etEndTime.showDropDown()
-        binding.etStartEveningTime.setAdapter(startEveningTimeAdapter)
-       // binding.etStartEveningTime.showDropDown()
-        binding.etEveningEndTime.setAdapter(endEveningTimeAdapter)
-      //  binding.etEveningEndTime.showDropDown()
+//        val startMoriningTime = arrayOf("08:00", "08:30", "09:00", "09:30", "10:00", "10.30", "11:00", "11.30", "12:00")
+//        val endMoriningTime = arrayOf("08:00", "08:30", "09:00", "09:30", "10:00", "10.30", "11:00", "11.30", "12:00")
+//        val startEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
+//        val endEveningTime = arrayOf("12.30", "01:00", "01.30", "02:00", "02.30", "03:00", "03.30", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00")
+//
+//        val startMorningTimeAdapter = ArrayAdapter(requireContext(), R.layout.drop_down_items, startMoriningTime)
+//        val endMoriningTimeAdapter =
+//            ArrayAdapter(requireContext(), R.layout.drop_down_items, endMoriningTime)
+//        val startEveningTimeAdapter =
+//            ArrayAdapter(requireContext(), R.layout.drop_down_items, startEveningTime)
+//        val endEveningTimeAdapter =
+//            ArrayAdapter(requireContext(), R.layout.drop_down_items, endEveningTime)
+//
+//        binding.etStartTime.setAdapter(startMorningTimeAdapter)
+//       // binding.etStartTime.showDropDown()
+//        binding.etEndTime.setAdapter(endMoriningTimeAdapter)
+//       // binding.etEndTime.showDropDown()
+//        binding.etStartEveningTime.setAdapter(startEveningTimeAdapter)
+//       // binding.etStartEveningTime.showDropDown()
+//        binding.etEveningEndTime.setAdapter(endEveningTimeAdapter)
+//      //  binding.etEveningEndTime.showDropDown()
 
         binding.etStartTime.setOnClickListener {
-            binding.etStartTime.showDropDown()
+            showTimePicker(binding.etStartTime)
+         //   binding.etStartTime.showDropDown()
         }
 
         binding.etEndTime.setOnClickListener {
-            binding.etEndTime.showDropDown()
+            showTimePicker(binding.etEndTime)
+         //   binding.etEndTime.showDropDown()
         }
 
         binding.etStartEveningTime.setOnClickListener {
-            binding.etStartEveningTime.showDropDown()
+            showTimePicker(binding.etStartEveningTime)
+           // binding.etStartEveningTime.showDropDown()
         }
 
         binding.etEveningEndTime.setOnClickListener {
-            binding.etEveningEndTime.showDropDown()
+            showTimePicker(binding.etEveningEndTime)
+          //  binding.etEveningEndTime.showDropDown()
         }
 
         val selectedSession = arguments?.let {
@@ -198,6 +205,23 @@ class PrivatePracticeWorkingHoursFragment :
 //
 //
 //        }
+    }
+
+    private fun showTimePicker(textView: AutoCompleteTextView) {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            context,
+            { _, selectedHour, selectedMinute ->
+                // Format the selected time
+                val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+                // Set the selected time to the AutoCompleteTextView
+                textView.setText(formattedTime)
+            }, hour, minute, true
+        )
+        timePickerDialog.show()
     }
 
 

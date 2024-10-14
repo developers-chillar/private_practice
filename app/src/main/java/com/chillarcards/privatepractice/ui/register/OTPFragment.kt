@@ -1,10 +1,7 @@
 package com.chillarcards.privatepractice.ui.register
 
 import android.content.BroadcastReceiver
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
-import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Typeface
@@ -25,7 +22,6 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -266,11 +262,12 @@ open class OTPFragment : Fragment() {
     }
     private fun otpViewActions() {
         // Attach TextWatcher and focus listener to the EditText fields
-        binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
+        binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA,binding.otpB))
         binding.otpA.addTextChangedListener {
 //            otp->
 //            pasteOtpIntoFields(otp.toString())
 //            checkValidationStatus()
+//            Const.enableButton(binding.confirmBtn)
 //            startSMSListener()
             aOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
@@ -423,6 +420,7 @@ open class OTPFragment : Fragment() {
                         // The verification code entered was invalid
                         binding.textinputError.visibility=View.VISIBLE
                         binding.textinputError.text="Invalid OTP"
+
 
                         binding.otpA.setText("")
                         binding.otpB.setText("")

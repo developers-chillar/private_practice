@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,17 +13,26 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.privatepractice.R
+import com.chillarcards.privatepractice.data.model.EntityDetail
 import com.chillarcards.privatepractice.databinding.FragmentHomeBaseBinding
+import com.chillarcards.privatepractice.ui.adapter.BookingAdapter
+import com.chillarcards.privatepractice.ui.adapter.ClinicAdapter
 import com.chillarcards.privatepractice.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.privatepractice.utills.CommonDBaseModel
+import com.chillarcards.privatepractice.utills.Const
 import com.chillarcards.privatepractice.utills.PrefManager
+import com.chillarcards.privatepractice.utills.Status
+import com.chillarcards.privatepractice.viewmodel.BookingViewModel
+import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.util.Calendar
 import kotlin.system.exitProcess
 
 class HomeBaseFragment : Fragment(), IAdapterViewUtills {
-
     lateinit var binding: FragmentHomeBaseBinding
 
     override fun onCreateView(
@@ -37,10 +47,10 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navHostFragment = childFragmentManager
             .findFragmentById(R.id.inner_host_nav) as NavHostFragment
         val navController = navHostFragment.navController
+        navController.navigate(R.id.homeFragment)
         binding.home.setOnClickListener {
             navController.navigate(R.id.homeFragment)
 //            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
@@ -272,6 +282,5 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     ) {
 
     }
-
 
 }

@@ -113,7 +113,6 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefManager = PrefManager(requireContext())
-
         notificationViewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
 
         getCurrentDate()
@@ -129,13 +128,15 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
             //   entityId.value = if (prefManager.getIntEntityId() == "-1") "" else prefManager.getIntEntityId()
          //   handleTokenExpiry()
+            Log.d("ref_compl_token_home","tag:${prefManager.getToken()}")
+            prefManager.getToken()
             getBookingList()
         }
 
         bookingViewModel.run {
             getShareLink()
         }
-
+        prefManager.getToken()
         setUpObserver()
         getUpObserver()
 
@@ -545,6 +546,7 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                     getBookingList()
                 }
             }
+            prefManager.getToken()
             setUpObserver()
         }
     }
@@ -867,47 +869,12 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         toast?.show()
     }
 
-//    private fun handleTokenExpiry() {
-//        if (prefManager.getRefresh() != "1") {
-//            prefManager.setRefresh("1")
-//            val authViewModel by viewModel<RegisterViewModel>()
-//            Const.getNewTokenAPI(requireContext(), authViewModel, viewLifecycleOwner)
-//            Toast.makeText(requireContext(), "Token updated", Toast.LENGTH_SHORT).show()
-//            Log.d("TokenLog", "New Refresh Token: ${prefManager.getRefToken()}")
-//            // Reset the flag once the token has been updated successfully
-//            prefManager.setRefresh("0")
-//        } else {
-//            Log.d("TokenLog", "Refresh token already updated")
-//        }
-//    }
-//    private fun refreshTokenAndRetry() {
-//        // Assuming you have a viewModel for authentication
-//        val authViewModel by viewModel<RegisterViewModel>()
-//
-//        // Call the token refresh API
-//        Const.getNewTokenAPI(
-//            requireContext(),
-//            authViewModel,
-//            viewLifecycleOwner
-//        )
-//
-//        // Once the token is refreshed, retry the booking list call
-//        authViewModel.regData.observe(viewLifecycleOwner) { response ->
-//            if (response?.status == Status.SUCCESS && response.data != null) {
-//                // Token refreshed successfully, save the new token
-//                prefManager.setToken(response.data.data.refresh_token)
-//                Log.d("TokenLog", "Token refreshed successfully")
-//                val token=prefManager.getRefToken()
-//                // Retry the original request (in this case, getBookingList())
-//                bookingViewModel.getBookingList(token)
-//            } else {
-//                // If refresh fails, redirect user to login
-//                Const.shortToast(requireContext(), "Session expired. Please log in again.")
-//
-//            }
-//        }
-//    }
 
+    override fun onResume() {
+        super.onResume()
+        bookingViewModel.getBookingList()
+        setUpObserver()
+    }
 
 
 

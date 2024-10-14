@@ -52,8 +52,11 @@
         <item name="windowSplashScreenAnimatedIcon">@drawable/book_my_dr</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/Theme.MyApplication</item>
+
+
         <item name="android:windowSplashScreenBehavior"
             tools:targetApi="33">@drawable/book_my_dr </item>
+
         <!-- Status bar and Nav bar configs -->
         <item name="android:statusBarColor">@color/app_theme_color</item>
         <item name="android:navigationBarColor">@color/app_theme_color</item>

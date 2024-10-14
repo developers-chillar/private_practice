@@ -8,5 +8,5 @@ data class SelfOnBoardingAuthRegisterResClass(
 data class PhoneNumberData(
     val entity_id: Int?,
     val doctor_id: Int?,
-    val profile_completed: String?
+    val profile_completed: Int?
 )

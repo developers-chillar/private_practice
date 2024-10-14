@@ -486,7 +486,7 @@
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/action_registrationCompletedFragment_to_homeBaseFragment"
+            android:id="@+id/action_registrationCompletedFragment_to_HomeFragment"
             app:destination="@id/homeBaseFragment" />
     </fragment>
     <fragment
