@@ -16,9 +16,9 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:hardwareAccelerated="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_new_design"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_new_design_round"
@@ -26,7 +26,6 @@
         android:theme="@style/Theme.AppSplash"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -44,7 +43,7 @@
         <activity
             android:name=".NetworkErrorActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -54,14 +53,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".utills.FirebaseMessagingService"
-            android:exported="false"
-            android:directBootAware="true">
+            android:directBootAware="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <receiver
             android:name=".utills.SMSReceiver"
             android:exported="false"> <!-- Set to true or false based on your requirement -->
@@ -69,7 +70,6 @@
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

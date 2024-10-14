@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -34,7 +35,7 @@ import kotlin.system.exitProcess
 
 class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     lateinit var binding: FragmentHomeBaseBinding
-
+    private lateinit var prefManager: PrefManager
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,12 +48,26 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        prefManager=PrefManager(requireContext())
         val navHostFragment = childFragmentManager
             .findFragmentById(R.id.inner_host_nav) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(R.id.homeFragment)
+        refreshFragment()
+        if (prefManager.isLoggedIn()){
+            val navHostFragment = childFragmentManager
+                .findFragmentById(R.id.inner_host_nav) as NavHostFragment
+            val navController = navHostFragment.navController
+            navController.navigate(R.id.homeFragment)
+            Log.d("prefmanager Status",prefManager.isLoggedIn().toString())
+        }
+        else{
+            Toast.makeText(requireContext(),"not loaded data",Toast.LENGTH_SHORT).show()
+            Log.d("prefmanager-Status",prefManager.isLoggedIn().toString())
+        }
         binding.home.setOnClickListener {
             navController.navigate(R.id.homeFragment)
+            refreshFragment()
 //            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
 //            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.home)?.mutate()
 //            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
@@ -281,6 +296,19 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         Mode: String?
     ) {
 
+    }
+
+    private fun refreshFragment() {
+        // Refresh the HomeFragment data or UI here
+        val navHostFragment = childFragmentManager
+            .findFragmentById(R.id.inner_host_nav) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(R.id.homeFragment) // Navigate to HomeFragment again
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshFragment()
     }
 
 }

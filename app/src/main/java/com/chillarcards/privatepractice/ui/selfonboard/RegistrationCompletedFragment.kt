@@ -71,7 +71,7 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
                                 when(doctorOnboardingResponseClass.statusCode){
                                     200->{
                                         lifecycleScope.launch {
-                                            delay(3000)
+                                            delay(2000)
                                             prefManager.setToken(it.data.data.access_token.trim())
                                             Log.d("ref_compl_token","tag:${prefManager.getToken()}")
                                             prefManager.setRefToken(it.data.data.refresh_token.trim())

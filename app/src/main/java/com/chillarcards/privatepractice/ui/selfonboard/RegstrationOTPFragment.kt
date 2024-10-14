@@ -261,42 +261,48 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         // Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA, binding.otpB))
         binding.otpA.addTextChangedListener {
-
-            aOk = it != null && it.matches(digitRegex)
+                otp->
+            pasteOtpIntoFields(otp.toString())
             checkValidationStatus()
-            focusOnFirstIfEmpty()
-            setClipboard(requireContext(), binding.otpA.text.toString())
+            Const.enableButton(binding.confirmBtn)
+
+//            aOk = it != null && it.matches(digitRegex)
+//            checkValidationStatus()
+//            focusOnFirstIfEmpty()
+//            setClipboard(requireContext(), binding.otpA.text.toString())
         // Focus on the first EditText if it's empty
         }
         binding.otpB.addTextChangedListener(GenericTextWatcher(binding.otpB, binding.otpC))
         binding.otpB.addTextChangedListener {
             bOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            setClipboard(requireContext(), binding.otpB.text.toString())
+            Log.d("ok",bOk.toString())
         }
         binding.otpC.addTextChangedListener(GenericTextWatcher(binding.otpC, binding.otpD))
         binding.otpC.addTextChangedListener {
             cOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            setClipboard(requireContext(), binding.otpC.text.toString())
+            Log.d("ok",cOk.toString())
+
         }
         binding.otpD.addTextChangedListener(GenericTextWatcher(binding.otpD, binding.otpE))
         binding.otpD.addTextChangedListener {
             dOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            setClipboard(requireContext(), binding.otpD.text.toString())
+            Log.d("ok",dOk.toString())
         }
         binding.otpE.addTextChangedListener(GenericTextWatcher(binding.otpE, binding.otpF))
         binding.otpE.addTextChangedListener {
             eOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            setClipboard(requireContext(), binding.otpE.text.toString())
+            Log.d("ok",eOk.toString())
+
         }
         binding.otpF.addTextChangedListener(GenericTextWatcher(binding.otpF, null))
         binding.otpF.addTextChangedListener {
             fOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
-            setClipboard(requireContext(), binding.otpF.text.toString())
+            Log.d("ok",fOk.toString())
         }
 
         // Attach key listener to handle navigation between EditText fields
@@ -306,6 +312,17 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         binding.otpD.setOnKeyListener(GenericKeyEvent(binding.otpD, binding.otpC))
         binding.otpE.setOnKeyListener(GenericKeyEvent(binding.otpE, binding.otpD))
         binding.otpF.setOnKeyListener(GenericKeyEvent(binding.otpF, binding.otpE))
+    }
+
+    private fun pasteOtpIntoFields(otp: String) {
+        if (otp.length == 6) {
+            binding.otpA.setText(otp[0].toString())
+            binding.otpB.setText(otp[1].toString())
+            binding.otpC.setText(otp[2].toString())
+            binding.otpD.setText(otp[3].toString())
+            binding.otpE.setText(otp[4].toString())
+            binding.otpF.setText(otp[5].toString())
+        }
     }
 
 
@@ -349,7 +366,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
     private fun checkValidationStatus() {
         val textName = binding.timer.text
 
-        if (aOk && bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired))) {
+        if (bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired))) {
             Const.enableButton(binding.confirmBtn)
             binding.textinputError.visibility=View.GONE
 
@@ -496,17 +513,6 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
         }
     }
 
-    private fun setClipboard(context: Context, text: String) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.text = text
-        } else {
-            val clipboard =
-                context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
-            val clip = ClipData.newPlainText("Copied Text", text)
-            clipboard.setPrimaryClip(clip)
-        }
-    }
 
 }
 

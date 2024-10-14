@@ -92,7 +92,9 @@
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginEnd="30dp"
                         android:orientation="horizontal"
-                        android:weightSum="6"
+                        android:importantForAutofill="yes"
+                        android:inputType="number"
+                        android:maxLength="6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/otp_head_msg">
@@ -106,7 +108,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />
@@ -120,7 +122,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />
@@ -134,7 +136,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />
@@ -148,7 +150,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />
@@ -162,7 +164,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />
@@ -176,7 +178,7 @@
                             android:background="@drawable/shaded_white_view_bg"
                             android:importantForAutofill="yes"
                             android:inputType="number"
-                            android:maxLength="1"
+                            android:singleLine="true"
                             android:paddingVertical="@dimen/_11sdp"
                             android:textAlignment="center"
                             android:textCursorDrawable="@null" />

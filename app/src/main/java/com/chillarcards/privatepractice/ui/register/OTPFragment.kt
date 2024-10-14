@@ -133,6 +133,7 @@ open class OTPFragment : Fragment() {
 
         val maskedPhoneNumber = maskPhoneNumber(args.mobile.toString())
         binding.otpHeadMsg.text="We have send a 6 digit OTP to $maskedPhoneNumber"
+
         if (binding.otpA.text.isNullOrEmpty() || binding.otpB.text.isNullOrEmpty() || binding.otpC.text.isNullOrEmpty() || binding.otpD.text.isNullOrEmpty() || binding.otpE.text.isNullOrEmpty() || binding.otpF.text.isNullOrEmpty()) {
             binding.textinputError.visibility=View.GONE
 
@@ -264,39 +265,44 @@ open class OTPFragment : Fragment() {
         // Attach TextWatcher and focus listener to the EditText fields
         binding.otpA.addTextChangedListener(GenericTextWatcher(binding.otpA,binding.otpB))
         binding.otpA.addTextChangedListener {
-//            otp->
-//            pasteOtpIntoFields(otp.toString())
-//            checkValidationStatus()
-//            Const.enableButton(binding.confirmBtn)
-//            startSMSListener()
-            aOk = it != null && it.matches(digitRegex)
+            otp->
+            pasteOtpIntoFields(otp.toString())
             checkValidationStatus()
-            focusOnFirstIfEmpty() // Focus on the first EditText if it's empty
+            Const.enableButton(binding.confirmBtn)
+//            startSMSListener()
+//            aOk = it != null && it.matches(digitRegex)
+//            checkValidationStatus()
+//            focusOnFirstIfEmpty() // Focus on the first EditText if it's empty
         }
         binding.otpB.addTextChangedListener(GenericTextWatcher(binding.otpB, binding.otpC))
         binding.otpB.addTextChangedListener {
             bOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            Log.d("ok",bOk.toString())
         }
         binding.otpC.addTextChangedListener(GenericTextWatcher(binding.otpC, binding.otpD))
         binding.otpC.addTextChangedListener {
             cOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            Log.d("ok",cOk.toString())
         }
         binding.otpD.addTextChangedListener(GenericTextWatcher(binding.otpD, binding.otpE))
         binding.otpD.addTextChangedListener {
             dOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            Log.d("ok",dOk.toString())
         }
         binding.otpE.addTextChangedListener(GenericTextWatcher(binding.otpE, binding.otpF))
         binding.otpE.addTextChangedListener {
             eOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            Log.d("ok",eOk.toString())
         }
         binding.otpF.addTextChangedListener(GenericTextWatcher(binding.otpF, null))
         binding.otpF.addTextChangedListener {
             fOk = it != null && it.matches(digitRegex)
             checkValidationStatus()
+            Log.d("ok",fOk.toString())
         }
 
         // Attach key listener to handle navigation between EditText fields
@@ -370,7 +376,7 @@ open class OTPFragment : Fragment() {
     private fun checkValidationStatus() {
         val textName = binding.timer.text
 
-        if (aOk && bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired))) {
+        if (bOk && cOk && dOk && eOk && fOk && !textName.equals(getString(R.string.otp_expired))) {
             Const.enableButton(binding.confirmBtn)
             binding.textinputError.visibility=View.GONE
 
