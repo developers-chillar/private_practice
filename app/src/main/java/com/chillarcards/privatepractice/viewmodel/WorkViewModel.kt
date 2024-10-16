@@ -25,6 +25,7 @@ class WorkViewModel(
     val workData: LiveData<Resource<WorkResponseModel>?> get() = _workData
 
     var doctorID = MutableLiveData<String>()
+    var entityId=MutableLiveData<String>()
 
     fun getWork() {
         viewModelScope.launch(NonCancellable) {
@@ -32,7 +33,8 @@ class WorkViewModel(
                 _workData.postValue(Resource.loading(null))
                 if (networkHelper.isNetworkConnected()) {
                     authRepository.getWork(
-                        doctorID.value.toString()
+                        doctorID.value.toString(),
+                        entityId.value.toString()
                     ).let {
                         if (it.isSuccessful) {
                             _workData.postValue(Resource.success(it.body()))

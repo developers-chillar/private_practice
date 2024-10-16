@@ -49,11 +49,9 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefManager=PrefManager(requireContext())
-        val navHostFragment = childFragmentManager
-            .findFragmentById(R.id.inner_host_nav) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.navigate(R.id.homeFragment)
-        refreshFragment()
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.inner_host_nav) as NavHostFragment
+       val navController = navHostFragment.navController
+//        navController.navigate(R.id.homeFragment)
         if (prefManager.isLoggedIn()){
             val navHostFragment = childFragmentManager
                 .findFragmentById(R.id.inner_host_nav) as NavHostFragment
@@ -67,7 +65,7 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         }
         binding.home.setOnClickListener {
             navController.navigate(R.id.homeFragment)
-            refreshFragment()
+ //           refreshFragment()
 //            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
 //            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.home)?.mutate()
 //            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
@@ -297,6 +295,16 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     ) {
 
     }
+    override fun onResume() {
+        super.onResume()
+        val navHostFragment = childFragmentManager
+            .findFragmentById(R.id.inner_host_nav) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        if (navController.currentDestination?.id == R.id.homeBaseFragment) {
+            refreshFragment()
+        }
+    }
 
     private fun refreshFragment() {
         // Refresh the HomeFragment data or UI here
@@ -305,10 +313,10 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         val navController = navHostFragment.navController
         navController.navigate(R.id.homeFragment) // Navigate to HomeFragment again
     }
-
-    override fun onResume() {
-        super.onResume()
-        refreshFragment()
-    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        refreshFragment()
+//    }
 
 }

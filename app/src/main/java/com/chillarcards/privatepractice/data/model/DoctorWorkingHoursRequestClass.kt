@@ -18,7 +18,7 @@ data class DoctorWorkingHoursRequestClass(
 @Parcelize
 data class WorkingHours(
     val day: String,
-    val startTime: String,
-    val endTime: String,
-    val session: String
+    var startTime: String,
+    var endTime: String,
+    var session: String
 ): Parcelable

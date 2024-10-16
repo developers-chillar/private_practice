@@ -248,9 +248,15 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                     200 -> {
                                         showToast(bookingData.message.toString())
                                     }
+                                    400->{
+                                        showToast(bookingData.message.toString())
+                                    }
                                     403 -> {
                                         showToast(bookingData.message.toString())
 
+                                    }
+                                    404->{
+                                        showToast(bookingData.message.toString())
                                     }
                                     500-> {
                                         showToast(bookingData.message.toString())
@@ -620,6 +626,11 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
                                         Const.getNewTokenAPI(requireContext(), authViewModel,
                                             viewLifecycleOwner
                                         )
+
+                                    }
+
+                                    404->{
+                                        Const.shortToast(requireContext(), bookStatusData.message)
 
                                     }
                                     else -> Const.shortToast(requireContext(), bookStatusData.message)

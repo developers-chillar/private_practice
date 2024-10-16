@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:dither="true" android:shape="rectangle" android:useLevel="false" android:visible="true">
+            <corners android:radius="12dp" /> <!-- Adjusted corner radius -->
+            <gradient android:angle="270" android:endColor="@color/app_theme_color" android:startColor="@color/app_theme_color" />
+            <size android:width="24dp" android:height="24dp" /> <!-- Reduced size -->
+            <stroke android:width="2dp" android:color="@color/app_theme_color" /> <!-- Adjusted stroke width -->
+        </shape>
+    </item>
+    <item android:state_checked="false">
+        <shape android:dither="true" android:shape="rectangle" android:useLevel="false" android:visible="true">
+            <corners android:radius="12dp" /> <!-- Adjusted corner radius -->
+            <gradient android:angle="270" android:endColor="@color/white" android:startColor="@color/white" />
+            <size android:width="24dp" android:height="24dp" /> <!-- Reduced size -->
+            <stroke android:width="2dp" android:color="@color/app_theme_color" /> <!-- Adjusted stroke width -->
+        </shape>
+    </item>
+</selector>

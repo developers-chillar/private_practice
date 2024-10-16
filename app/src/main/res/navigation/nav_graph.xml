@@ -449,6 +449,7 @@
             android:id="@+id/action_privateConsultationFragment_to_privatePracticeAvailableFragment"
             app:destination="@id/privatePracticeAvailableFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/privatePracticeAvailableFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivatePracticeAvailableFragment"
@@ -456,17 +457,19 @@
         <action
             android:id="@+id/action_privatePracticeAvailableFragment_to_privatePracticeWorkingHoursFragment"
             app:destination="@id/privatePracticeWorkingHoursFragment" />
+        <argument
+            android:name="doctorOnBoardNavDate"
+            app:argType="com.chillarcards.privatepractice.data.model.WorkingHours[]"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/privatePracticeWorkingHoursFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.PrivatePracticeWorkingHoursFragment"
         android:label="PrivatePracticeWorkingHoursFragment" >
-
         <argument
-            android:name="session"
-            app:argType="string">
-
-        </argument>
+            android:name="doctorOnBoardNavDate"
+            app:argType="com.chillarcards.privatepractice.data.model.WorkingHours[]"
+            app:nullable="true" />
         <action
             android:id="@+id/action_privatePracticeWorkingHoursFragment_to_consultationDurationFragment"
             app:destination="@id/consultationDurationFragment" />
@@ -478,14 +481,28 @@
         <action
             android:id="@+id/action_consultationDurationFragment_to_registrationCompletedFragment"
             app:destination="@id/registrationCompletedFragment" />
+        <argument
+            android:name="doctorOnBoardNavDate"
+            app:argType="com.chillarcards.privatepractice.data.model.WorkingHours[]"
+            app:nullable="true" />
+
+
     </fragment>
     <fragment
         android:id="@+id/registrationCompletedFragment"
         android:name="com.chillarcards.privatepractice.ui.selfonboard.RegistrationCompletedFragment"
         android:label="RegistrationCompletedFragment" >
         <argument
+            android:name="doctorOnBoardNavDate"
+            app:argType="com.chillarcards.privatepractice.data.model.WorkingHours[]"
+            app:nullable="true" />
+        <argument
             android:name="mobile"
             android:defaultValue=""
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="consultationDuration"
             app:argType="string"
             app:nullable="true" />
         <action

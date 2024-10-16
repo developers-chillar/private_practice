@@ -50,15 +50,16 @@ class WorkHoursFragment : Fragment() {
         setToolbar()
 
         workViewModel.run {
-            doctorID.value = "1"
+            doctorID.value = prefManager.getDoctorId()
+            entityId.value=prefManager.getEntityId()
             getWork()
         }
 
         setUpObserver()
         binding.floatingActionButton.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:+91 9995699899") // Replace with the actual phone number
-                startActivity(intent)
+            intent.data = Uri.parse("tel:+91 9995699899") // Replace with the actual phone number
+            startActivity(intent)
         }
         binding.confirmBtn.setOnClickListener {
 //            findNavController().navigate(
@@ -132,7 +133,7 @@ class WorkHoursFragment : Fragment() {
                         }
                     }
                 }
-              //  workViewModel.clear()
+                //  workViewModel.clear()
             }
 
 
@@ -141,12 +142,12 @@ class WorkHoursFragment : Fragment() {
         }
     }
     private fun showProgress() {
-    //    binding.confirmBtn.visibility = View.INVISIBLE
+        //    binding.confirmBtn.visibility = View.INVISIBLE
         binding.otpProgress.visibility = View.VISIBLE
     }
 
     private fun hideProgress() {
-     //   binding.confirmBtn.visibility = View.VISIBLE
+        //   binding.confirmBtn.visibility = View.VISIBLE
         binding.otpProgress.visibility = View.GONE
     }
 }

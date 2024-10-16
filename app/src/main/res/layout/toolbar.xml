@@ -37,10 +37,11 @@
         android:layout_margin="@dimen/_5sdp"
         android:padding="@dimen/_9sdp"
         android:visibility="gone"
+        android:src="@drawable/calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/text_black"
+        app:tint="@color/app_theme_color"
         android:contentDescription="@string/app_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

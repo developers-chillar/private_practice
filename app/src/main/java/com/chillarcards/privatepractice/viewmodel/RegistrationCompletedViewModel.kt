@@ -28,26 +28,31 @@ class RegistrationCompletedViewModel(
     val entityId = MutableLiveData<Int>()
     val doctorId = MutableLiveData<Int>()
     val workingHours = MutableLiveData<List<WorkingHours>>()
-    val selectedDay = MutableLiveData<String>()
+    var workingHoursNew = mutableListOf<WorkingHours>()
+    val selectedDays = MutableLiveData<MutableList<String>>(mutableListOf())
     val startTime = MutableLiveData<String>()
     val endTime = MutableLiveData<String>()
     val session = MutableLiveData<String>()
+
 
     fun selfRegistrationCompleted(
     ){
         viewModelScope.launch(NonCancellable) {
             try {
                 _registrationComplete.postValue(Resource.loading(null))
+                Log.d("WorkingHours2", "Working hours set in ViewModel: ${workingHoursNew.joinToString()}")
+
                 if (networkHelper.isNetworkConnected()){
-                    val workingHoursList = listOf(
+                    /*val workingHoursList = workingHoursNew.map {
                         WorkingHours(
-                            day = selectedDay.value ?: "",
-                            startTime = startTime.value ?: "",
-                            endTime = endTime.value ?: "",
-                            session = session.value ?: ""
+                            day = it.day,
+                            startTime = it.startTime ?: "",
+                            endTime = it.endTime ?: "",
+                            session = it.session ?: ""
                         )
-                    )
-                    workingHours.value = workingHoursList
+                    }*/
+                    workingHours.postValue(workingHoursNew)
+                  //  workingHours.value = workingHoursList
                     authRepository.getDoctorOnboard(
                     doctorPhone.value ?: "",
                     doctorName.value ?: "",
@@ -55,7 +60,7 @@ class RegistrationCompletedViewModel(
                     consultationTime.value ?: 0,
                     entityId.value ?: 0,
                     doctorId.value ?: 0,
-                    workingHours.value ?: listOf()
+                        workingHoursNew ?: listOf()
                 ).let {
                     if (it.isSuccessful){
                         Log.e("Selfregistrtion","succes:${it.body()}")

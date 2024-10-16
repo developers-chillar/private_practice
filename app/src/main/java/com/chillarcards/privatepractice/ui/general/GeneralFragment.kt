@@ -46,7 +46,7 @@ class GeneralFragment : Fragment(), IAdapterViewUtills {
             getGeneralSetting()
         }
         setUpObserver()
-
+binding.toolbar.filterIcon.visibility=View.GONE
         binding.intervalFrm.setEndIconOnClickListener {
             binding.interval.setText("")
         }

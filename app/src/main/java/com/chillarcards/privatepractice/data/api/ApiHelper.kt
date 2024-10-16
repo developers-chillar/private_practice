@@ -20,7 +20,7 @@ interface ApiHelper {
         phone: String
     ): Response<ProfileResponseModel>
     suspend fun getWork(
-        doctor_id: String
+        doctor_id: String,entity_id: String
     ): Response<WorkResponseModel>
     suspend fun getShareLink():  Response<ShareLinkResponseModel>
     suspend fun getGeneral():  Response<GeneralResponseModel>

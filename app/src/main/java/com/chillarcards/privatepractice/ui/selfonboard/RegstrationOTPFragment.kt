@@ -37,6 +37,7 @@ import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.MobileScreenViewModel
 import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
@@ -462,6 +463,7 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                 }
 
                                 400->{
+                                    Snackbar.make(binding.root,resData.message.toString(),Snackbar.LENGTH_SHORT).show()
                                     Log.d("userAuth", "User is verified.")
                                     val prefManager = PrefManager(requireContext())
                                     prefManager.setMobileNo(args.mobile.toString())
@@ -471,11 +473,11 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     Log.d("entityIDDD",entityId.toString())
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
-                                  //  findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
-                                    val profileCompleted = resData.data.profile_completed
-                                    if(profileCompleted==1){
-                                        findNavController().navigate(R.id.mobileFragment)
-                                    }
+                                    findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
+//                                    val profileCompleted = resData.data.profile_completed
+//                                    if(profileCompleted==1){
+//                                        findNavController().navigate(R.id.mobileFragment)
+//                                    }
 
                                 //    Const.shortToast(requireContext(),resData.message.toString())
 

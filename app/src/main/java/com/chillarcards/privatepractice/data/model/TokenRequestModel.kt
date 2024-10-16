@@ -11,7 +11,8 @@ data class RegisterRequestModel(
     val phone: String
 )
 data class WorkRequestModel(
-    val doctor_id: String
+    val doctor_id: String,
+    val entity_id: String
 )
 data class BookingRequestModel(
     val doctorId: String,

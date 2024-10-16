@@ -13,8 +13,8 @@ class AuthRepository(private val apiHelper: ApiHelper) {
     suspend fun userCheck(phone:String)=apiHelper.userCheck(phone)
    suspend fun getProfile(mobileNumber: String) =
         apiHelper.getProfile(mobileNumber)
-   suspend fun getWork(doctorId: String) =
-        apiHelper.getWork(doctorId)
+   suspend fun getWork(doctorId: String,entity_id: String) =
+        apiHelper.getWork(doctorId,entity_id)
    suspend fun getShareLink() =
         apiHelper.getShareLink()
     suspend fun getGeneral() =

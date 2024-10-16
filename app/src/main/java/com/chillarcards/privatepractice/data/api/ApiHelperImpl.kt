@@ -30,9 +30,9 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
         RegisterRequestModel(phone)
     )
     override suspend fun getWork(
-        doctor_id: String
+        doctor_id: String,entity_id:String
     ): Response<WorkResponseModel> = apiService.getWork(
-        WorkRequestModel(doctor_id)
+        WorkRequestModel(doctor_id,entity_id)
     )
     override suspend fun getShareLink(): Response<ShareLinkResponseModel> =
         apiService.getShareLink()

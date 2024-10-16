@@ -38,6 +38,16 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefManager = PrefManager(requireContext())
+        val args = PrivatePracticeAvailableFragmentArgs.fromBundle(requireArguments())
+        val workingHoursArray = args.doctorOnBoardNavDate
+        val selectedSession = args.doctorOnBoardNavDate
+        val time=args.doctorOnBoardNavDate
+        val workingHoursArrayArgs = args.doctorOnBoardNavDate
+        if (workingHoursArrayArgs != null) {
+            viewmodel.workingHoursNew=workingHoursArrayArgs.toMutableList()
+        }
+        Log.d("print3", "workhoursNew: ${viewmodel.workingHoursNew.joinToString { it.toString() }}")
+
         viewmodel.run {
             viewmodel.doctorPhone.value = prefManager.getMobileNo()
             viewmodel.doctorName.value =prefManager.getDrName()
@@ -47,15 +57,18 @@ class RegistrationCompletedFragment : Fragment(R.layout.fragment_registration_co
             viewmodel.doctorId.value = prefManager.getDoctorId().takeIf { it.isNotEmpty() && it != "null" }?.toInt() ?: 0
             Log.d("prefernceses","doctorId is:${viewmodel.doctorId.value}")
             viewmodel.consultationTime.value =prefManager.getConsultationDuration()
-            viewmodel.selectedDay.observe(viewLifecycleOwner) { day ->
+            if (workingHoursArrayArgs != null) {
+                viewmodel.workingHoursNew=workingHoursArrayArgs.toMutableList()
             }
-           viewmodel.session.observe(viewLifecycleOwner){ session->
-           }
-            startTime.observe(viewLifecycleOwner) { startTime ->
-            }
-
-            endTime.observe(viewLifecycleOwner) { endTime ->
-            }
+//            viewmodel.workingHoursNew.addAll(args.doctorOnBoardNavDate!!.toList())
+//
+//           viewmodel.session.observe(viewLifecycleOwner){ session->
+//           }
+//            startTime.observe(viewLifecycleOwner) { startTime ->
+//            }
+//
+//            endTime.observe(viewLifecycleOwner) { endTime ->
+//            }
             selfRegistrationCompleted()
         }
         getDoctorOnboard()

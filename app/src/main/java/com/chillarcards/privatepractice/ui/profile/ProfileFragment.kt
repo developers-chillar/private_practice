@@ -50,6 +50,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), IAdapterViewUtills 
         setToolbar()
       //  Const.enableButton(binding.confirmBtn)
         prefManager = PrefManager(requireContext())
+        binding.toolbar.filterIcon.visibility=View.GONE
         profileViewModel.run {
            mob.value = prefManager.getMobileNo()
             Log.d("mob",profileViewModel.mob.value.toString())
