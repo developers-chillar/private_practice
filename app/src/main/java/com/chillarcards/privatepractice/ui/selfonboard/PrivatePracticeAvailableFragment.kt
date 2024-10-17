@@ -73,14 +73,29 @@ lateinit var binding: FragmentPrivatePracticeAvailableBinding
                         viewmodel.session.value = selectSession
                         Log.d("print4.1", "Session selected: $selectSession")
                         Log.d("print4", "workhoursNew: ${viewmodel.workingHoursNew.joinToString { it.toString() }}")
-                        val duplicateWorkingHours = viewmodel.workingHoursNew.flatMap { listOf(it, it) }.toTypedArray()
-                        viewmodel.workingHoursNew = duplicateWorkingHours.toMutableList()
+                        if(selectSession=="Both"){
+                            duplicateData()
+                        }
+                        else{
+                            viewmodel.workingHoursNew.let {
+                                it.forEach {
+                                    it.session = selectSession
+                                }
+                            }
+
+                        }
+
+
+//                        val duplicateWorkingHours = viewmodel.workingHoursNew.flatMap { listOf(it, it) }.toTypedArray()
+//                        viewmodel.workingHoursNew = duplicateWorkingHours.toMutableList()
                        Log.d("print5", "duplicateWorkingHours: ${viewmodel.workingHoursNew.joinToString { it.toString() }}")
+/*
                         viewmodel.workingHoursNew.let {
                             it.forEach {
                                 it.session = selectSession
                             }
                         }
+*/
                         Log.d("print6", "Both morning and evening sessions selected")
                     }
 
@@ -90,7 +105,7 @@ lateinit var binding: FragmentPrivatePracticeAvailableBinding
                 }
 
                 Log.d("print1", "workhoursNew: ${viewmodel.workingHoursNew.joinToString { it.toString() }}")
-                val workingHoursArray: Array<WorkingHours> = viewmodel.workingHoursNew.toTypedArray()
+//                val workingHoursArray: Array<WorkingHours> = viewmodel.workingHoursNew.toTypedArray()
                 val action=PrivatePracticeAvailableFragmentDirections.actionPrivatePracticeAvailableFragmentToPrivatePracticeWorkingHoursFragment(
                     doctorOnBoardNavDate = viewmodel.workingHoursNew.toTypedArray()
                 )
@@ -98,6 +113,28 @@ lateinit var binding: FragmentPrivatePracticeAvailableBinding
 
             }
         }
+    }
+
+    private fun duplicateData() {
+
+        val duplicateWorkingHours = mutableListOf<WorkingHours>()
+
+        viewmodel.workingHoursNew.forEach { workingHour ->
+            // Create two new WorkingHour objects, one for morning and one for evening
+            val morningHour = workingHour.copy(session = "morning")
+            val eveningHour = workingHour.copy(session = "evening")
+
+            // Add to the list
+            duplicateWorkingHours.add(morningHour)
+            duplicateWorkingHours.add(eveningHour)
+        }
+
+        // If you need to convert it to an array
+        val duplicateWorkingHoursArray: Array<WorkingHours> = duplicateWorkingHours.toTypedArray()
+
+        viewmodel.workingHoursNew = duplicateWorkingHoursArray.toMutableList()
+        Log.d("print7", "workhoursNew: ${viewmodel.workingHoursNew.joinToString { it.toString() }}")
+
     }
 
 }

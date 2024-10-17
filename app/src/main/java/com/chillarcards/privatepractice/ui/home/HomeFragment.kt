@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -32,6 +33,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chillarcards.privatepractice.R
+import com.chillarcards.privatepractice.data.model.DoctorLeaveResClass
 import com.chillarcards.privatepractice.data.model.EntityDetail
 import com.chillarcards.privatepractice.databinding.FragmentHomeBinding
 import com.chillarcards.privatepractice.ui.adapter.BookingAdapter
@@ -40,10 +42,12 @@ import com.chillarcards.privatepractice.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.privatepractice.ui.notification.NotificationViewModel
 import com.chillarcards.privatepractice.utills.CommonDBaseModel
 import com.chillarcards.privatepractice.utills.Const
+import com.chillarcards.privatepractice.utills.CustomDatePickerDialog
 import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.BookingViewModel
 import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
@@ -112,6 +116,8 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        bottomAppBar?.visibility = View.VISIBLE
         prefManager = PrefManager(requireContext())
         notificationViewModel = ViewModelProvider(this).get(NotificationViewModel::class.java)
 
@@ -144,42 +150,119 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             openOptionsMenu(it)
         }
         binding.tvEditDate.setOnClickListener {
-            findNavController().navigate(R.id.TimeFragment)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditDateTimeFragment())
         }
+
+
         binding.addLeave.setOnClickListener {
-                val calendar = Calendar.getInstance()
-                val currentYear = calendar.get(Calendar.YEAR)
-                val currentMonth = calendar.get(Calendar.MONTH)
-                val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-                val datePickerDialog = DatePickerDialog(
-                    requireContext(),
-                    { _, year, month, day ->
-                        // Handle the selected date
-                        val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
-                        bookingViewModel.run {
-                            doctorID.value = prefManager.getDoctorId().toString()
-                            date.value = selectedDate
-                            entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
-                            bookingViewModel.addDoctorOnLeave()
+            bookingViewModel.doctorLeaveDate.observe(viewLifecycleOwner) { resource ->
+                when (resource?.status) {
+                    Status.SUCCESS -> {
+                        val leaveDates = resource.data
+
+                        val calendar = Calendar.getInstance()
+                        val currentYear = calendar.get(Calendar.YEAR)
+                        val currentMonth = calendar.get(Calendar.MONTH)
+                        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+                        // Convert leave dates to a set of Calendar objects for easier comparison
+                        val leaveDatesSet = leaveDates?.data?.map { leaveDate ->
+                            Calendar.getInstance().apply {
+                                time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(leaveDate)
+                            }
+                        }?.toSet()
+
+                        // Create a DatePickerDialog
+                        val datePickerDialog = DatePickerDialog(
+                            requireContext(),
+                            { _, year, month, dayOfMonth ->
+                                val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
+                                bookingViewModel.run {
+                                    doctorID.value = prefManager.getDoctorId().toString()
+                                    date.value = selectedDate
+                                    entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+                                    bookingViewModel.addDoctorOnLeave()
+                                }
+                                doctorAvailableObserver()
+                            },
+                            currentYear, currentMonth, currentDay
+                        )
+
+                        // Set up the logic to handle disabling and coloring leave dates
+                        datePickerDialog.datePicker.init(currentYear, currentMonth, currentDay) { _, year, monthOfYear, dayOfMonth ->
+                            val selectedDate = Calendar.getInstance().apply {
+                                set(year, monthOfYear, dayOfMonth)
+                            }
+
+                            // Disable and show a toast for leave dates
+                            if (leaveDatesSet != null && leaveDatesSet.any { leaveDate ->
+                                    leaveDate.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR) &&
+                                            leaveDate.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH) &&
+                                            leaveDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH)
+                                }) {
+                                Toast.makeText(requireContext(), "This date is marked as a leave day.", Toast.LENGTH_SHORT).show()
+                                // Optionally, you can reset the date picker or just allow showing the message
+                                datePickerDialog.datePicker.updateDate(currentYear, currentMonth, currentDay)
+                            }
                         }
-                        doctorAvailableObserver()
-                    },
-                    currentYear,
-                    currentMonth,
-                    currentDay
-                )
 
-//            // Set the minimum date to today
-                datePickerDialog.datePicker.minDate = calendar.timeInMillis
-//
-//            // Set the maximum date to one week from today
-                calendar.add(Calendar.MONTH, 1)
-                datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+                        // Set minimum and maximum date
+                        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+                        calendar.add(Calendar.MONTH, 1)  // Set the max date to one month from today
+                        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
 
-                datePickerDialog.show()
+                        datePickerDialog.show()
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(requireContext(), "Failed to fetch leave dates", Toast.LENGTH_SHORT).show()
+                    }
+                    Status.LOADING -> {
+                        // Optionally show a loading indicator
+                    }
+                    null -> TODO()
+                }
+            }
 
-
+            // Trigger fetching doctor leave dates
+            bookingViewModel.DoctorLeaveDates()
         }
+
+
+
+//        binding.addLeave.setOnClickListener {
+//                val calendar = Calendar.getInstance()
+//                val currentYear = calendar.get(Calendar.YEAR)
+//                val currentMonth = calendar.get(Calendar.MONTH)
+//                val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+//                val datePickerDialog = DatePickerDialog(
+//                    requireContext(),
+//                    { _, year, month, day ->
+//                        // Handle the selected date
+//                        val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}"
+//                        bookingViewModel.run {
+//                            doctorID.value = prefManager.getDoctorId().toString()
+//                            date.value = selectedDate
+//                            entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+//                            bookingViewModel.addDoctorOnLeave()
+//                        }
+//                        doctorAvailableObserver()
+//                    },
+//                    currentYear,
+//                    currentMonth,
+//                    currentDay
+//                )
+//
+////            // Set the minimum date to today
+//                datePickerDialog.datePicker.minDate = calendar.timeInMillis
+////
+////            // Set the maximum date to one week from today
+//                calendar.add(Calendar.MONTH, 1)
+//                datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+//
+//                datePickerDialog.show()
+//
+//
+//        }
 
         binding.share.setOnClickListener {
             if(shareLink!="") {
@@ -382,97 +465,6 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             Log.e("abc_otp", "setUpObserver: ", e)
         }
     }
-
-//    private fun setUpObserver() {
-//        try {
-//            bookingViewModel.bookingData.observe(viewLifecycleOwner) {
-//                if (it != null) {
-//                    when (it.status) {
-//                        Status.SUCCESS -> {
-//                            hideProgress()
-//                            it.data?.let { bookingData ->
-//                                when (bookingData.statusCode) {
-//                                    200 -> {
-//                                        handleTokenExpiry() // Ensure token is valid
-//                                        Log.d("TokenLog", "200")
-//
-//                                        // Update UI with booking data
-//                                        binding.logoIcon.text = bookingData.data.doctorName
-//                                        binding.ttlApointTv.text = "Total Bookings : " + bookingData.data.totalBooking.toString()
-//                                        binding.completedTv.text = "Completed  : " + bookingData.data.completedAppointments.toString()
-//                                        binding.cancelTv.text = "Pending  : " + bookingData.data.pendingAppointments.toString()
-//                                        doctorName = bookingData.data.doctorName
-//
-//                                        // Setup RecyclerView adapter
-//                                        val bookingAdapter = BookingAdapter(bookingData.data.appointmentList, context, this@HomeFragment)
-//                                        binding.tranRv.adapter = bookingAdapter
-//                                        binding.tranRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//
-//                                        // View All Click Listener
-//                                        binding.bookingViewAll.setOnClickListener {
-//                                            try {
-//                                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToBookingFragment())
-//                                            } catch (e: Exception) {
-//                                                e.printStackTrace()
-//                                            }
-//                                        }
-//
-//                                        // Setup for entity details (if applicable)
-//                                        if (bookingData.data.entityDetails.isNotEmpty()) {
-//                                            if (bookingData.data.entityDetails.size > 1) {
-//                                                binding.topStaffFrame.visibility = View.VISIBLE
-//                                                val entityDataMastCols: List<EntityDetail>
-//                                                val entityMastTemp = bookingData.data.entityDetails.toMutableList()
-//                                                entityMastTemp.add(0, EntityDetail(-1, "View all", "", 0, 1))
-//                                                entityDataMastCols = entityMastTemp
-//
-//                                                val salesTopPicAdapter = ClinicAdapter(entityDataMastCols, requireContext(), this@HomeFragment)
-//                                                binding.topPicRv.adapter = salesTopPicAdapter
-//                                                binding.topPicRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//                                            } else {
-//                                                binding.topStaffFrame.visibility = View.GONE
-//                                            }
-//                                        } else {
-//                                            binding.topStaffFrame.visibility = View.GONE
-//                                        }
-//                                    }
-//                                    403 -> {
-//                                        // Token expired, refresh the token
-//                                        Log.d("TokenLog", "403: Token expired, refreshing token")
-//                                        prefManager.setRefresh("1")
-//
-//                                        // Call method to refresh token and retry
-//                                        refreshTokenAndRetry()
-//                                    }
-//                                    else -> Const.shortToast(requireContext(), bookingData.message)
-//                                }
-//                            }
-//                        }
-//                        Status.LOADING -> {
-//                            showProgress()
-//                        }
-//                        Status.ERROR -> {
-//                            hideProgress()
-//                            // Check if error is due to token expiration (403), then refresh token
-//                            Log.e("TokenLog", "Error occurred: ${it.message}")
-//                            if (it.message?.contains("403") == true) {
-//                                prefManager.setRefresh("1")
-//                                Log.d("TokenLog", "403 Error: Trying to refresh token")
-//
-//                                // Refresh token if token expired
-//                                refreshTokenAndRetry()
-//                            } else {
-//                                // Other errors
-//                                Const.shortToast(requireContext(), "Error: ${it.message}")
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (e: Exception) {
-//            Log.e("abc_otp", "setUpObserver: Exception occurred", e)
-//        }
-//    }
 
     private fun getUpObserver() {
         try {

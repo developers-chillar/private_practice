@@ -57,6 +57,10 @@
         <action
             android:id="@+id/action_homeFragment_to_contactUsFragment"
             app:destination="@id/contactUsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editDateTimeFragment"
+            app:destination="@id/editDateTimeFragment" />
+
     </fragment>
 
     <fragment
@@ -353,5 +357,14 @@
     <argument
         android:name="contactURL"
         app:argType="string" />
+    <fragment
+        android:id="@+id/editDateTimeFragment"
+        android:name="com.chillarcards.privatepractice.ui.editdatetime.EditDateTimeFragment"
+        android:label="EditDateTimeFragment" >
+        <action
+            android:id="@+id/action_editDateTimeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
+    </fragment>
 
 </navigation>

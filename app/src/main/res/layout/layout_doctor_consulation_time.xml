@@ -10,8 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2"
+        android:weightSum="3"
         android:paddingVertical="10dp"
+        android:background="@drawable/text_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,30 +23,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/text_background"
             android:gravity="center"
             android:paddingVertical="7dp"
-            android:text="09.00am"
-            android:textColor="#F76806"
+            android:text="Mon"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_weight="1"
+            android:paddingVertical="7dp"
+            android:textSize="10sp"
+            android:text="Jul 15 2024" />
 
         <TextView
             android:id="@+id/tvEndTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/text_background"
             android:gravity="center"
             android:paddingVertical="7dp"
-            android:text="05.00pm"
+            android:text="Remove"
             android:textColor="#F76806"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"

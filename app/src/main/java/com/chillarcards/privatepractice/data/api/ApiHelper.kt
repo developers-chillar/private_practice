@@ -37,4 +37,6 @@ interface ApiHelper {
     suspend fun getDoctorOnboard(doctor_phone:String, doctor_name:String, department_id:Int, consultation_time:Int, entity_id:Int, doctor_id:Int, workingHours:List<WorkingHours>):
             Response<DoctorOnboardingResponseClass>
 
+    suspend fun getDoctorLeave(doctorId: Int, entityId: Int):Response<DoctorLeaveResClass>
+
 }

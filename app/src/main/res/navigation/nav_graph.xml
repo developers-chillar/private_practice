@@ -218,6 +218,9 @@
         <action
             android:id="@+id/action_homeFragment_to_TimeFragment"
             app:destination="@id/TimeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editDateTimeFragment"
+            app:destination="@id/editDateTimeFragment" />
     </fragment>
 
     <fragment
@@ -542,6 +545,16 @@
         <action
             android:id="@+id/action_regstrationOTPFragment_to_homeBaseFragment"
             app:destination="@id/homeBaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editDateTimeFragment"
+        android:name="com.chillarcards.privatepractice.ui.editdatetime.EditDateTimeFragment"
+        android:label="EditDateTimeFragment"
+        tools:layout="@layout/fragment_edit_date_time">
+        <action
+            android:id="@+id/action_editDateTimeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+
     </fragment>
 
 </navigation>

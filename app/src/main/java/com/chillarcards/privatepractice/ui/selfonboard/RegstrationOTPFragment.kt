@@ -473,11 +473,11 @@ open class RegstrationOTPFragment : Fragment(R.layout.fragment_regstration_o_t_p
                                     Log.d("entityIDDD",entityId.toString())
                                     val doctorId = resData.data.doctor_id ?: 0 // Provide a default if doctorId is null
                                     prefManager.setDoctorId(doctorId.toString())
-                                    findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
-//                                    val profileCompleted = resData.data.profile_completed
-//                                    if(profileCompleted==1){
-//                                        findNavController().navigate(R.id.mobileFragment)
-//                                    }
+                                //    findNavController().navigate(RegstrationOTPFragmentDirections.actionRegstrationOTPFragmentToGoodNameFragment())
+                                    val profileCompleted = resData.data.profile_completed
+                                    if(profileCompleted==1){
+                                        findNavController().navigate(R.id.mobileFragment)
+                                    }
 
                                 //    Const.shortToast(requireContext(),resData.message.toString())
 

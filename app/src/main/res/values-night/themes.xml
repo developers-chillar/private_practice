@@ -13,8 +13,8 @@
         <item name="colorSecondaryVariant">@color/primary_brown</item>
         <item name="android:textColor">@color/text_black</item>
         <!-- Status bar and Nav bar configs -->
-        <item name="android:statusBarColor">@color/pending</item>
-        <item name="android:navigationBarColor">@color/pending</item>
+        <item name="android:statusBarColor">@color/app_theme_color</item>
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 
@@ -57,7 +57,7 @@
 
         <!-- Status bar and Nav bar configs -->
         <item name="android:statusBarColor">@color/app_theme_color</item>
-        <item name="android:navigationBarColor">@color/app_theme_color</item>
+        <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
     </style>
 

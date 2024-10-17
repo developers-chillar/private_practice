@@ -13,6 +13,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,10 +26,14 @@ import com.chillarcards.privatepractice.ui.adapter.ClinicAdapter
 import com.chillarcards.privatepractice.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.privatepractice.utills.CommonDBaseModel
 import com.chillarcards.privatepractice.utills.Const
+import com.chillarcards.privatepractice.utills.Const.Companion.getNewTokenAPI
 import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
 import com.chillarcards.privatepractice.viewmodel.BookingViewModel
 import com.chillarcards.privatepractice.viewmodel.RegisterViewModel
+import com.google.android.material.bottomappbar.BottomAppBar
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.util.Calendar
@@ -49,115 +55,30 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefManager=PrefManager(requireContext())
+        val bottomAppBar = activity?.findViewById<BottomAppBar>(R.id.bottomAppBar)
+        bottomAppBar?.visibility = View.VISIBLE
         val navHostFragment = childFragmentManager.findFragmentById(R.id.inner_host_nav) as NavHostFragment
        val navController = navHostFragment.navController
-//        navController.navigate(R.id.homeFragment)
-        if (prefManager.isLoggedIn()){
-            val navHostFragment = childFragmentManager
-                .findFragmentById(R.id.inner_host_nav) as NavHostFragment
-            val navController = navHostFragment.navController
+        lifecycleScope.launch {
+            delay(1000)
+            prefManager.getToken()
             navController.navigate(R.id.homeFragment)
-            Log.d("prefmanager Status",prefManager.isLoggedIn().toString())
-        }
-        else{
-            Toast.makeText(requireContext(),"not loaded data",Toast.LENGTH_SHORT).show()
-            Log.d("prefmanager-Status",prefManager.isLoggedIn().toString())
         }
         binding.home.setOnClickListener {
+            prefManager.getToken()
             navController.navigate(R.id.homeFragment)
- //           refreshFragment()
-//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.home)?.mutate()
-//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            binding.home.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-//
-//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-//
-//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
-//
-//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
-
-
-        }
+         }
         binding.report.setOnClickListener {
             navController.navigate(R.id.reportFragment)
         }
         binding.setting.setOnClickListener {
             navController.navigate(R.id.generalFragment)
-//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_setting)?.mutate()
-//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-//
-//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-//
-//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
-//
-//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
         }
         binding.addProfile.setOnClickListener {
             navController.navigate(R.id.profileFragment)
-//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_profile)?.mutate()
-//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-//
-//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-//
-//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-//
-//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val walkBookDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_calender)?.mutate()
-//            walkBookDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, walkBookDrawable, null, null)
         }
 
         binding.walkBook.setOnClickListener {
-//            binding.walkBook.setTextColor(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            val drawable = ContextCompat.getDrawable(requireContext(),R.drawable.ic_calender)?.mutate()
-//            drawable?.setTint(ContextCompat.getColor(requireContext(), R.color.app_theme_color))
-//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, drawable, null, null)
-//
-//            binding.home.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val homeDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.home)?.mutate()
-//            homeDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.setting.setCompoundDrawablesWithIntrinsicBounds(null, homeDrawable, null, null)
-//
-//            binding.setting.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val settingDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_setting)?.mutate()
-//            settingDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.addProfile.setCompoundDrawablesWithIntrinsicBounds(null, settingDrawable, null, null)
-//
-//            binding.addProfile.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-//            val addProfileDrawable = ContextCompat.getDrawable(requireContext(), R.drawable.ic_profile)?.mutate()
-//            addProfileDrawable?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
-//            binding.walkBook.setCompoundDrawablesWithIntrinsicBounds(null, addProfileDrawable, null, null)
-
-
             val calendar = Calendar.getInstance()
             val currentYear = calendar.get(Calendar.YEAR)
             val currentMonth = calendar.get(Calendar.MONTH)
@@ -215,25 +136,6 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
 
     }
 
-//    private fun setBottomSheet() {
-//
-//        val bottomSheetView = LayoutInflater.from(context).inflate(R.layout.logout, null)
-//        val bottomSheetDialog = BottomSheetDialog(requireContext())
-//        bottomSheetDialog.setContentView(bottomSheetView)
-//
-//        val completeButton: TextView = bottomSheetView.findViewById(R.id.cancelButton)
-//        completeButton.setOnClickListener {
-//            bottomSheetDialog.dismiss()
-//        }
-//
-//        val callButton: TextView = bottomSheetView.findViewById(R.id.okButton)
-//        callButton.setOnClickListener {
-//            performLogout()
-//            bottomSheetDialog.dismiss()
-//        }
-//        bottomSheetDialog.show()
-//
-//    }
 
     private fun performLogout() {
 
@@ -300,23 +202,8 @@ class HomeBaseFragment : Fragment(), IAdapterViewUtills {
         val navHostFragment = childFragmentManager
             .findFragmentById(R.id.inner_host_nav) as NavHostFragment
         val navController = navHostFragment.navController
-
-        if (navController.currentDestination?.id == R.id.homeBaseFragment) {
-            refreshFragment()
-        }
+        navController.navigate(R.id.homeFragment)
     }
 
-    private fun refreshFragment() {
-        // Refresh the HomeFragment data or UI here
-        val navHostFragment = childFragmentManager
-            .findFragmentById(R.id.inner_host_nav) as NavHostFragment
-        val navController = navHostFragment.navController
-        navController.navigate(R.id.homeFragment) // Navigate to HomeFragment again
-    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        refreshFragment()
-//    }
 
 }

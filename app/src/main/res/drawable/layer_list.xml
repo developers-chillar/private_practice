@@ -2,9 +2,9 @@
 <layer-list xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:width="71dp"
-    android:height="91dp"
-    android:drawable="@drawable/welcome_stethescope"
+        android:width="@dimen/_71sdp"
+    android:height="@dimen/_71sdp"
+    android:drawable="@drawable/private_practice"
     android:gravity="center"
         />
 </layer-list>

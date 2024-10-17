@@ -81,4 +81,8 @@ suspend fun getDrSpecialities():Response<DrSpecilaityResClass>
 
 @POST("auth/onboard-doctor")
 suspend fun getDoctorOnboard(@Body reqModel:DoctorWorkingHoursRequestClass):Response<DoctorOnboardingResponseClass>
+
+@POST("auth/list-leave")
+suspend fun getDoctorLeave(@Body reqModel:DoctorLeaveReqClass):Response<DoctorLeaveResClass>
+
 }

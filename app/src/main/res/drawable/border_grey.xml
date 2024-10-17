@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <solid android:color="@color/white"/>
+
+    <!-- Custom corners: Only top left and top right have rounded corners -->
+    <corners
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp" />
+
+    <!-- Stroke for top borders (left and right) -->
+    <stroke
+        android:width="1dp"
+        android:color="#D4E0ED" /> <!-- Replace with desired color -->
+</shape>

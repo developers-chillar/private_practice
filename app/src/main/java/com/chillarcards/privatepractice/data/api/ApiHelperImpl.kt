@@ -68,5 +68,10 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getDoctorOnboard(doctor_phone:String, doctor_name:String, department_id:Int, consultation_time:Int, entity_id:Int, doctor_id:Int, workingHours:List<WorkingHours>)
     : Response<DoctorOnboardingResponseClass> =apiService.getDoctorOnboard(DoctorWorkingHoursRequestClass(doctor_phone,doctor_name,department_id,consultation_time,entity_id,doctor_id,workingHours))
 
+    override suspend fun getDoctorLeave(
+        doctorId: Int,
+        entityId: Int
+    ): Response<DoctorLeaveResClass> =apiService.getDoctorLeave(DoctorLeaveReqClass(doctorId,entityId))
+
 
 }

@@ -40,4 +40,6 @@ class AuthRepository(private val apiHelper: ApiHelper) {
     suspend fun getDrSpecialities()=apiHelper.getDrSpecialities()
     suspend fun getDoctorOnboard(doctor_phone:String, doctor_name:String, department_id:Int, consultation_time:Int, entity_id:Int, doctor_id:Int, workingHours:List<WorkingHours>)=
         apiHelper.getDoctorOnboard( doctor_phone, doctor_name, department_id, consultation_time, entity_id, doctor_id, workingHours)
+
+     suspend fun getDoctorLeave(doctorId: Int,entityId: Int)=apiHelper.getDoctorLeave(doctorId,entityId)
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chillarcards.privatepractice.data.model.AddLeaveResClass
 import com.chillarcards.privatepractice.data.model.BookingResponseModel
+import com.chillarcards.privatepractice.data.model.DoctorLeaveResClass
 import com.chillarcards.privatepractice.data.model.ShareLinkResponseModel
 import com.chillarcards.privatepractice.data.model.StatusResponseModel
 import com.chillarcards.privatepractice.data.repository.AuthRepository
@@ -33,10 +34,17 @@ class BookingViewModel(
     val bookLinkData: LiveData<Resource<ShareLinkResponseModel>?> get() = _bookLinkData
     private val _doctorOnLeave=MutableLiveData<Resource<AddLeaveResClass>?>()
     val doctorOnLeave:LiveData<Resource<AddLeaveResClass>?> get() = _doctorOnLeave
+
+    private val _doctorLeaveDate=MutableLiveData<Resource<DoctorLeaveResClass>?>()
+    val doctorLeaveDate:LiveData<Resource<DoctorLeaveResClass>?> get() = _doctorLeaveDate
+
     var doctorID = MutableLiveData<String>()
     var date = MutableLiveData<String>()
     var entityId = MutableLiveData<String>()
     var bookingId = MutableLiveData<String>()
+
+    var doctorId = MutableLiveData<Int>()
+    var entityID = MutableLiveData<Int>()
 
     fun getBookingList() {
         viewModelScope.launch(NonCancellable) {
@@ -143,6 +151,40 @@ class BookingViewModel(
             }
         }
     }
+
+    fun DoctorLeaveDates(){
+        viewModelScope.launch(NonCancellable) {
+            try {
+                _doctorLeaveDate.postValue(Resource.loading(null))
+                if (networkHelper.isNetworkConnected()) {
+                    doctorID.value?.toInt()?.let {
+                        entityId.value?.toInt()?.let { it1 ->
+                            authRepository.getDoctorLeave(
+                                it,
+                                it1
+                            ).let {
+                                if (it.isSuccessful) {
+                                    Log.e("getBookingList0", "API call failed with code: ${it.body()}")
+                                    _doctorLeaveDate.postValue(Resource.success(it.body()))
+                                } else {
+                                    Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}")
+
+                                    _doctorLeaveDate.postValue(Resource.error(it.errorBody().toString(), null))
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    _doctorLeaveDate.postValue(Resource.error("No Internet Connection", null))
+                }
+            } catch (e: Exception) {
+                Log.e("DoctorLeaveDates", "Error fetching leave dates: ", e)
+            }
+        }
+
+    }
+
+
 
 
 

@@ -36,7 +36,7 @@ class PrivatePracticeWorkingHoursFragment : Fragment(R.layout.fragment_private_p
         val args = PrivatePracticeAvailableFragmentArgs.fromBundle(requireArguments())
         val workingHoursArray = args.doctorOnBoardNavDate
         val selectedSession = args.doctorOnBoardNavDate
-        Log.d("selectedSession", "workingHoursArray: ${selectedSession.contentToString()}")
+        Log.d("selectedSession", "workingHoursArray: ${args.doctorOnBoardNavDate.contentToString()}")
         // Setting up time pickers
         binding.etStartTime.setOnClickListener { showTimePicker(binding.etStartTime) }
         binding.etEndTime.setOnClickListener { showTimePicker(binding.etEndTime) }
