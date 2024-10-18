@@ -164,10 +164,10 @@ class BookingViewModel(
                                 it1
                             ).let {
                                 if (it.isSuccessful) {
-                                    Log.e("getBookingList0", "API call failed with code: ${it.body()}")
+                                    Log.e("getBookingListleave", "API call failed with code: ${it.body()}")
                                     _doctorLeaveDate.postValue(Resource.success(it.body()))
                                 } else {
-                                    Log.e("getBookingList0", "API call failed with code: ${it.code()}, message: ${it.message()}")
+                                    Log.e("getBookingListleave", "API call failed with code: ${it.code()}, message: ${it.message()}")
 
                                     _doctorLeaveDate.postValue(Resource.error(it.errorBody().toString(), null))
                                 }

@@ -60,6 +60,9 @@
         <action
             android:id="@+id/action_homeFragment_to_editDateTimeFragment"
             app:destination="@id/editDateTimeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calendarFragment2"
+            app:destination="@id/calendarFragment2" />
 
     </fragment>
 
@@ -366,5 +369,14 @@
             app:destination="@id/homeFragment" />
 
     </fragment>
+    <dialog
+        android:id="@+id/calendarFragment2"
+        android:name="com.chillarcards.privatepractice.ui.home.CalendarFragment"
+        android:label="fragment_calendar"
+        tools:layout="@layout/fragment_calendar" >
+        <action
+            android:id="@+id/action_calendarFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 
 </navigation>

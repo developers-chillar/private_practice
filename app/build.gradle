@@ -19,8 +19,8 @@ android {
         applicationId "com.chillarcards.privatepractice"
         minSdk 24
         targetSdk 34
-        versionCode 7
-        versionName "1.0.5"
+        versionCode 8
+        versionName "1.0.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,7 +43,9 @@ android {
         viewBinding true
         dataBinding true
     }
+
 }
+
 
 dependencies {
 
@@ -76,6 +78,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
     implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.7.7'
 
+
+
     implementation 'io.insert-koin:koin-android:3.4.2'
     implementation 'io.insert-koin:koin-core:3.4.2'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -95,6 +99,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-crashlytics-ktx:19.0.3'  // Use the latest version
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
+
+  //  implementation 'com.prolificinteractive:material-calendarview:2.0.1'
+
+  // implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+
+
+
 
 
 

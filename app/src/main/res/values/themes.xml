@@ -78,4 +78,5 @@
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="colorControlHighlight">#FFDDDDDD</item> <!-- Ripple color -->
     </style>
+
 </resources>

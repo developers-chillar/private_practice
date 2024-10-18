@@ -29,7 +29,7 @@ class EditDateTimeFragment : Fragment(R.layout.fragment_edit_date_time) {
             findNavController().popBackStack()
           //  findNavController().navigate(EditDateTimeFragmentDirections.actionEditDateTimeFragmentToHomeFragment())
         }
-        binding.toolbar.toolbarTitle.text="Edit Working Days/Hours"
+        binding.toolbar.toolbarTitle.text="View Working Hours"
         binding.switch1.isChecked = true
        binding.switch1.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {

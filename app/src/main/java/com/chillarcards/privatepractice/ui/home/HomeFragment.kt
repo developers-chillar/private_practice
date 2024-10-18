@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.DatePicker
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -27,6 +28,7 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -42,6 +44,7 @@ import com.chillarcards.privatepractice.ui.interfaces.IAdapterViewUtills
 import com.chillarcards.privatepractice.ui.notification.NotificationViewModel
 import com.chillarcards.privatepractice.utills.CommonDBaseModel
 import com.chillarcards.privatepractice.utills.Const
+import com.chillarcards.privatepractice.utills.CustomCalendarView
 import com.chillarcards.privatepractice.utills.CustomDatePickerDialog
 import com.chillarcards.privatepractice.utills.PrefManager
 import com.chillarcards.privatepractice.utills.Status
@@ -153,79 +156,84 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToEditDateTimeFragment())
         }
 
-
         binding.addLeave.setOnClickListener {
-            bookingViewModel.doctorLeaveDate.observe(viewLifecycleOwner) { resource ->
-                when (resource?.status) {
-                    Status.SUCCESS -> {
-                        val leaveDates = resource.data
-
-                        val calendar = Calendar.getInstance()
-                        val currentYear = calendar.get(Calendar.YEAR)
-                        val currentMonth = calendar.get(Calendar.MONTH)
-                        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-
-                        // Convert leave dates to a set of Calendar objects for easier comparison
-                        val leaveDatesSet = leaveDates?.data?.map { leaveDate ->
-                            Calendar.getInstance().apply {
-                                time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(leaveDate)
-                            }
-                        }?.toSet()
-
-                        // Create a DatePickerDialog
-                        val datePickerDialog = DatePickerDialog(
-                            requireContext(),
-                            { _, year, month, dayOfMonth ->
-                                val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
-                                bookingViewModel.run {
-                                    doctorID.value = prefManager.getDoctorId().toString()
-                                    date.value = selectedDate
-                                    entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
-                                    bookingViewModel.addDoctorOnLeave()
-                                }
-                                doctorAvailableObserver()
-                            },
-                            currentYear, currentMonth, currentDay
-                        )
-
-                        // Set up the logic to handle disabling and coloring leave dates
-                        datePickerDialog.datePicker.init(currentYear, currentMonth, currentDay) { _, year, monthOfYear, dayOfMonth ->
-                            val selectedDate = Calendar.getInstance().apply {
-                                set(year, monthOfYear, dayOfMonth)
-                            }
-
-                            // Disable and show a toast for leave dates
-                            if (leaveDatesSet != null && leaveDatesSet.any { leaveDate ->
-                                    leaveDate.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR) &&
-                                            leaveDate.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH) &&
-                                            leaveDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH)
-                                }) {
-                                Toast.makeText(requireContext(), "This date is marked as a leave day.", Toast.LENGTH_SHORT).show()
-                                // Optionally, you can reset the date picker or just allow showing the message
-                                datePickerDialog.datePicker.updateDate(currentYear, currentMonth, currentDay)
-                            }
-                        }
-
-                        // Set minimum and maximum date
-                        datePickerDialog.datePicker.minDate = calendar.timeInMillis
-                        calendar.add(Calendar.MONTH, 1)  // Set the max date to one month from today
-                        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
-
-                        datePickerDialog.show()
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(requireContext(), "Failed to fetch leave dates", Toast.LENGTH_SHORT).show()
-                    }
-                    Status.LOADING -> {
-                        // Optionally show a loading indicator
-                    }
-                    null -> TODO()
-                }
-            }
-
-            // Trigger fetching doctor leave dates
-            bookingViewModel.DoctorLeaveDates()
+            showEventCalendarDialog()
         }
+
+
+
+//        binding.addLeave.setOnClickListener {
+//            bookingViewModel.doctorLeaveDate.observe(viewLifecycleOwner) { resource ->
+//                when (resource?.status) {
+//                    Status.SUCCESS -> {
+//                        val leaveDates = resource.data
+//
+//                        val calendar = Calendar.getInstance()
+//                        val currentYear = calendar.get(Calendar.YEAR)
+//                        val currentMonth = calendar.get(Calendar.MONTH)
+//                        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+//
+//                        // Convert leave dates to a set of Calendar objects for easier comparison
+//                        val leaveDatesSet = leaveDates?.data?.map { leaveDate ->
+//                            Calendar.getInstance().apply {
+//                                time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(leaveDate)
+//                            }
+//                        }?.toSet()
+//
+//                        // Create a DatePickerDialog
+//                        val datePickerDialog = DatePickerDialog(
+//                            requireContext(),
+//                            { _, year, month, dayOfMonth ->
+//                                val selectedDate = "$year-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
+//                                bookingViewModel.run {
+//                                    doctorID.value = prefManager.getDoctorId().toString()
+//                                    date.value = selectedDate
+//                                    entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+//                                    bookingViewModel.addDoctorOnLeave()
+//                                }
+//                                doctorAvailableObserver()
+//                            },
+//                            currentYear, currentMonth, currentDay
+//                        )
+//
+//                        // Set up the logic to handle disabling and coloring leave dates
+//                        datePickerDialog.datePicker.init(currentYear, currentMonth, currentDay) { _, year, monthOfYear, dayOfMonth ->
+//                            val selectedDate = Calendar.getInstance().apply {
+//                                set(year, monthOfYear, dayOfMonth)
+//                            }
+//
+//                            // Disable and show a toast for leave dates
+//                            if (leaveDatesSet != null && leaveDatesSet.any { leaveDate ->
+//                                    leaveDate.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR) &&
+//                                            leaveDate.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH) &&
+//                                            leaveDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH)
+//                                }) {
+//                                Toast.makeText(requireContext(), "This date is marked as a leave day.", Toast.LENGTH_SHORT).show()
+//                                // Optionally, you can reset the date picker or just allow showing the message
+//                                datePickerDialog.datePicker.updateDate(currentYear, currentMonth, currentDay)
+//                            }
+//                        }
+//
+//                        // Set minimum and maximum date
+//                        datePickerDialog.datePicker.minDate = calendar.timeInMillis
+//                        calendar.add(Calendar.MONTH, 1)  // Set the max date to one month from today
+//                        datePickerDialog.datePicker.maxDate = calendar.timeInMillis
+//
+//                        datePickerDialog.show()
+//                    }
+//                    Status.ERROR -> {
+//                        Toast.makeText(requireContext(), "Failed to fetch leave dates", Toast.LENGTH_SHORT).show()
+//                    }
+//                    Status.LOADING -> {
+//                        // Optionally show a loading indicator
+//                    }
+//                    null -> TODO()
+//                }
+//            }
+//
+//            // Trigger fetching doctor leave dates
+//            bookingViewModel.DoctorLeaveDates()
+//        }
 
 
 
@@ -877,6 +885,92 @@ class HomeFragment : Fragment(), IAdapterViewUtills {
         super.onResume()
         bookingViewModel.getBookingList()
         setUpObserver()
+    }
+
+    private fun showEventCalendarDialog() {
+        val inflater = requireActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val ll = inflater.inflate(R.layout.custom_calendar, null, false) as LinearLayout
+        val cv = ll.findViewById<CustomCalendarView>(R.id.calendarView)
+        // Observe leave dates
+        bookingViewModel.doctorLeaveDate.observe(viewLifecycleOwner) { resource ->
+            when (resource?.status) {
+                Status.SUCCESS -> {
+                    val leaveDates = resource.data
+                    // Convert leave dates to a set of Calendar objects
+                    val leaveDatesSet = leaveDates?.data?.map { leaveDate ->
+                        Calendar.getInstance().apply {
+                            time = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(leaveDate)
+                        }
+                    }?.toSet()
+
+                    leaveDatesSet?.forEach { leaveDate ->
+                        Log.d("LeaveDates", "Leave Date: ${leaveDate.time}")
+                    }
+
+                    // Mark the leave dates in the custom CalendarView
+                    leaveDatesSet?.forEach { leaveDate ->
+                        cv.markDate(leaveDate) // For drawing a ring
+                        cv.disableDate(leaveDate)
+                      //  Toast.makeText(requireContext(),"leave dates",Toast.LENGTH_SHORT).show()
+                    }
+
+                    // Set up the listener for date changes
+                    cv.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                        val selectedDate = Calendar.getInstance().apply {
+                            set(year, month, dayOfMonth)
+                        }
+
+                        // Check if the selected date is a leave date
+                        if (leaveDatesSet?.any { leaveDate ->
+                                leaveDate.get(Calendar.YEAR) == selectedDate.get(Calendar.YEAR) &&
+                                        leaveDate.get(Calendar.MONTH) == selectedDate.get(Calendar.MONTH) &&
+                                        leaveDate.get(Calendar.DAY_OF_MONTH) == selectedDate.get(Calendar.DAY_OF_MONTH)
+                            } == true) {
+                            Toast.makeText(requireContext(), "This date is marked as a leave day.", Toast.LENGTH_SHORT).show()
+                        } else {
+                            // Proceed with normal date selection logic
+                            val selectedDateString = "$year-${(month + 1).toString().padStart(2, '0')}-${dayOfMonth.toString().padStart(2, '0')}"
+                            bookingViewModel.run {
+                                doctorID.value = prefManager.getDoctorId().toString()
+                                date.value = selectedDateString
+                                entityId.value = if (prefManager.getEntityId() == "-1") "" else prefManager.getEntityId()
+                                addDoctorOnLeave()
+                            }
+                            doctorAvailableObserver()
+                        }
+                    }
+
+                    // Set min and max date for CalendarView
+                    val calendar = Calendar.getInstance()
+                    cv.minDate = calendar.timeInMillis
+                    calendar.add(Calendar.MONTH, 1)
+                    cv.maxDate = calendar.timeInMillis
+                }
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(), "Failed to fetch leave dates", Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    // Optionally show a loading indicator
+                }
+                null -> TODO()
+            }
+        }
+
+        // Trigger fetching doctor leave dates
+        bookingViewModel.DoctorLeaveDates()
+
+        // Create and show the dialog
+        AlertDialog.Builder(requireContext())
+            .setTitle("Event Calendar")
+            .setView(ll)
+            .setPositiveButton("Ok") { dialog, _ -> }
+            .setNegativeButton("Cancel") { dialog, _ -> }
+            .show()
+    }
+
+
+    private fun initScheduleEvent(year: Int, month: Int, dayOfMonth: Int) {
+        // Your event scheduling logic
     }
 
 
